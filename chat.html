@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang=en>
+  <head></head>
+  <body>
+    <form method="post" id="signup-form" action="">
+      User email: <input type='email'  name="uemail" id='uemail' /><br />
+      Password: <input type='password' name='pw1' id='pw1' /><br />
+      Re-type password: <input type='password' name='pw2' id='pw2' />
+      <button type='submit' name='submit' id='signup-submit'>submit</button>
+      <div id='validate-info'></div>
+
+    </form><br/><hr/><br>
+    <form method='' action='' id='login-form'>
+      <h2>Login</h2>
+      Email<input type='email' required name='loginEmail' id='login-email' /><br />
+      Password<input type='password' required name='password' id='password' /><br />
+      <button type='submit' id='login-submit'>Login</button><br /><!-- <button id='check'>check</button> -->
+      <div id='login-val-info'></div>
+
+    </form>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>    
+    <script>
+       
+
+    axios.get('http://127.0.0.1:3000/chat-room',{
+      withCredentials: true
+      }).then(res => {if(res.data.code) window.location.href='/realchat.html'})
+      .catch(err => {console.log('not in logged: ',err); })
+
+
+      //signup form
+      const signupForm = document.getElementById('signup-form');
+      const uEmail = document.getElementById('uemail');
+      const pw1 = document.getElementById('pw1');
+      const pw2 = document.getElementById('pw2');
+      const valInfo = document.getElementById('validate-info')
+
+      signupForm.addEventListener('submit', (e)=>{
+        e.preventDefault();
+        if(uEmail.value == '' || pw1.value == '' || pw2.value == '') {
+          valInfo.textContent = 'Fill all fields';
+          return ;
+        }
+        else if(pw1.value != pw2.value) {
+          valInfo.textContent = "passwords dont match";
+          return;
+        }
+        else {
+          axios.post("http://127.0.0.1:3000/auth/signup",{
+            uemail: uEmail.value,
+            pw1: pw1.value,
+            pw2: pw2.value
+          })
+            .then(res => {
+              console.log(res);
+              valInfo.textContent = res.data.codeMsg;
+            })
+            .catch(err => {
+              valInfo.textContent = err.response;
+            })
+        }
+      })
+
+
+//login form
+      const loginForm = document.getElementById('login-form');
+      const loginEmail = document.getElementById('login-email');
+      const loginPw = document.getElementById('password');
+      const loginValInfo = document.getElementById('login-val-info');
+
+      loginForm.addEventListener('submit', (e)=> {
+        e.preventDefault();
+        if(loginEmail.value != '' && loginPw.value != '') {
+          axios.post("http://127.0.0.1:3000/auth/login", {
+            loginEmail: loginEmail.value,
+            loginPw: loginPw.value
+          },
+          { withCredentials: true })
+            .then(res => {
+              loginValInfo.textContent = res.data.codeMsg;
+              if (res.data.code) window.location.href= "/realchat.html";              
+            })
+            .catch (err => {
+              console.log('err::login',err);
+            })
+        }
+
+      })
+
+//      const check = getElementById('check');
+//      check.addEventListener('click', (e)=> {
+//        axios.get('http://127.0.0.1:3000/auth/status',
+//          {withCredentials: true})
+//      })
+
+
+
+
+    </script>
+
+
+  </body>
+</html>
