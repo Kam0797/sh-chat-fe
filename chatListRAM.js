@@ -77,9 +77,9 @@ const msgBox = document.getElementById('msg-box');
 const sendBtn = document.getElementById('msg-send-btn');
 sendBtn.addEventListener('click', sendMessageToDB)
 
-function sendMessageToDB( ) {
+function sendMessageToDB() {
   if (msgBox.value == '') return 0;
-  if (selectChat == '') return 0;
+  if (selectedChat == '') return 0;
   console.log('mb',msgBox.value)
   chatsDB.messages.add({
     chatId: selectedChat,
@@ -125,23 +125,27 @@ socket.on('messagesToServer',(msg)=> {
   console.log('mes server res: ',msg.code, msg.codeMsg)
 })
 
-async function fetchMessages() { // fetches from server, checks if S_uid already existes, if not adds to IDB
+// async function fetchMessages() { // fetches from server, checks if s_uid already existes, if not adds to IDB
+  // try {
+    // const incomingMessages = await axios.get(SERVER_IP+'/messages', {withCredentials: true});
+    
+socket.on('messagesToClient',(incomingMessages)=> {
   try {
-    const incomingMessages = await axios.get(SERVER_IP+'/messages', {withCredentials: true});
-    console.log('imes:', typeof incomingMessages, incomingMessages);
-    incomingMessages.data.messages?.forEach(async message => {
-      const exists = await chatsDB.messages.get(message.s_uid);
-      if (!exists) {
-        chatsDB.messages.add(message)
-      }
-      console.log('uid',chatsDB.messages.where('s_uid').equals(message.s_uid).toArray())
-    })
-    console.log('messages fetched and saved in IDB. Fin mes:', incomingMessages.data.messages);
+  // const incomingMessages = 
+  console.log('imes:', typeof incomingMessages, incomingMessages);
+  incomingMessages?.forEach(async message => {
+    const exists = await chatsDB.messages.get(message.s_uid);
+    if (!exists) {
+      chatsDB.messages.add(message)
     }
-  catch (err) {
-    console.error('error is fetching/saving to IDB', err);
+    console.log('uid',chatsDB.messages.where('s_uid').equals(message.s_uid).toArray())
+  })
+  console.log('messages fetched and saved in IDB. Fin mes:', incomingMessages[-1] || []);
   }
-}
+  catch (err) {
+    console.error('error in fetching/saving to IDB', err);
+  }
+})
 
 const NCinput = document.getElementById('create-chat-text-box');
 const NCbutton = document.getElementById('create-chat-btn');
@@ -180,7 +184,7 @@ selectChat.addEventListener('blur', ()=> {selectedChat = selectChat.value; conso
 
 async function selectAndLoadMessages() {
   console.log('salm');
-  await fetchMessages();
+  // await fetchMessages();
   console.log('past fm');
   const ChID = selectedChat;
   const chatStream = conditionalLiveQuery('chatId',ChID);
@@ -236,5 +240,4 @@ const loadChats = liveQuery(()=> {
   return chatsDB.chats
   .toCollection()
 });
-
 
