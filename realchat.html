@@ -17,7 +17,6 @@
 
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/dexie/4.0.11/dexie.min.js" integrity="sha512-rtmV0Lv11P6uzP4G+NK/9HMKqUFeCStDnaX99RISiXGUJCJ1Th88KaTY0coJYfpIQqU4p9MngPyYyiR/yfAFfA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>   -->
   <script src="https://cdn.socket.io/4.8.1/socket.io.min.js" integrity="sha384-mkQ3/7FUtcGyoppY6bz/PORYoGqOl7/aSUMn2ymDOJcapfS6PHqxhRTMh1RR0Q6+" crossorigin="anonymous"></script>
 
   <script>
@@ -28,6 +27,7 @@
     }).then(res => {if(!res.data.code) {console.log('rc log'); window.location.href='/chat.html'}
       else {msgArea.textContent = res.data.msg;}})
       .catch(err => {console.log('ff',err); window.location.href='/chat.html'})
+
 
     function logout() {
       if(window.confirm('do you want to logout of sh-chat?')) {

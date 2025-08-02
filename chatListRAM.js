@@ -7,40 +7,11 @@ syncChats();
 
 const socket = io(SERVER_IP,{withCredentials: true});
 socket.on('connection',()=> {
-  // console.log('connected as', socket.id);
 })
 
 let selectedChat;
-//dexie
-   let db = new Dexie("FriendDatabase");
-    db.version(1).stores({
-      friends: `
-      id,
-      name,
-      age`,
-    });
 
-    db.friends.bulkPut([
-      {id:1, name: "sh", age: 22},
-      {id: 2, name: "man", age: 21},
-      {id: 3, name: "mak", age: 30},
-      {id: 4, name: "nou", age: 21, notIndexedProperty: 'foo'}
-    ]).then( ()=> {
-      return db.friends.where("age").between(0,25).toArray();
-    }).then(friends => {
-      // alert("Found gems: "+ friends.map(friend => friend.name));
-
-      return db.friends
-      .orderBy("age")
-      .reverse()
-      .toArray();
-    }).then(friends => {
-      // alert("friends in reverse: "+ friends.map(friend => `${friend.name} ${friend.age}`));
-
-    }).catch(err => {
-      alert ("ffffffff", err)
-    })
-
+// dexie
 let chatsDB = new Dexie("ChatListDB");
 
 chatsDB.version(1).stores({
@@ -108,15 +79,9 @@ async function sendMessage(messages_s) {
   // check internet , if fails queue the sand_task
   // const messages = messages_s;
   try{
-    // const res = await axios.post(SERVER_IP+'/messages',{
-    //   messages: messages_s
-    // },{ withCredentials: true })
     socket.emit('messagesToServer', messages_s)
-    // messages_s.forEach(mess => {
-      chatsDB.messages.where('sendPending').equals(1).modify({sendPending: 0}).catch(console.error)
-    // })
-    // console.log(res.data.code, res.data.codeMsg);
-  }
+    chatsDB.messages.where('sendPending').equals(1).modify({sendPending: 0}).catch(console.error)
+   }
   catch (err) {
     console.error('error sending messages',err);
   }
@@ -125,13 +90,9 @@ socket.on('messagesToServer',(msg)=> {
   console.log('mes server res: ',msg.code, msg.codeMsg)
 })
 
-// async function fetchMessages() { // fetches from server, checks if s_uid already existes, if not adds to IDB
-  // try {
-    // const incomingMessages = await axios.get(SERVER_IP+'/messages', {withCredentials: true});
     
 socket.on('messagesToClient',(incomingMessages)=> {
   try {
-  // const incomingMessages = 
   console.log('imes:', typeof incomingMessages, incomingMessages);
   incomingMessages?.forEach(async message => {
     const exists = await chatsDB.messages.get(message.s_uid);
@@ -167,45 +128,29 @@ async function createChat(memb_string) {
       })
 
       console.log('chat saved');
-      // .catch(err=> console.error('chat save error', err))
     }
   }
   catch (err) {
     console.log(':server error',err);
   }
-  // b=  await chatsDB.chats.toArray();
-  // console.log(b);
 }
+// DANGEROUS PART - HANDLE WITH CARE -RISK OF *LOSS OF DATA*
 // chatsDB.messages.clear() // clear mess
 // chatsDB.chats.clear(); //to clear saved chats
+
+
+
 const messageArea = document.getElementById('message-area');
 const selectChat = document.getElementById('select-chat');
 selectChat.addEventListener('blur', ()=> {selectedChat = selectChat.value; console.log(selectChat.value,selectedChat, 'fme');  selectAndLoadMessages()})
 
 async function selectAndLoadMessages() {
-  console.log('salm');
-  // await fetchMessages();
-  console.log('past fm');
   const ChID = selectedChat;
   const chatStream = conditionalLiveQuery('chatId',ChID);
   chatStream.subscribe(messages => {
     messageArea.innerHTML = messages.map(message=> `<div class='msg'>${message.content}</div>`).join(' ')
   })
 }
-
-// async function test() {
-//   const c = await chatsDB.messages.toArray();
-//   console.log('ccccccccc',c)
-// }
-// test();
-// console.log('bbbbbbbbb',chatsDB.messages.toArray())
-
-// syncChats();
-// let chatsArr = [{chatId: '',members: ['select one']}]
-// let  b=  await chatsDB.chats.toArray();
-// chatsArr.push(...b)
-// selectChat.innerHTML = chatsArr.map(chatid => `<option value=${chatid.chatId}>${chatid.members.join(' ')}</option>`).join(' ');
-// console.log('val',selectChat.value);
 
 
 function conditionalLiveQuery(field, value) {
@@ -220,22 +165,17 @@ function conditionalLiveQuery(field, value) {
 
 async function syncChats() {
   const Chats = await axios.get(SERVER_IP+'/chats',{withCredentials: true});
-  console.log('CFC',Chats); 
   const chatsFromServer = Chats.data.chats;
-  // console.log('CFCL',Chats);
   await chatsDB.chats.clear();
 
   await chatsDB.chats.bulkPut(chatsFromServer);
-  const updatedChats = await chatsDB.chats.toArray(); // returns emp arr. check server response
-//   loadChats.subscribe(async chats => {
-//     chats = await chats;
-    const chatsArray = [{chatId: '',members: ['select one']}];
-console.log('fffff',typeof updatedChats, updatedChats);
+  const updatedChats = await chatsDB.chats.toArray(); // returns emp arr. check server response -fixed
+
+  const chatsArray = [{chatId: '',members: ['select one']}];
     selectChat.innerHTML = [...chatsArray,...updatedChats].map( chatid => `<option value=${chatid.chatId}>${chatid.members.join(' ')}</option>`).join('');
-    console.log('val', selectChat.value);
-  // })
 }
 
+// not used as of now
 const loadChats = liveQuery(()=> {
   return chatsDB.chats
   .toCollection()
