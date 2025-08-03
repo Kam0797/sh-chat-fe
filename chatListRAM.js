@@ -1,6 +1,11 @@
 import Dexie,{ liveQuery } from 'https://cdn.jsdelivr.net/npm/dexie@4.0.5/+esm';
 
-const SERVER_IP = 'http://127.0.0.1:3000';
+
+const SERVER_IP =
+  window.location.hostname === 'localhost'
+    ? 'http://localhost:3000'
+    : 'https://sh-chat.onrender.com';
+
 console.log("chatListRAM");
 
 syncChats();
@@ -121,13 +126,18 @@ async function createChat(memb_string) {
       members: memb_arr
     },
     { withCredentials: true});
-    if(resp.data.code) {
+    if(resp.data.code==1) {
       await chatsDB.chats.add({
         chatId: resp.data.chatId,
         members: resp.data.members
-      })
+      });
 
       console.log('chat saved');
+    }
+    else if (resp.data.code==2) {
+      selectedChat = resp.data.chatId;
+      console.log('i see');
+      selectAndLoadMessages()
     }
   }
   catch (err) {
@@ -146,8 +156,16 @@ selectChat.addEventListener('blur', ()=> {selectedChat = selectChat.value; conso
 
 async function selectAndLoadMessages() {
   const ChID = selectedChat;
+  console.log('selectAndLoadMessages called with:', ChID);  
   const chatStream = conditionalLiveQuery('chatId',ChID);
+  console.log('chatStream:', chatStream);
+
+  if (!chatStream?.subscribe) {
+    console.error('chatStream not subscribable');
+    return;
+  }
   chatStream.subscribe(messages => {
+    console.log(messages);
     messageArea.innerHTML = messages.map(message=> `<div class='msg'>${message.content}</div>`).join(' ')
   })
 }

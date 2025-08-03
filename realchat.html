@@ -22,18 +22,18 @@
   <script>
     const msgArea = document.getElementById('chat-room-mes');
     console.log('rc: loaded')
-    axios.get('http://127.0.0.1:3000/chat-room',{
+    axios.get('https://sh-chat.onrender.com/chat-room',{
       withCredentials: true
-    }).then(res => {if(!res.data.code) {console.log('rc log'); window.location.href='/chat.html'}
+    }).then(res => {if(!res.data.code) {console.log('rc log'); window.location.href='/index.html'}
       else {msgArea.textContent = res.data.msg;}})
-      .catch(err => {console.log('ff',err); window.location.href='/chat.html'})
+      .catch(err => {console.log('ff',err); window.location.href='/index.html'})
 
 
     function logout() {
       if(window.confirm('do you want to logout of sh-chat?')) {
         axios.get("http://127.0.0.1:3000/auth/logout",{withCredentials: true})
           .then(res=> {msgArea.textContent = res.data.codeMsg;
-          window.location.href='/chat.html'})
+          window.location.href='/index.html'})
           .catch(err => {console.error(err); msgArea.textContent = 'logout failed';})
       }
     }
