@@ -29,7 +29,7 @@
 
     axios.get(SERVER_IP+'/chat-room',{
       withCredentials: true
-      }).then(res => {if(res.data.code) window.location.href='/realchat.html'})
+      }).then(res => {if(res.data.code) window.location.href='./realchat.html'})
       .catch(err => {console.log('not in logged: ',err); })
 
 
