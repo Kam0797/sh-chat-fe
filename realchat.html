@@ -20,9 +20,14 @@
   <script src="https://cdn.socket.io/4.8.1/socket.io.min.js" integrity="sha384-mkQ3/7FUtcGyoppY6bz/PORYoGqOl7/aSUMn2ymDOJcapfS6PHqxhRTMh1RR0Q6+" crossorigin="anonymous"></script>
 
   <script>
+    const SERVER_IP =
+    window.location.hostname === 'localhost'
+    ? 'http://localhost:3000'
+    : 'https://sh-chat.onrender.com';
+
     const msgArea = document.getElementById('chat-room-mes');
     console.log('rc: loaded')
-    axios.get('https://sh-chat.onrender.com/chat-room',{
+    axios.get(SERVER_IP+'/chat-room',{
       withCredentials: true
     }).then(res => {if(!res.data.code) {console.log('rc log'); window.location.href='/index.html'}
       else {msgArea.textContent = res.data.msg;}})
@@ -31,7 +36,7 @@
 
     function logout() {
       if(window.confirm('do you want to logout of sh-chat?')) {
-        axios.get("http://127.0.0.1:3000/auth/logout",{withCredentials: true})
+        axios.get(SERVER_IP+"/auth/logout",{withCredentials: true})
           .then(res=> {msgArea.textContent = res.data.codeMsg;
           window.location.href='/index.html'})
           .catch(err => {console.error(err); msgArea.textContent = 'logout failed';})
