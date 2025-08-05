@@ -1,0 +1,129 @@
+
+
+.login-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    /* border: 1px solid; */
+    height: 100vh;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    /* filter: blur(1px); */
+}
+
+.login-top-bar {
+    width: 100vw;
+    height: 50px;
+    /* border: 1px solid #f00; */
+    display: flex;
+    justify-content: flex-end ;
+    align-items: center;
+
+    }
+select {
+    /* background-color: #f00; */
+    color: #000;
+    margin-right: 8%;
+    padding: 8px;
+}
+.sh-chat-area {
+    height: 15vh;
+    /* width: 80%; */
+    /* border: 1px solid green; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5%;
+    margin: clamp(15px,6vh,30px);
+    padding: 3% 5% 3% 5%;
+    backdrop-filter: blur(5px);
+    border-radius: 10px;
+    background: #00000020;
+    /* box-shadow: 0 0 10px 15px #00000015; */
+}
+.sh-chat-logo {
+    height: 90%
+}
+
+.sh-chat-text {
+    font-family: Noto Sans;
+    font-size: 3rem;
+    font-weight: 200;
+    color: #fff
+}
+.login-ui {
+    display: flex;
+    flex-direction: inherit;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px dotted; */
+    width: 50%;
+    min-width: 400px;
+    /* margin: 7%; */
+    gap: 35px;
+    padding: 10px 0 10px 0;
+    min-height: 250px;
+    height: 50%;
+    backdrop-filter: blur(3px);
+}
+.email-label, .password-label {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    gap: 1px
+}
+.login-text-box {
+    border-bottom: 1px solid #000;
+    border-radius: 3px;
+    font-size: 1rem;
+    font-weight: 300;
+}
+.login-text-box:focus {
+    /* transform: scale(1.1, 2); */
+    outline: 4px solid #00000015;
+    outline-offset: 20px;
+    border-radius: 1px;
+}
+#login-submit {
+    font-weight: 700;
+    padding: 15px;
+    margin-top: 15px;
+    background-color: #00000025;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: 300;
+    font-size: 0.9rem;
+}
+#login-submit:focus, #login-submit:hover {
+    animation: scale120 1s ease-out forwards 1;
+
+}
+@keyframes scale120 {
+    0% {transform: scale(1);}
+    25% {transform: scale(0.9); background: #0000a150;}
+    100% {transform: scale(1.2); background: #b7b7c265; color:#000; font-weight: 500;}
+}
+
+/* svg */
+
+.sh-chat-logo-svg {
+    fill: #2b263f;
+    height: 200%;
+    aspect-ratio: 1/1;
+    animation: change 5s infinite;
+    /* border: 1px solid #f00 */
+}
+.sh-chat-logo-svg-path {
+    stroke: #0ff;
+    stroke-width: 4px;
+    animation: change 5s ease-in-out infinite;
+}
+@keyframes change {
+    0%  { fill: #022346; stroke: #c19773;}
+    25% { fill: #c19773; stroke: #022346;}
+    50% { fill: #94907f; stroke: #666571;}
+    75% { fill: #666571; stroke: #94907f;}
+    100% { fill: #022346; stroke: #c19773;}
+}
