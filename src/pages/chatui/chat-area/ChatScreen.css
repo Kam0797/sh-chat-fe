@@ -1,0 +1,87 @@
+.chat-screen-wrapper {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  width: 100%;
+  border: 2px solid green;
+
+}
+.chat-screen-top-bar {
+  display: flex;
+  height: 70px;
+  width: 100%;
+  border: 1px solid grey;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-name {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+.status {
+  font-weight: 300;
+  font-size: 0.75rem;
+}
+/* .options-area {
+  {handled in ChatList.css}
+} */
+
+.message-send-area {
+  border: 1px dotted;
+  display: flex;
+  justify-content: space-between;
+}
+.chat-area {
+  background: #441f1f50 ;
+  border: 1px solid black
+}
+.message-send-area {
+  min-height: 35px;
+  height: 45px;
+  background: var(--message-send-area-bg);
+  display: flex;
+  align-items: center;
+}
+.message-send-text {
+  all: unset;  
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  z-index: 5;
+  box-sizing: border-box;
+  border: 1px solid ;
+  resize: none;
+  max-height: 150px;
+  min-height: 30px;
+  width: 100%;
+  /* height: 200%; */
+  margin: 15px 0 15px 5px;
+  background: #80808060;
+  padding: 0 0 0 10px;
+  border-radius: 10px 0 0 10px;
+
+}
+.message-send-button {
+  /* border: 1px solid; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 75%;
+  aspect-ratio: 1/1;
+  padding: 0 5px 0 0;
+  border-radius: 50%;
+  /* background: linear-gradient(45deg,#5f5151, #5c7cac, #fff); */
+}
+
+
+/* svg */
+.send-button-logo {
+  height: 80%;
+  fill: #2a1e5c
+}
+/* .send-button-logo-path {
+  stroke: #000
+} */

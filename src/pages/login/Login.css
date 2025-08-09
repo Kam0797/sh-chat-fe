@@ -11,6 +11,7 @@
     background-size: cover;
     background-repeat: no-repeat;
     /* filter: blur(1px); */
+    overflow: hidden;
 }
 
 .login-top-bar {
@@ -43,9 +44,9 @@ select {
     background: #00000020;
     /* box-shadow: 0 0 10px 15px #00000015; */
 }
-.sh-chat-logo {
+/* .sh-chat-logo {
     height: 90%
-}
+} */
 
 .sh-chat-text {
     font-family: Noto Sans;
@@ -54,6 +55,7 @@ select {
     color: #fff
 }
 .login-ui {
+    position: relative;
     display: flex;
     flex-direction: inherit;
     justify-content: center;
@@ -86,7 +88,7 @@ select {
     outline-offset: 20px;
     border-radius: 1px;
 }
-#login-submit {
+.login-signup-submit-button {
     font-weight: 700;
     padding: 15px;
     margin-top: 15px;
@@ -96,7 +98,7 @@ select {
     font-weight: 300;
     font-size: 0.9rem;
 }
-#login-submit:focus, #login-submit:hover {
+.login-signup-submit-button:focus, .login-signup-submit-button:hover {
     animation: scale120 1s ease-out forwards 1;
 
 }
@@ -105,12 +107,29 @@ select {
     25% {transform: scale(0.9); background: #0000a150;}
     100% {transform: scale(1.2); background: #b7b7c265; color:#000; font-weight: 500;}
 }
+.user-notification {
+    position: absolute;
+    display: none;
+    top: 0;
+    background: #ff000030;
+    padding: 10px;
+    border: 2px solid #ff2020aa;
+    border-radius: 5px;
+}
+.login-signup-switch-line {
+    color: #ffffffbb;
+}
+.in-up-switch {
+    cursor: pointer;
+    font-weight: 300;
+    color: #00ffb3
+}
 
 /* svg */
 
 .sh-chat-logo-svg {
     fill: #2b263f;
-    height: 200%;
+    height: clamp(150px,35vw,250px);
     aspect-ratio: 1/1;
     animation: change 5s infinite;
     /* border: 1px solid #f00 */
