@@ -47,7 +47,7 @@
   justify-content: space-between;
   flex: 1;
 }
-.message {
+.last-message {
   color: var(--message-color-cl);
 }
 

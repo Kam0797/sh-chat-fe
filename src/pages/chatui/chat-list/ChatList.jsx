@@ -6,19 +6,28 @@ import { Context } from '../../../Context'
 import { useNavigate } from 'react-router-dom'
 
 
+import { SelectAndLoadMessages } from '../MessageHandler'
+
+
 export default function ChatList({data}) {
+  console.log('debug::ChatList::',data, typeof data)
 
   const { SERVER_IP } = useContext(Context)
   const navigate = useNavigate();
 
+
   async function handleLogout() {
-    const res = await axios.get(SERVER_IP+'/auth/logout',
-      {withCredentials: true}
-    );
-    if(res.data.code) {
-      navigate('/sh-chat-fe/login')
+    if(window.confirm("Click OK to logout")) {
+      const res = await axios.get(SERVER_IP+'/auth/logout',
+        {withCredentials: true}
+      );
+      if(res.data.code) {
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('uemail');
+        console.log('LSlogLO::',localStorage.getItem('isLoggedIn'), localStorage.getItem('uemail'))
+        navigate('/sh-chat-fe/login')
+      }
     }
-    
   }
 
   return(
@@ -39,7 +48,7 @@ export default function ChatList({data}) {
           <div className='sort-list'>
             {
               // console.log(typeof data, data.data)
-              data.map((chat) => {
+              data?.map((chat) => {
                   return <ChatlistItem chat={chat} key={chat.chatId} />
               })
             }

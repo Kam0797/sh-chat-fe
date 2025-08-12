@@ -5,7 +5,8 @@
   justify-content: space-between;
   height: 100vh;
   width: 100%;
-  border: 2px solid green;
+  border: 2px dashed green;
+  flex:1;
 
 }
 .chat-screen-top-bar {
@@ -36,7 +37,14 @@
 }
 .chat-area {
   background: #441f1f50 ;
-  border: 1px solid black
+  border: 1px solid black;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: flex-end; */
+  gap: 3px;
+  height:100%;
+  padding: 15px 4px
 }
 .message-send-area {
   min-height: 35px;
@@ -46,7 +54,7 @@
   align-items: center;
 }
 .message-send-text {
-  all: unset;  
+  /* all: unset;   */
   display: flex;
   align-items: center;
   justify-content: flex-start;

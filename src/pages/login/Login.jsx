@@ -97,6 +97,8 @@ export default function Login() {
 
   useEffect(()=> {
     console.log('debug::>',SERVER_IP,window.location.hostname);
+
+    // IIFC
     (async()=> {
       try {
       const res = await axios.get(SERVER_IP+'/chat-room',
@@ -107,9 +109,9 @@ export default function Login() {
       } catch {
         console.log('not auth-ed');
       }
-    })
+    })()
     
-  })
+  },[])
 
   return (
     <>
