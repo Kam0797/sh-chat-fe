@@ -49,7 +49,8 @@ const ContextProvider = ({children})=> {
   //state vars
   const [selectedChat, setSelectedChat] = useState(null)
   const [chatData, setChatData] = useState([])
-  const [chatScreenMode, setChatScreenMode] = useState('messaging')
+  const [chatScreenMode, setChatScreenMode] = useState('contacts')
+  const [chatList, setChatList] = useState([]);
 
 
   //refs
@@ -57,7 +58,7 @@ const ContextProvider = ({children})=> {
 
 
   return(
-    <Context.Provider value={{SERVER_IP, selectedChat, setSelectedChat, chatData, setChatData, chatMap, socket, chatScreenMode, setChatScreenMode}}>
+    <Context.Provider value={{SERVER_IP, selectedChat, setSelectedChat, chatData, setChatData, chatMap, socket, chatScreenMode, setChatScreenMode, chatList, setChatList}}>
       {children}
     </Context.Provider>
   )

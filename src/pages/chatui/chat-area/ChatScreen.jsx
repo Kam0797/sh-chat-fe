@@ -5,13 +5,13 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { Context } from "../../../Context";
 
 import { chatsDB, sendMessageToDB } from "../MessageHandler";
-import MessageBubble from "../../../components/message_bubble/MessageBubble";
+import MessageBubble from "../../../components/reusables/message_bubble/MessageBubble";
 
 export default function ChatScreen() {
   const { selectedChat, chatData } = useContext(Context);
   let messageFieldRef = useRef(null);
   // console.log('fook', chatMap.current)
-  const [meta, setMeta] = useState(null);
+  const [meta, setMeta] = useState(null); // data of chat profile
 
   // console.log('debug::CS:', typeof chatData, chatData);
 

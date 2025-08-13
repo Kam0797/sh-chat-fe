@@ -2,14 +2,17 @@ import './ChatUI.css'
 
 import ChatList from './chat-list/ChatList'
 import ChatScreen from './chat-area/ChatScreen'
+import Contacts from '../../components/contacts/Contacts'
+
 import { useContext, useEffect, useRef, useState } from 'react'
 import { Context } from '../../Context'
 import { useNavigate } from 'react-router-dom'
 import Dexie, {liveQuery} from 'dexie'
 import {io} from 'socket.io-client'
-
-import { chatsDB, createChat, SelectAndLoadMessages, sendMessage, syncChats } from './MessageHandler'
 import { useObservable } from 'react-use'
+
+
+import { chatsDB, SelectAndLoadMessages, sendMessage, syncChats } from './MessageHandler'
 
 
 
@@ -20,9 +23,8 @@ import { useObservable } from 'react-use'
 // }
 
 export default function ChatUI() {
-  const {SERVER_IP, selectedChat, chatData, setChatData, chatMap , socket, chatScreenMode, setChatScreenMode} = useContext(Context);
+  const {SERVER_IP, selectedChat, chatData, setChatData, chatMap , socket, chatScreenMode, chatList, setChatList} = useContext(Context);
   const navigate = useNavigate();
-  const [chatList, setChatList] = useState([]);
   // const [newMessages, setNewMessages] = useState(null)
   // const [newOutboundMessages, setNewOutboundMessages] = useState(null)
 
@@ -91,8 +93,9 @@ export default function ChatUI() {
     (async()=> {
       const chats = await syncChats(SERVER_IP, chatsDB)
       setChatList(chats);
-      chatMap.current = await chatsDB.chats.toArray();
+      // chatMap.current = await chatsDB.chats.toArray();
     })()
+
 
     // console.log(typeof chatList, chatList)
     return ()=> {
@@ -114,6 +117,7 @@ export default function ChatUI() {
   // },[selectedChat])
   
   setChatData(SelectAndLoadMessages(selectedChat,chatsDB))
+  // setChatList(SetChatListOnListUpdate(chatsDB))
 
 
 
@@ -125,6 +129,9 @@ export default function ChatUI() {
       <ChatList data={chatList} />
       { (chatScreenMode == 'messaging') &&
         <ChatScreen />
+      }
+      { (chatScreenMode == 'contacts') &&
+        <Contacts />
       }
     </div>
     </>

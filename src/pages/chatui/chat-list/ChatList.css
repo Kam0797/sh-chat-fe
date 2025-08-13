@@ -1,4 +1,5 @@
 .chat-list-wrapper {
+  position: relative;
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -12,7 +13,7 @@
 .sort-list-wrapper {
   display: flex;
   border: 1px solid orange;
-  padding: 10px;
+  padding: 8px;
   height: 100%;
   overflow: hidden;
 }
@@ -47,10 +48,34 @@
 .sort-list {
   display: flex;
   flex-direction: column;
-  border: 1px solid green;
+  /* border: 1px solid green; */
   justify-content: flex-start;
   height: 100%;
   width: 100%;
   border-radius: 10px;
   overflow-x: hidden;
+}
+.new-chat {
+  position: absolute;
+  z-index: 3;
+  right: 2vw;
+  bottom: 2vw;
+  width: 10%;
+  min-width: 40px;
+  aspect-ratio: 1/1;
+  border: 1px solid;
+  cursor: pointer;
+  background: #51a1af;
+  font-size: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+
+}
+
+.logout-button {
+  padding: 5px;
+  background: #cc3c3caa;
+  border-radius: 15px 0 0 15px
 }

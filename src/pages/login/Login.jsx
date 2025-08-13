@@ -65,7 +65,7 @@ export default function Login() {
   async function handleSignup(e) {
     console.log('het');
     e.preventDefault();
-    if (signupEmailRef.current.value == '' || signupPW1Ref.current.value == '' || signupPW2Ref.current.value == '') {
+    if (signupEmailRef.current.value.trim() == '' || signupPW1Ref.current.value == '' || signupPW2Ref.current.value == '') {
       userNotificationRef.current.textContent = 'Fill all fields';
       userNotificationRef.current.style.display = 'block'
       setTimeout(()=> (userNotificationRef.current.style.display = 'none'),5000);
@@ -78,7 +78,7 @@ export default function Login() {
     else {
       try {
       const res = await axios.post(SERVER_IP+'/auth/signup', {
-        uemail: signupEmailRef.current.value,
+        uemail: signupEmailRef.current.value.trim(),
         pw1: signupPW1Ref.current.value,
         pw2: signupPW2Ref.current.value
       });
@@ -162,7 +162,8 @@ export default function Login() {
           <button type='submit'  className='login-signup-submit-button' >Sign up</button>
           <p className='login-signup-switch-line'>Existing user? <a className='in-up-switch' onClick={()=> {setIsNewUser(false); console.log(isNewUser)}}>Sign in</a></p>
         </form>
-        }      
+        }   
+        <p className='beta-warn'>This is seriously only for testing, do NOT use for ANY serious stuff <br/> Thanks, your suggestions at gv.kamal2003@gmail.com </p>   
       </div>
     </>
   );

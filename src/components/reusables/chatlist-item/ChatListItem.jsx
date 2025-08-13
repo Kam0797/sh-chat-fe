@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import './ChatListItem.css'
-import { Context } from '../../Context'
+import { Context } from '../../../Context';
 
 export default function ChatlistItem({chat}) {
   const { setSelectedChat} = useContext(Context);

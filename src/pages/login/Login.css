@@ -146,3 +146,17 @@ select {
     75% { fill: #666571; stroke: #94907f;}
     100% { fill: #022346; stroke: #c19773;}
 }
+
+
+
+
+
+
+
+.beta-warn {
+    /* display: flex; */
+    font-family: monospace;
+    color: #ffffffdd;
+    text-align: center
+    /* align-items: center; */
+}

@@ -77,9 +77,9 @@ async function sendMessage(socket, DB, messagesToSend) {
 }
 
 // CUI
-async function createChat(memb_string, SERVER_IP, DB, setSelectedChat) {
-  console.log('debug::createChat::',typeof memb_string, memb_string)
-  const memb_arr = memb_string.split(/[\s,]+/);
+async function createChat(memb_arr, SERVER_IP, DB, setSelectedChat) {
+  console.log('debug::createChat::',typeof memb_arr, memb_arr)
+  // const memb_arr = memb_string.split(/[\s,]+/);
   console.log('debug::createChat::',memb_arr);
   try {
     const res = await axios.post(SERVER_IP+'/chat/new',
@@ -92,13 +92,18 @@ async function createChat(memb_string, SERVER_IP, DB, setSelectedChat) {
         members: res.data.members
       });
       console.log('debug::chat saved')
-    }
-    else if(res.data.code == 2) { // this is compat, make it clientt side, refer chatDB.contacts?
       setSelectedChat(res.data.chatId);
-      console.log('debug::i see');
+      return 1;
     }
+    else if(res.data.code == 2) { // this is compat, make it client side, refer chatDB.contacts? 
+      console.log('debug::i see');
+      setSelectedChat(res.data.chatId);
+      return 2;
+    }
+    console.log('ressssss', res.data.code, res.data.codeMsg)
   } catch(err) {
     console.error('Server error');
+    return 0;
   }
 }
 
@@ -144,6 +149,14 @@ function SelectAndLoadMessages(selectedChat, DB) {
   );
   return messages;
 }
+// function SetChatListOnListUpdate(selectedChat, DB) {
+//   const chats = useObservable(
+//     liveQuery(()=> 
+//     DB.chats
+//     ),[]
+//   );
+//   return chats
+// }
 
 // CUI
 async function syncChats(SERVER_IP, DB) {
@@ -159,8 +172,8 @@ async function syncChats(SERVER_IP, DB) {
       admin: chat.admin,
       mods: chat.mods
     }))    
-    await DB.chats.clear();
-
+    // await DB.chats.clear(); // user has to decide if they have to delete, the server cant take away that.
+    console.log('SC:debug::chats',chats)
     await DB.chats.bulkPut(chats);
     console.log('debug::SC1',typeof chats, chats)
     return chats;
@@ -177,4 +190,4 @@ async function syncChats(SERVER_IP, DB) {
 }
 
 
-export { chatsDB, sendMessageToDB, sendMessage, createChat, SelectAndLoadMessages, syncChats}
+export { chatsDB, sendMessageToDB, sendMessage, createChat, SelectAndLoadMessages, syncChats }

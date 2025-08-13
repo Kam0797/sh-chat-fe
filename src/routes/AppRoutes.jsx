@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import Login from '../pages/login/Login'
 import ChatUI from '../pages/chatui/ChatUI';
-import Contacts from '../pages/contacts/Contacts';
+// import Contacts from '../pages/contacts/Contacts';
 
 
 export default function AppRoutes() {

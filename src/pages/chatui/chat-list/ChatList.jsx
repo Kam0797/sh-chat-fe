@@ -1,5 +1,5 @@
 import axios from 'axios'
-import ChatlistItem from '../../../components/chatlist-item/ChatListItem'
+import ChatlistItem from '../../../components/reusables/chatlist-item/ChatListItem'
 import './ChatList.css'
 import { useContext } from 'react'
 import { Context } from '../../../Context'
@@ -12,8 +12,9 @@ import { SelectAndLoadMessages } from '../MessageHandler'
 export default function ChatList({data}) {
   console.log('debug::ChatList::',data, typeof data)
 
-  const { SERVER_IP } = useContext(Context)
+  const { SERVER_IP, setChatScreenMode } = useContext(Context)
   const navigate = useNavigate();
+  // let newChatRef = useRef(null);
 
 
   async function handleLogout() {
@@ -33,6 +34,7 @@ export default function ChatList({data}) {
   return(
     <>
       <div className='chat-list-wrapper' >
+        <button className='new-chat' onClick={()=>{setChatScreenMode('contacts')}} >+</button>
         <div className='options-bar'>
           <div className='sort-area'>
             <button className='sort-button all'>All</button>
@@ -40,14 +42,13 @@ export default function ChatList({data}) {
             <button className='sort-button groups'>Groups</button>
           </div>
           <div className='options-area'>
-            <button className='search-button'>jk</button>
-            <button className='logout-button' onClick={handleLogout}>LGO!</button>
+            <button className='search-button'></button>
+            <button className='logout-button' onClick={handleLogout}>Logout</button>
           </div>
         </div>
         <div className='sort-list-wrapper'>
           <div className='sort-list'>
             {
-              // console.log(typeof data, data.data)
               data?.map((chat) => {
                   return <ChatlistItem chat={chat} key={chat.chatId} />
               })
