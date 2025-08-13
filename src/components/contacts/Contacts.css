@@ -1,0 +1,72 @@
+
+.contacts-wrapper {
+  flex: 1;
+  border: 1px solid;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+.contacts-header {
+  border: 1px solid yellow;
+  display: flex;
+  gap: 5px;
+  padding: 5px 0 5px 0;
+  align-items: center;
+}
+.back-to-messaging {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 15%;
+  font-size: 20px;
+  /* border: 1px solid; */
+  height: 100%;
+  overflow: hidden;
+  padding: 0 0 0 5px;
+  cursor: pointer;
+}
+.contacts-search-area {
+  border: 1px dashed red;
+  display: flex;
+  flex-direction: column;
+
+}
+.contacts-search-box-area {
+  border: 1px solid blue;
+  display: flex;
+  padding: 4px;
+  gap: 4px
+}
+.contacts-search-box, .contacts-search-box:focus {
+  background: #80808035;
+  border-radius: 4px;
+  flex: 5;
+  padding: 1px 1px 1px 5px
+}
+.new-chat-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #419ebb;
+  padding: 2px;
+  color: #fff;
+  border-radius: 4px;
+  flex: 1;
+}
+.selected-members-area {
+  display: flex;
+  flex-wrap: wrap;
+}
+.contacts-list-wrapper {
+  border: 1px solid;
+  padding: 5px;
+  height: 100%
+}
+.contacts-list {
+  border: 1px dotted red;
+  height: 100%
+}
+.selected-members-area {
+  display: flex;
+  gap: 5px;
+}

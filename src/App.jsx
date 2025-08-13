@@ -1,11 +1,18 @@
 // import { useState } from 'react'
 import './App.css'
-// import Login from './pages/login/Login'
+
 import AppRoutes from './routes/AppRoutes'
+import { ContextProvider } from './Context';
 
 function App() {
 
-  return  <AppRoutes />;
+  return(
+    <>
+    <ContextProvider>
+      <AppRoutes />
+    </ContextProvider>
+    </>
+  )
 
 }
 
