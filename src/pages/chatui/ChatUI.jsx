@@ -96,6 +96,7 @@ export default function ChatUI() {
     (async()=> {
       const chats = await syncChats(SERVER_IP, chatsDB)
       setChatList(chats);
+      console.log('ahole::')
       // chatMap.current = await chatsDB.chats.toArray();
     })()
 
