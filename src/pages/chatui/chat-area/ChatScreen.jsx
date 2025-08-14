@@ -4,11 +4,11 @@ import Sh_chat_logo from "../../../assets/icons/sh_chat_logo.svg?react";
 import { useContext, useEffect, useRef, useState } from "react";
 import { Context } from "../../../Context";
 
-import { chatsDB, sendMessageToDB } from "../MessageHandler";
+import { chatsDB, sendMessageToDB } from "../utils";
 import MessageBubble from "../../../components/reusables/message_bubble/MessageBubble";
 
 export default function ChatScreen() {
-  const { selectedChat, chatData } = useContext(Context);
+  const { selectedChat, setSelectedChat, chatData } = useContext(Context);
   let messageFieldRef = useRef(null);
   // console.log('fook', chatMap.current)
   const [meta, setMeta] = useState(null); // data of chat profile
@@ -31,14 +31,20 @@ export default function ChatScreen() {
       .catch(console.error);
   }, [selectedChat]);
 
+  useEffect(()=> {
+    window.scrollTo({
+      top: document.body.scrollHeight
+    })
+  },[])
+
   return (
     <div className="chat-screen-wrapper">
       {selectedChat && (
         <>
           <div className="chat-screen-top-bar">
-            <div className="profile-pic">
+            <button className="profile-pic chat-back-button" onClick={()=>setSelectedChat(null)}>
               {meta && meta.members[0].slice(0, 2)}
-            </div>
+            </button>
             <div className="details-area">
               <div className="chat-name">{meta && meta.members.join("-")}</div>
               <div className="status">{"not online"}</div>
@@ -82,9 +88,9 @@ export default function ChatScreen() {
       )}
       {!selectedChat && (
         <>
-          <div className="profile-pic">
-            Sh_chat, quiet, works. Click on a chat!
-          </div>
+          <p className="profile-pic chat-screen-alt">
+            <b>Sh_chat</b><br /> <i>quiet, works</i><br/> Click on a chat!
+          </p>
         </>
       )}
     </div>

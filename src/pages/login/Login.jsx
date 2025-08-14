@@ -163,7 +163,7 @@ export default function Login() {
           <p className='login-signup-switch-line'>Existing user? <a className='in-up-switch' onClick={()=> {setIsNewUser(false); console.log(isNewUser)}}>Sign in</a></p>
         </form>
         }   
-        <p className='beta-warn'>This is seriously only for testing, do NOT use for ANY serious stuff <br/> Thanks, your suggestions at gv.kamal2003@gmail.com </p>   
+        <p className='beta-warn'>This is seriously only for testing, do NOT use for ANY serious stuff <br/> Thanks, and send your suggestions  <a href='mailto:gv.kamal2003@gmail.com' id='mailto-me'>here</a> &#x2764;&#xFE0F;  </p>   
       </div>
     </>
   );

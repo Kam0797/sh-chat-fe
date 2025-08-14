@@ -19,8 +19,8 @@ export default function MessageBubble({mes}) {
   }
   return (
     <>
-    <div className="message-bubble-wrapper" style={{justifyContent:bubbleAlignment}} onClick={()=>changeWrap()}>
-      <div className="message-bubble" style={{borderRadius: bubbleBorderRadius}}>
+    <div className="message-bubble-wrapper" style={{justifyContent:bubbleAlignment}} >
+      <div className="message-bubble" style={{borderRadius: bubbleBorderRadius}} onClick={()=>changeWrap()}>
         <div className="message" ref={messageRef} >{mes.content} </div>
         <div className="message-info">
           <div className="message-delivery-status">~</div>

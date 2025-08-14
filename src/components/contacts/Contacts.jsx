@@ -6,7 +6,7 @@ import { Context } from '../../Context'
 import validator from 'validator'
 import axios from 'axios'
 
-import { chatsDB, createChat, syncChats } from '../../pages/chatui/MessageHandler'
+import { chatsDB, createChat, syncChats } from '../../pages/chatui/utils'
 
 export default function Contacts() {
 

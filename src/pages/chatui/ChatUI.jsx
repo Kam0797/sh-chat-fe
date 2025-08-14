@@ -12,7 +12,7 @@ import {io} from 'socket.io-client'
 import { useObservable } from 'react-use'
 
 
-import { chatsDB, SelectAndLoadMessages, sendMessage, syncChats } from './MessageHandler'
+import { chatsDB, SelectAndLoadMessages, sendMessage, syncChats } from './utils'
 
 
 
@@ -30,6 +30,9 @@ export default function ChatUI() {
 
 
   //sock
+  //~
+  let [CL, setCL] = useState(true)
+  let [CS, setCS] = useState(true)
 
 
   //observables
@@ -106,15 +109,47 @@ export default function ChatUI() {
 
   },[])
 
-  // useEffect(()=> {
-  //   (async()=> {
-  //     const messages1 = await selectAndLoadMessages(selectedChat, chatsDB);
-  //     console.log('mess',messages1)
-  //     setChatData(messages1);
-  //     console.log('debug::IIFC:',chatData, messages1)
-  //   })()
+  function updateLayout() {
+    if(window.innerWidth <= 650){
+      if(selectedChat || chatScreenMode === 'contacts') {
+        setCL(false)
+        setCS(true)
+      }
+      else {
+        setCL(true)
+        setCS(false)
+      }
+    }
+    else {
+      setCL(true)
+      setCS(true)
+    }
+  }
 
-  // },[selectedChat])
+  useEffect(()=> {
+    updateLayout();
+    window.addEventListener('resize', updateLayout)
+
+    return ()=> {
+      window.removeEventListener('resize', updateLayout);
+    }
+  }, [selectedChat, chatScreenMode])
+
+// useEffect(()=> {
+//   console.log('wid/hg:',window.innerWidth,window.innerHeight)
+//   if(window.innerWidth <= 650) {
+//     if((selectedChat || chatScreenMode == 'contacts')) {
+
+//        CL.current = false;
+//        CS.current = true;
+//     }
+//     else  {
+//        CL.current = true;
+//        CS.current = false;
+//     }
+//   }
+//   console.log('test', CL.current, CS.current, selectedChat, chatScreenMode)
+// },[selectedChat, chatScreenMode])
   
   setChatData(SelectAndLoadMessages(selectedChat,chatsDB))
   // setChatList(SetChatListOnListUpdate(chatsDB))
@@ -126,11 +161,12 @@ export default function ChatUI() {
   return(
     <>
     <div className='ui-wrapper'>
-      <ChatList data={chatList} />
-      { (chatScreenMode == 'messaging') &&
+      { CL &&
+        <ChatList data={chatList} />}
+      { (chatScreenMode == 'messaging') && CS &&
         <ChatScreen />
       }
-      { (chatScreenMode == 'contacts') &&
+      { (chatScreenMode == 'contacts') && CS &&
         <Contacts />
       }
     </div>

@@ -6,7 +6,7 @@ import { Context } from '../../../Context'
 import { useNavigate } from 'react-router-dom'
 
 
-import { SelectAndLoadMessages } from '../MessageHandler'
+import { SelectAndLoadMessages } from '../utils'
 
 
 export default function ChatList({data}) {

@@ -160,3 +160,8 @@ select {
     text-align: center
     /* align-items: center; */
 }
+#mailto-me {
+    text-decoration: none;
+    color: #09e291;
+    font-size: 1rem;
+}

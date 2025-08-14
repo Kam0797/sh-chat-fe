@@ -14,7 +14,8 @@ chatsDB.version(1).stores({
     chatName,
     members,
     admin,
-    mods`,
+    mods,
+    tags`,
   messages:
     `++id,
     chatId,
@@ -87,17 +88,23 @@ async function createChat(memb_arr, SERVER_IP, DB, setSelectedChat) {
       {withCredentials: true}
     );
     if(res.data.code == 1) {
+      const { chatId, chatName, members, admin, mods } = res.data.chatId;
       await DB.chats.add({
-        chatId: res.data.chatId,
-        members: res.data.members
+        chatId: chatId,
+        chatName: chatName,
+        members: members,
+        admin: admin,
+        mods: mods,
+        tags: []
       });
+      // await syncChats(); // so you cant take its declaration out of this scope ie, this file
       console.log('debug::chat saved')
-      setSelectedChat(res.data.chatId);
+      setSelectedChat(chatId);
       return 1;
     }
     else if(res.data.code == 2) { // this is compat, make it client side, refer chatDB.contacts? 
       console.log('debug::i see');
-      setSelectedChat(res.data.chatId);
+      setSelectedChat(res.data.chatId.chatId);
       return 2;
     }
     console.log('ressssss', res.data.code, res.data.codeMsg)
