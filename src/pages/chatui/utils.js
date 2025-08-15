@@ -179,7 +179,8 @@ async function syncChats(SERVER_IP, DB) {
       admin: chat.admin,
       mods: chat.mods
     }))    
-    // await DB.chats.clear(); // user has to decide if they have to delete, the server cant take away that.
+    await DB.chats.clear(); // user has to decide if they have to delete, the server cant take away that. 
+    // Qfix -change impl^
     console.log('SC:debug::chats',chats)
     await DB.chats.bulkPut(chats);
     console.log('debug::SC1',typeof chats, chats)
