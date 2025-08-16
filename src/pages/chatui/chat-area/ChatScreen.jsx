@@ -31,11 +31,11 @@ export default function ChatScreen() {
       .catch(console.error);
   }, [selectedChat]);
 
-  useEffect(()=> {
-    window.scrollTo({
-      top: document.body.scrollHeight
-    })
-  },[])
+  // useEffect(()=> {
+  //   window.scrollTo({
+  //     top: document.body.scrollHeight
+  //   })
+  // },[])
 
   return (
     <div className="chat-screen-wrapper">

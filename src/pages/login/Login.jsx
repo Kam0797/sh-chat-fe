@@ -53,6 +53,7 @@ export default function Login() {
       } catch (err) {
         userNotificationRef.current.textContent =
           `Login failed, server error :(, ${err}`;
+          console.error('LE::',err);
         userNotificationRef.current.style.display = "block";
         setTimeout(
           () => (userNotificationRef.current.style.display = "none"),
