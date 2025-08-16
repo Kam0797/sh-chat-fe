@@ -9,12 +9,12 @@ import { io } from 'socket.io-client';
 
 const Context = createContext();
 
-// const SERVER_IP = 
-// window.location.hostname === 'localhost'
-// ? 'http://localhost:3000'
-// : 'https://sh-chat.onrender.com';
+const SERVER_IP = 
+window.location.hostname === 'localhost'
+? 'http://localhost:3000'
+: 'https://sh-chat.onrender.com';
 
-const SERVER_IP = 'http://192.168.125.94:3000'
+// const SERVER_IP = 'http://192.168.125.94:3000'
 
 let socket = null;
 try {
