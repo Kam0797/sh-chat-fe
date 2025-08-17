@@ -13,6 +13,7 @@ import { useObservable } from 'react-use'
 
 
 import { chatsDB, SelectAndLoadMessages, sendMessage, syncChats } from './utils'
+import axios from 'axios'
 
 
 
@@ -52,10 +53,22 @@ export default function ChatUI() {
 
 
   useEffect(()=> {
-    if(!localStorage.getItem('isLoggedIn')) {
+    if(!localStorage.getItem('isLoggedIn') ) {
       console.log('nay')
       navigate('/sh-chat-fe/login');
     }  
+    // IIFC
+    // (async()=> {
+    //   try {
+    //   const res = await axios.get(SERVER_IP+'/chat-room',
+    //     {withCredentials: true});
+    //     if(!res.data.code) {
+    //       navigate('/sh-chat-fe/login')
+    //     }      
+    //   } catch {
+    //     console.log('authed');
+    //   }
+    // })()
 
     socket?.on('connection',()=> {
 
@@ -96,7 +109,7 @@ export default function ChatUI() {
     (async()=> {
       const chats = await syncChats(SERVER_IP, chatsDB)
       setChatList(chats);
-      console.log('ahole::')
+      console.log('SyncChats::ahole::')
       // chatMap.current = await chatsDB.chats.toArray();
     })()
 

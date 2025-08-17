@@ -23,8 +23,8 @@ export default function ChatList({data}) {
         {withCredentials: true}
       );
       if(res.data.code) {
-        localStorage.removeItem('isLoggedIn');
-        localStorage.removeItem('uemail');
+        localStorage.setItem('isLoggedIn',false);
+        localStorage.setItem('uemail',null);
         console.log('LSlogLO::',localStorage.getItem('isLoggedIn'), localStorage.getItem('uemail'))
         navigate('/sh-chat-fe/login')
       }
