@@ -53,6 +53,7 @@ export default function ChatUI() {
 
 
   useEffect(()=> {
+    console.log('chatui::UE::openlog:isLoggedIn',localStorage.getItem('isLoggedIn'), !localStorage.getItem('isLoggedIn'))
     if(!localStorage.getItem('isLoggedIn') ) {
       console.log('nay')
       navigate('/sh-chat-fe/login');

@@ -101,10 +101,12 @@ export default function Login() {
 
     // IIFC
     (async()=> {
+      console.log('login::IIFC::openlog:')
       try {
       const res = await axios.get(SERVER_IP+'/chat-room',
         {withCredentials: true});
         if(res.data.code) {
+          console.log('login::IIFC::res.data.code',res.data.code)
           navigate('/sh-chat-fe/')
         }      
       } catch {
