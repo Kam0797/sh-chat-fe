@@ -105,7 +105,7 @@ export default function Login() {
       try {
       const res = await axios.get(SERVER_IP+'/chat-room',
         {withCredentials: true});
-        if(res.data.code) {
+        if(res.data.code && localStorage.getItem('isLoggedIn') === 'true') {
           console.log('login::IIFC::res.data.code',res.data.code)
           navigate('/sh-chat-fe/')
         }      
