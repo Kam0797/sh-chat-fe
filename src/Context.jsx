@@ -18,7 +18,7 @@ window.location.hostname === 'localhost'
 
 let socket = null;
 try {
-  if(axios.get(SERVER_IP+'/status')) {
+  if(axios.get(SERVER_IP+'/chat-room')) {
     socket = io(SERVER_IP,
       {withCredentials: true}
     );
