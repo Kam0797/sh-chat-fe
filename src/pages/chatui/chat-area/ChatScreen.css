@@ -4,10 +4,15 @@
   flex-direction: column;
   justify-content: space-between;
   height: 100vh;
+  /* height: calc(var(--vh)*100); */
   width: 100%;
   /* border: 2px dashed green; */
   flex:1;
+  overflow: hidden;
 
+}
+.smooth-scroll  {
+  transition: scroll 1s ease-in-out;
 }
 .chat-screen-top-bar {
   display: flex;
@@ -30,11 +35,7 @@
   {handled in ChatList.css}
 } */
 
-.message-send-area {
-  border: 1px dotted;
-  display: flex;
-  justify-content: space-between;
-}
+
 .chat-area {
   background: #441f1f50 ;
   /* border: 1px solid black; */
@@ -47,33 +48,42 @@
   padding: 15px 4px
 }
 .message-send-area {
-  min-height: 35px;
-  height: 45px;
+  /* border: px dotted;  */
+  min-height: 60px;
+  /* height: 45px; */
   background: var(--message-send-area-bg);
   display: flex;
-  align-items: center;
+  /* justify-content: flex-end; */
+  position: relative;
+  /* border: 1px solid ; */
 }
 .message-send-text, .message-send-text:focus {
-  /* all: unset;   */
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
+  position: absolute;  
   z-index: 5;
   box-sizing: border-box;
-  border: 1px solid ;
+  /* border: 1px solid ; */
   resize: none;
-  max-height: 150px;
-  min-height: 30px;
+  max-height: 40vh;
   width: 100%;
-  height: 80%;
+  height: 100%;
   margin: 15px 0 15px 5px;
   background: #80808060;
-  padding: 0 0 0 10px;
+  padding: 10px 32px 10px 10px;
   border-radius: 10px 0 0 10px;
-
+  font-size: 1.5rem;
+  bottom: -15px;
+  left: 0;
+  transition: width 0.5s ease-in-out;
+}
+.shrink-mes-box {
+  width: calc(100% - 260px)
 }
 .message-send-button {
   /* border: 1px solid; */
+  position: absolute;
+  right: 0;
+  top: 10%;
+  z-index: 6;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -81,9 +91,17 @@
   aspect-ratio: 1/1;
   padding: 0 5px 0 0;
   border-radius: 50%;
+  animation: button-slide-out .5s ease-in-out forwards;
   /* background: linear-gradient(45deg,#5f5151, #5c7cac, #fff); */
 }
-
+@keyframes button-slide-in {
+  0% {transform: translateX(50px);}
+  100% {transform: translateX(0);}
+}
+@keyframes button-slide-out {
+  0% {transform: translateX(0);}
+  100% {transform: translateX(50px);}
+}
 
 .chat-screen-alt {
   display: flex;

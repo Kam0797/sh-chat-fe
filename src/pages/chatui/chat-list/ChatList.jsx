@@ -18,17 +18,17 @@ export default function ChatList({data}) {
 
 
   async function handleLogout() {
-    if(window.confirm("Click OK to logout")) {
+    // if(window.confirm("Click OK to logout")) {
       const res = await axios.get(SERVER_IP+'/auth/logout',
         {withCredentials: true}
       );
       if(res.data.code) {
-        localStorage.removeItem('isLoggedIn');
-        localStorage.removeItem('uemail');
+        localStorage.setItem('isLoggedIn',false);
+        localStorage.setItem('uemail',null);
         console.log('LSlogLO::',localStorage.getItem('isLoggedIn'), localStorage.getItem('uemail'))
         navigate('/sh-chat-fe/login')
       }
-    }
+    // }
   }
 
   return(
