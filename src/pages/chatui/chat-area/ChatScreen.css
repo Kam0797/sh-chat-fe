@@ -37,7 +37,7 @@
 
 
 .chat-area {
-  background: #441f1f50 ;
+  background: var(--chat-area-bg) ;
   /* border: 1px solid black; */
   overflow-y: scroll;
   display: flex;
@@ -51,7 +51,7 @@
   /* border: px dotted;  */
   min-height: 60px;
   /* height: 45px; */
-  background: var(--message-send-area-bg);
+  background: var(--chat-area-bg);
   display: flex;
   /* justify-content: flex-end; */
   position: relative;
@@ -65,9 +65,10 @@
   resize: none;
   max-height: 40vh;
   width: 100%;
-  height: 100%;
+  height: 60px;
   margin: 15px 0 15px 5px;
-  background: #80808060;
+  /* background: #80808060; */
+  background: var(--message-send-area-bg);
   padding: 10px 32px 10px 10px;
   border-radius: 10px 0 0 10px;
   font-size: 1.5rem;
@@ -82,7 +83,7 @@
   /* border: 1px solid; */
   position: absolute;
   right: 0;
-  top: 10%;
+  bottom: 5%;
   z-index: 6;
   display: flex;
   justify-content: center;
@@ -100,6 +101,11 @@
 }
 @keyframes button-slide-out {
   0% {transform: translateX(0);}
+  100% {transform: translateX(50px);}
+}
+@keyframes button-fly-send {
+  0% {transform: translateX(0);}
+  99% {transform: translateX(80px) translateY(-80px) scale(3)}
   100% {transform: translateX(50px);}
 }
 

@@ -43,7 +43,11 @@ export default function ChatList({data}) {
           </div>
           <div className='options-area'>
             <button className='search-button'></button>
-            <button className='logout-button' onClick={handleLogout}>Logout</button>
+            <button className='app-options' >
+                <div className='options-dot'></div>
+                <div className='options-dot'></div>
+                <div className='options-dot'></div>
+            </button>
           </div>
         </div>
         <div className='sort-list-wrapper'>

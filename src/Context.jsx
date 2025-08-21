@@ -10,8 +10,8 @@ import { io } from 'socket.io-client';
 const Context = createContext();
 
 const SERVER_IP = 
-window.location.hostname === 'localhost'
-? 'http://localhost:3000'
+window.location.hostname.startsWith('192.168')
+? 'http://192.168.28.94:3000' //this would change
 : 'https://sh-chat.onrender.com';
 
 // const SERVER_IP = 'http://192.168.125.94:3000'
