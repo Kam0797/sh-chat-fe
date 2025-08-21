@@ -53,23 +53,24 @@ export default function ChatUI() {
 
 
   useEffect(()=> {
-    console.log('chatui::UE::openlog:isLoggedIn',localStorage.getItem('isLoggedIn'), !localStorage.getItem('isLoggedIn'))
-    if(localStorage.getItem('isLoggedIn') === 'false' ) {
-      console.log('nay')
-      navigate('/sh-chat-fe/login');
-    }  
+    console.log('chatui::UE::openlog:isLoggedIn',localStorage.getItem('isLoggedIn'), !localStorage.getItem('isLoggedIn'));
+    // if(localStorage.getItem('isLoggedIn') === 'false' ) {
+    //   console.log('nay')
+    //   navigate('/sh-chat-fe/login');
+    // }  
     // IIFC
-    // (async()=> {
-    //   try {
-    //   const res = await axios.get(SERVER_IP+'/chat-room',
-    //     {withCredentials: true});
-    //     if(!res.data.code) {
-    //       navigate('/sh-chat-fe/login')
-    //     }      
-    //   } catch {
-    //     console.log('authed');
-    //   }
-    // })()
+    (async()=> {
+      try {
+      const res = await axios.get(SERVER_IP+'/chat-room',
+        {withCredentials: true});
+        if(!res.data.code || localStorage.getItem('isLoggedIn') === 'false') {
+          navigate('/sh-chat-fe/login')
+        }      
+      } catch {
+        navigate('/sh-chat-fe/login')
+        console.log('un-authed');
+      }
+    })()
 
     socket?.on('connection',()=> {
 
@@ -108,7 +109,9 @@ export default function ChatUI() {
 
     // IIFC
     (async()=> {
-      const chats = await syncChats(SERVER_IP, chatsDB)
+      let chats = await chatsDB.chats.toArray();
+      setChatList(chats)
+      chats = await syncChats(SERVER_IP, chatsDB)
       setChatList(chats);
       console.log('SyncChats::ahole::')
       // chatMap.current = await chatsDB.chats.toArray();

@@ -19,20 +19,21 @@ export default function ChatScreen() {
   function handleSend() {
     sendMessageToDB(messageFieldRef.current.value, selectedChat, chatsDB);
     messageFieldRef.current.value = "";
-  }
+    updateTextAreaHeight(true);
+ }
 
-  function updateTextAreaHeight(e) {
-    const textarea = e.target;
-    if (textarea.value.trim() == "") {
-      textarea.style.height = "60px";
-      sendButtonRef.current.style.animation = 'button-slide-out .5s ease-in-out forwards'
+  function updateTextAreaHeight(fly=false) {
+    const textarea = messageFieldRef.current;
+    if (textarea.value.trim() == "" ) {
+      textarea.style.height = "55px";
+      if(!fly) sendButtonRef.current.style.animation = 'button-slide-out .5s ease-in-out forwards'
       return;
     } else {
       sendButtonRef.current.style.animation = 'button-slide-in .5s ease-in-out forwards'
     }
-    textarea.style.height = "auto";
-
-    textarea.style.height = textarea.scrollHeight - 25 + "px";
+    textarea.style.height = "0px";
+    console.log('scrollheight:',textarea.scrollHeight)
+    textarea.style.height = textarea.scrollHeight  + "px";
   }
 
   useEffect(() => {
@@ -60,7 +61,7 @@ export default function ChatScreen() {
   // }, []);
   useEffect(()=> {
     const triggerScroll = () => {
-      window.scrollTo(0,10000);
+      window.scrollTo(0,60);
       // setTimeout(()=> window.scrollTo(0,0))
     };
     // triggerScroll();
@@ -107,14 +108,16 @@ export default function ChatScreen() {
               placeholder="Type here"
               className="message-send-text"
               ref={messageFieldRef}
-              onInput={(e) => updateTextAreaHeight(e)}
+              onInput={() => updateTextAreaHeight()}
             />
             <button
               className="message-send-button"
               ref={sendButtonRef}
               onClick={() => {
                 console.log("text:::", messageFieldRef.current.value);
-                return handleSend();
+                if(messageFieldRef.current.value.trim()!='') sendButtonRef.current.style.animation = 'button-fly-send .5s ease-in-out forwards';
+                messageFieldRef.current.focus();
+                handleSend();
               }}
             >
               <svg

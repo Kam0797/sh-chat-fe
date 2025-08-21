@@ -80,3 +80,26 @@
   background: #cc3c3caa;
   border-radius: 15px 0 0 15px
 }
+
+/*options-button*/
+
+.app-options {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10%;
+  flex-direction: column;
+  /* border: 1px solid; */
+  height: 100%;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+}
+.app-options:hover {
+  background: var(--chatlist-item-bg);
+}
+.options-dot {
+  height: 5px;
+  aspect-ratio: 1/1;
+  background-color: #000;
+  border-radius: 50%;
+}
