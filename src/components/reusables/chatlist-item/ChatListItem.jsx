@@ -1,13 +1,15 @@
 import { useContext } from 'react'
 import './ChatListItem.css'
 import { Context } from '../../../Context';
+import { useNavigate } from 'react-router-dom';
 
 export default function ChatlistItem({chat}) {
   const { setSelectedChat} = useContext(Context);
+  const navigate = useNavigate();
 
   // console.log('################',chat)
   return (
-    <button className='chat-list-item' onClick={()=>setSelectedChat(chat.chatId)}>
+    <button className='chat-list-item' onClick={()=>{ navigate(`/sh-chat-fe/chat?chatId=${chat.chatId}`)} }>
       <div className='profile-pic'>{chat.chatId.slice(0,2)}</div>
       <div className='details-area'>
         <div className='name-time'>

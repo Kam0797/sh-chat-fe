@@ -7,11 +7,13 @@ import validator from 'validator'
 import axios from 'axios'
 
 import { chatsDB, createChat, syncChats } from '../../pages/chatui/utils'
+import { useNavigate } from 'react-router-dom'
 
 export default function Contacts() {
 
   const [newChatMembers, setNewChatMembers] = useState([])
   const { setChatScreenMode, SERVER_IP , setSelectedChat, setChatList, selectedChat} = useContext(Context)
+  const navigate = useNavigate()
   let searchBoxRef = useRef(null)
 
   // useEffect(()=>{  
@@ -76,7 +78,7 @@ export default function Contacts() {
     <>
     <div className='contacts-wrapper'>
       <div className='contacts-header'>
-        <button className='back-to-messaging' onClick={()=> {setChatScreenMode('messaging')}} >&#x21A9;</button>
+        <button className='back-to-messaging' onClick={()=> {navigate('/sh-chat-fe/')}} >&#x21A9;</button>
         <span className='Contacts-heading'>Contacts</span>
       </div>
       <div className='contacts-search-area'>
