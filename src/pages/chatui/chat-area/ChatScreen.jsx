@@ -3,6 +3,7 @@ import "./ChatScreen.css";
 import Sh_chat_logo from "../../../assets/icons/sh_chat_logo.svg?react";
 import { useContext, useEffect, useRef, useState } from "react";
 import { Context } from "../../../Context";
+import { useSearchParams } from "react-router-dom";
 
 import { chatsDB, sendMessageToDB } from "../utils";
 import MessageBubble from "../../../components/reusables/message_bubble/MessageBubble";
@@ -13,7 +14,20 @@ export default function ChatScreen() {
   let sendButtonRef = useRef();
   // console.log('fook', chatMap.current)
   const [meta, setMeta] = useState(null); // data of chat profile
-
+  
+  const [searchParam] = useSearchParams();
+  const currentChatId = searchParam.get('chatId');
+  // console.log('debug::SP::currentChatId',currentChatId);
+  // setSelectedChat(currentChatId);
+  (async()=>{
+    try {
+      const chatIdObj = await chatsDB.chats.where('chatId').equals(currentChatId).first();
+      const validChatId = chatIdObj?.chatId;
+      setSelectedChat(validChatId)
+    } catch {
+      setSelectedChat(null)
+    }
+  })()
   // console.log('debug::CS:', typeof chatData, chatData);
 
   function handleSend() {
@@ -95,12 +109,9 @@ export default function ChatScreen() {
 
           {/* <div className="chat-area-wrapper"> */}
           <div className="chat-area">
-            {/* <div className='chats-div'> */}
-            {/*chats go here you may have to destroy this div*/}
             {chatData?.map((message, index) => {
               return <MessageBubble mes={message} key={index} />;
             })}
-            {/* </div> */}
           </div>
           <div className="message-send-area">
             <textarea

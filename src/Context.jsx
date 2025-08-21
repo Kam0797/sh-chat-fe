@@ -11,7 +11,7 @@ const Context = createContext();
 
 const SERVER_IP = 
 window.location.hostname.startsWith('192.168')
-? 'http://192.168.28.94:3000' //this would change
+? 'http://192.168.28.94:3000'
 : 'https://sh-chat.onrender.com';
 
 // const SERVER_IP = 'http://192.168.125.94:3000'
@@ -53,6 +53,8 @@ const ContextProvider = ({children})=> {
   const [chatData, setChatData] = useState([])
   const [chatScreenMode, setChatScreenMode] = useState('messaging')
   const [chatList, setChatList] = useState([]);
+  const [newMessages, setNewMessages] = useState(null)
+  const [newOutboundMessages, setNewOutboundMessages] = useState(null)
 
 
   //refs
@@ -63,7 +65,7 @@ const ContextProvider = ({children})=> {
 
 
   return(
-    <Context.Provider value={{SERVER_IP, selectedChat, setSelectedChat, chatData, setChatData, chatMap, socket, chatScreenMode, setChatScreenMode, chatList, setChatList, CLRef, CSRef}}>
+    <Context.Provider value={{SERVER_IP, selectedChat, setSelectedChat, chatData, setChatData, chatMap, socket, chatScreenMode, setChatScreenMode, chatList, setChatList, CLRef, CSRef, newOutboundMessages, setNewOutboundMessages, newMessages, setNewMessages}}>
       {children}
     </Context.Provider>
   )
