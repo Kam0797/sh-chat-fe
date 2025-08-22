@@ -1,8 +1,10 @@
 import { Outlet, Route, Routes } from "react-router-dom";
-import ChatList from "./pages/chatui/chat-list/ChatList";
-import ChatScreen from "./pages/chatui/chat-area/ChatScreen";
+import ChatList from "./pages/chat-list/ChatList";
+import ChatScreen from "./pages/chat-area/ChatScreen";
 import { useMediaQuery } from "react-responsive";
 import Contacts from "./pages/contacts/Contacts";
+import ChatAreaPlaceholder from "./pages/chat-area-placeholder/ChatAreaPlaceholder";
+import Settings from "./pages/settings/Settings";
 
 export default function AppLayout() {
 
@@ -11,17 +13,23 @@ export default function AppLayout() {
   return(
  
     <div className="ui-wrapper">
+      <div className="ui-wrapper-partition1">
       <ChatList />
+      </div>
       {/* <div>
       <Routes>
         <Route path="/sh-chat-fe/" element={<ChatList/>} />
       </Routes>
       </div> */}
       {/* <div> */}
+      <div className="ui-wrapper-partition2">
       <Routes>
-        <Route path='/sh-chat-fe/chat*' element={<ChatScreen/>} />
+        <Route path='/sh-chat-fe/chat' element={<ChatScreen/>} />
         <Route path='/sh-chat-fe/contacts' element={<Contacts />} />
+        <Route path='/sh-chat-fe/settings' element={<Settings />} />
+        <Route path='/sh-chat-fe/' element={<ChatAreaPlaceholder />} />
       </Routes>
+      </div>
       {/* </div> */}
     </div>
   );
@@ -32,6 +40,7 @@ export default function AppLayout() {
         <Route path='/sh-chat-fe/' element={<ChatList />} />
         <Route path='/sh-chat-fe/chat' element={<ChatScreen />} />
         <Route path='/sh-chat-fe/contacts' element={<Contacts />} />
+        <Route path='/sh-chat-fe/settings' element={<Settings />} />
       </Routes>
     </div>
   )

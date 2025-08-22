@@ -1,0 +1,28 @@
+
+
+.uemail-wrapper {
+  /* background-color: red; */
+  /* border: 1px solid; */
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  gap: 8px;
+}
+/* .uemail-wrapper:hover .uemail-text {
+  transform: scale(2);
+} */
+.uemail-text {
+  font-family: monospace;
+  font-size: 1rem;
+}
+.options-wrapper {
+  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: column;
+  padding: 0 10px ;
+  gap: 3px;
+  transition: transform 0.25s ease-in-out;
+}
+.options-wrapper:hover  {
+  transform: rotate(45deg);
+}

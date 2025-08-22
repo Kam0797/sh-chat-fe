@@ -1,12 +1,12 @@
 import axios from 'axios'
-import ChatlistItem from '../../../components/reusables/chatlist-item/ChatListItem'
+import ChatlistItem from '../../components/reusables/chatlist-item/ChatListItem'
 import './ChatList.css'
 import { useContext, useEffect } from 'react'
-import { Context } from '../../../Context'
+import { Context } from '../../Context'
 import { useNavigate } from 'react-router-dom'
 
 
-import { chatsDB, SelectAndLoadMessages, sendMessage, syncChats } from '../utils'
+import { chatsDB, SelectAndLoadMessages, sendMessage, syncChats } from '../../utils/utils'
 import { liveQuery } from 'dexie'
 
 
@@ -20,19 +20,8 @@ export default function ChatList() {
   // let newChatRef = useRef(null);
 
 
-  async function handleLogout() {
-    // if(window.confirm("Click OK to logout")) {
-      const res = await axios.get(SERVER_IP+'/auth/logout',
-        {withCredentials: true}
-      );
-      if(res.data.code) {
-        localStorage.setItem('isLoggedIn',false);
-        localStorage.setItem('uemail',null);
-        console.log('LSlogLO::',localStorage.getItem('isLoggedIn'), localStorage.getItem('uemail'))
-        navigate('/sh-chat-fe/login')
-      }
-    // }
-  }
+
+
   //observables
   const messageStream = liveQuery(()=> {
     return chatsDB
@@ -126,7 +115,7 @@ export default function ChatList() {
   return(
     <>
       <div className='chat-list-wrapper' >
-        <button className='new-chat' onClick={()=>{console.log('debug::nav to settings'); navigate('/sh-chat-fe/contacts')}} >+</button>
+        <button className='new-chat' onClick={()=>{navigate('/sh-chat-fe/contacts')}} >+</button>
         <div className='options-bar'>
           <div className='sort-area'>
             <button className='sort-button all'>All</button>
@@ -135,7 +124,7 @@ export default function ChatList() {
           </div>
           <div className='options-area'>
             <button className='search-button'></button>
-            <button className='app-options' >
+            <button className='app-options' onClick={()=> {navigate('/sh-chat-fe/settings')}}>
                 <div className='options-dot'></div>
                 <div className='options-dot'></div>
                 <div className='options-dot'></div>

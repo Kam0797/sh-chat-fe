@@ -1,1 +1,8 @@
 
+/* AppLayout styles */
+
+
+.ui-wrapper-partition1, .ui-wrapper-partition2 {
+  display: flex;
+  flex:1;
+}

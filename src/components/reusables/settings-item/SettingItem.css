@@ -1,0 +1,16 @@
+
+
+.settings-item-wrapper {
+  display: flex;
+  width: calc(100% - 10px);
+  border: 1px solid;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  margin: 3px 5px;
+  border-radius: 10px;
+}
+.settings-item-name, .settings-item-action-component {
+  padding: 0 15px 0 15px;
+  /* border: 1px dotted; */
+}

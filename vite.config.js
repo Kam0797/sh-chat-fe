@@ -9,4 +9,9 @@ export default defineConfig({
   },
   base: '/sh-chat-fe/',
   plugins: [react(), svgr()],
+  css: {
+    modules: {
+      localsConvention: 'camelCase' // support both camelCase and kebab-case
+    }
+  }
 })

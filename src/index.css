@@ -19,4 +19,13 @@ button, select, input , input:focus , textarea, textarea:focus {
   --message-color-cl: #000000bb;
   --message-send-area-bg: #c8c9b2;
   --chat-area-bg: #441f1f50;
+  --chat-area-placeholder-bg: linear-gradient(45deg,#407080,#70804088);
+
+  /* convention: --var-name-scheme: THEME-THING-WHATEVER-MORE; */
+  /* the mode may be CAPS-ed, i dont want to override CSS conv */
+  --light-text: #111; /*text in light mode [it-IS-dark]*/
+
+
+
+  --dark-text: #AAA;
 }

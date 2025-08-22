@@ -56,6 +56,14 @@ const ContextProvider = ({children})=> {
   const [newMessages, setNewMessages] = useState(null)
   const [newOutboundMessages, setNewOutboundMessages] = useState(null)
 
+  //settings stuff
+  const profileTemplate = {
+    uemail: localStorage.getItem('uemail'),
+    nickname: localStorage.getItem('uemail').split('@')[0],
+    profilePicURL: ""
+  }
+  const [profileData, setProfileData] = useState(profileTemplate)
+
 
   //refs
   let chatMap = useRef(new Map())
@@ -65,7 +73,7 @@ const ContextProvider = ({children})=> {
 
 
   return(
-    <Context.Provider value={{SERVER_IP, selectedChat, setSelectedChat, chatData, setChatData, chatMap, socket, chatScreenMode, setChatScreenMode, chatList, setChatList, CLRef, CSRef, newOutboundMessages, setNewOutboundMessages, newMessages, setNewMessages}}>
+    <Context.Provider value={{SERVER_IP, selectedChat, setSelectedChat, chatData, setChatData, chatMap, socket, chatScreenMode, setChatScreenMode, chatList, setChatList, CLRef, CSRef, newOutboundMessages, setNewOutboundMessages, newMessages, setNewMessages, profileData, setProfileData}}>
       {children}
     </Context.Provider>
   )

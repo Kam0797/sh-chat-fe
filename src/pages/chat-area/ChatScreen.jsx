@@ -1,12 +1,11 @@
 import "./ChatScreen.css";
 
-import Sh_chat_logo from "../../../assets/icons/sh_chat_logo.svg?react";
 import { useContext, useEffect, useRef, useState } from "react";
-import { Context } from "../../../Context";
-import { useSearchParams } from "react-router-dom";
+import { Context } from "../../Context";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
-import { chatsDB, sendMessageToDB } from "../utils";
-import MessageBubble from "../../../components/reusables/message_bubble/MessageBubble";
+import { chatsDB, sendMessageToDB } from "../../utils/utils";
+import MessageBubble from "../../components/reusables/message_bubble/MessageBubble";
 
 export default function ChatScreen() {
   const { selectedChat, setSelectedChat, chatData } = useContext(Context);
@@ -14,6 +13,7 @@ export default function ChatScreen() {
   let sendButtonRef = useRef();
   // console.log('fook', chatMap.current)
   const [meta, setMeta] = useState(null); // data of chat profile
+  const navigate = useNavigate();
   
   const [searchParam] = useSearchParams();
   const currentChatId = searchParam.get('chatId');
@@ -96,7 +96,7 @@ export default function ChatScreen() {
           <div className="chat-screen-top-bar">
             <button
               className="profile-pic chat-back-button"
-              onClick={() => setSelectedChat(null)}
+              onClick={() => navigate('/sh-chat-fe/')}
             >
               {meta && meta.members[0].slice(0, 2)}
             </button>

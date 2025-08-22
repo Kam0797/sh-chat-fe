@@ -6,7 +6,7 @@ import { Context } from '../../Context'
 import validator from 'validator'
 import axios from 'axios'
 
-import { chatsDB, createChat, syncChats } from '../../pages/chatui/utils'
+import { chatsDB, createChat, syncChats } from '../../utils/utils'
 import { useNavigate } from 'react-router-dom'
 
 export default function Contacts() {

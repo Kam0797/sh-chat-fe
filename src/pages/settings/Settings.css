@@ -1,0 +1,46 @@
+
+
+.settings-page-wrapper {
+  border: 1px dashed #055;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  background: var(--chat-area-placeholder-bg);
+
+}
+.profile-pic-wrapper {
+  border: 1px solid;
+  width: 100%;
+  /* padding-top: 50%; */
+  /* height: 0; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 2/1;
+  background: url('../../assets/background-images/login_bg.webp')  no-repeat left center  ;
+  background-size: cover;
+  flex-direction: column;
+}
+.profile-pic-img {
+  height: 75%; 
+
+}
+.profile-name-text {
+  color: var(--dark-text);
+  font-weight: 500;
+}
+
+
+@media screen and 
+(-webkit-min-device-pixel-ratio:0) 
+and (min-resolution:.001dpcm) {
+  .profile-pic-wrapper {
+    min-height: 85px;
+  }
+}
+ /* @supports not (aspect-ratio: 2/1) {
+  .profile-pic-wrapper {
+    min-height: 85px;
+  }
+ } */
