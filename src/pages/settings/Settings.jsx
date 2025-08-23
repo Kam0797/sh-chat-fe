@@ -12,18 +12,7 @@ export default function Settings() {
   const navigate = useNavigate();
   const { SERVER_IP } = useContext(Context)
 
-  async function handleLogout() {
-    // if(window.confirm("Click OK to logout")) {
-      const res = await axios.get(SERVER_IP+'/auth/logout',
-        {withCredentials: true}
-      );
-      if(res.data.code) {
-        localStorage.setItem('isLoggedIn',false);
-        localStorage.setItem('uemail',null);
-        console.log('LSlogLO::',localStorage.getItem('isLoggedIn'), localStorage.getItem('uemail'))
-        navigate('/sh-chat-fe/login')
-      }
-  }
+
   function Test() {
     return(<div style={{background:'#6fa',borderRadius:'5px', display: 'flex', alignItems:'center', justifyContent: 'center', cursor:'pointer', }} onClick={(e)=>e.target.style.background=`#${Math.floor(random)}`}>hey</div>)
   }

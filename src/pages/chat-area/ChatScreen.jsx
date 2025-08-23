@@ -4,11 +4,14 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { Context } from "../../Context";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
-import { chatsDB, sendMessageToDB } from "../../utils/utils";
+import { chatsDB, sendMessageToDB, SelectAndLoadMessages } from "../../utils/utils";
 import MessageBubble from "../../components/reusables/message_bubble/MessageBubble";
 
 export default function ChatScreen() {
-  const { selectedChat, setSelectedChat, chatData } = useContext(Context);
+  const { selectedChat, setSelectedChat, chatData, setChatData } = useContext(Context);
+  setChatData(SelectAndLoadMessages(selectedChat,chatsDB))
+
+
   let messageFieldRef = useRef(null);
   let sendButtonRef = useRef();
   // console.log('fook', chatMap.current)

@@ -22,10 +22,14 @@ button, select, input , input:focus , textarea, textarea:focus {
   --chat-area-placeholder-bg: linear-gradient(45deg,#407080,#70804088);
 
   /* convention: --var-name-scheme: THEME-THING-WHATEVER-MORE; */
-  /* the mode may be CAPS-ed, i dont want to override CSS conv */
-  --light-text: #111; /*text in light mode [it-IS-dark]*/
+  /* the mode may be CAPS-ed, i dont want to override CSS conv [your conv sucks. may have to *drop* it ]*/
+  --text-color: #AAA; /*text in light mode [it-IS-dark]*/
+
+  --settings-menu-frame-bg: #121212BB;
+
+  --logout-button-bg: #910505d3;
 
 
 
-  --dark-text: #AAA;
+  /* --dark-text: #AAA; */
 }

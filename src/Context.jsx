@@ -11,7 +11,7 @@ const Context = createContext();
 
 const SERVER_IP = 
 window.location.hostname.startsWith('192.168')
-? 'http://192.168.28.94:3000'
+? 'http://192.168.60.94:3000'
 : 'https://sh-chat.onrender.com';
 
 // const SERVER_IP = 'http://192.168.125.94:3000'
@@ -59,7 +59,7 @@ const ContextProvider = ({children})=> {
   //settings stuff
   const profileTemplate = {
     uemail: localStorage.getItem('uemail'),
-    nickname: localStorage.getItem('uemail').split('@')[0],
+    nickname: localStorage.getItem('uemail')?.split('@')[0],
     profilePicURL: ""
   }
   const [profileData, setProfileData] = useState(profileTemplate)

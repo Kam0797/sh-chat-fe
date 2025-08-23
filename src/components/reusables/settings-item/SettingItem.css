@@ -12,5 +12,6 @@
 }
 .settings-item-name, .settings-item-action-component {
   padding: 0 15px 0 15px;
+  position: relative;  /* if conflicts set this just for .settings-item-action-component */
   /* border: 1px dotted; */
 }

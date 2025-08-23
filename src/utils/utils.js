@@ -198,4 +198,6 @@ async function syncChats(SERVER_IP, DB) {
 }
 
 
+
+
 export { chatsDB, sendMessageToDB, sendMessage, createChat, SelectAndLoadMessages, syncChats }
