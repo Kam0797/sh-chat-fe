@@ -26,3 +26,15 @@
 .options-wrapper:hover  {
   transform: rotate(45deg);
 }
+
+/* menu-items */
+.logout-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: calc(100% - 10px);
+  background: var(--logout-button-bg);
+  padding: 3px;
+  border-radius: 7px;
+  cursor: pointer
+}
