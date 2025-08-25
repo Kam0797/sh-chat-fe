@@ -1,12 +1,12 @@
 
 
 import axios from 'axios';
-import { useState, createContext, useRef } from 'react'
+import { useState, createContext, useRef, useEffect } from 'react'
 import { io } from 'socket.io-client';
-// import { liveQuery } from 'dexie';
+import { liveQuery } from 'dexie';
 
-// import { chatsDB } from './pages/chatui/MessageHandler';
-
+import { chatsDB, SelectAndLoadMessages, sendMessage, syncChats } from './utils/utils';
+import { useNavigate } from 'react-router-dom';
 const Context = createContext();
 
 const SERVER_IP = 
@@ -30,20 +30,24 @@ try {
 
 
 //observables
-// const messageStream = liveQuery(()=> {
-//   return chatsDB
-//   .messages.toCollection()
-//   .sortBy('timestamp')
-// });
+const messageStream = liveQuery(()=> {
+  return chatsDB
+  .messages.toCollection()
+  .sortBy('timestamp')
+});
 
-// const outboundMessageStream = liveQuery(()=> {
-//   return chatsDB.messages
-//     .where('sendPending')
-//     .equals(1)
-//     .sortBy('timestamp')
-// });
+const outboundMessageStream = liveQuery(()=> {
+  return chatsDB.messages
+    .where('sendPending')
+    .equals(1)
+    .sortBy('timestamp')
+});
+
+
 
 const ContextProvider = ({children})=> {
+
+  const navigate = useNavigate()
 
 
 
@@ -72,8 +76,85 @@ const ContextProvider = ({children})=> {
   let CSRef = useRef(null)
 
 
+//test
+// setChatData(SelectAndLoadMessages(selectedChat,chatsDB))
+
+useEffect(()=> {
+  console.log('chatui::UE::openlog:isLoggedIn',localStorage.getItem('isLoggedIn'));
+
+  // IIFC
+  (async()=> {
+    try {
+    const res = await axios.get(SERVER_IP+'/chat-room',
+      {withCredentials: true});
+      if(!res.data.code || localStorage.getItem('isLoggedIn') === 'false') {
+        navigate('/sh-chat-fe/login')
+      }      
+    } catch {
+      navigate('/sh-chat-fe/login')
+      console.log('un-authed');
+    }
+  })()
+
+  socket?.on('connection',()=> {
+
+  }); // may have to reconnect
+
+  socket?.on('messagesToClient',(incomingMessages)=> {
+    try {
+    console.log('imes:', typeof incomingMessages, incomingMessages);
+    incomingMessages?.forEach(async message => {
+      const exists = await chatsDB.messages.get(message.s_uid);
+      if (!exists) {
+        chatsDB.messages.add(message)
+      }
+      console.log('uid',chatsDB.messages.where('s_uid').equals(message.s_uid).toArray())
+    })
+    console.log('messages fetched and saved in IDB. Fin mes:', incomingMessages[-1] || []);
+    }
+    catch (err) {
+      console.error('error in fetching/saving to IDB', err);
+    }
+  })
+
+  // subs
+  const messageSub = messageStream.subscribe(messages => {
+    // trigger renders, add notifs - no, just make a map
+  });
+  const outboundSub = outboundMessageStream.subscribe( {
+    next: messages => {
+      // setNewOutboundMessages(messages); // update ui with useEffect
+      sendMessage(socket, chatsDB, messages)
+    },
+    error: err => {
+      console.log('debug::#98::', err)
+    }
+  });
+
+  // IIFC
+  (async()=> {
+    let chats = await chatsDB.chats.toArray();
+    setChatList(chats)
+    chats = await syncChats(SERVER_IP, chatsDB)
+    setChatList(chats);
+    console.log('SyncChats::ahole::')
+    // chatMap.current = await chatsDB.chats.toArray();
+  })()
+
+
+  // console.log(typeof chatList, chatList)
+  return ()=> {
+    socket?.disconnect();
+    messageSub.unsubscribe();
+    outboundSub.unsubscribe();
+  }
+
+},[])
+
+
+
   return(
-    <Context.Provider value={{SERVER_IP, selectedChat, setSelectedChat, chatData, setChatData, chatMap, socket, chatScreenMode, setChatScreenMode, chatList, setChatList, CLRef, CSRef, newOutboundMessages, setNewOutboundMessages, newMessages, setNewMessages, profileData, setProfileData}}>
+    <Context.Provider value={{SERVER_IP, selectedChat, setSelectedChat, chatData, setChatData, chatMap, socket, chatScreenMode, setChatScreenMode, chatList, setChatList, CLRef, CSRef, newOutboundMessages, setNewOutboundMessages, newMessages, setNewMessages, profileData, setProfileData, outboundMessageStream}}>
       {children}
     </Context.Provider>
   )

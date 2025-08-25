@@ -4,7 +4,7 @@ import './MessageBubble.css'
 
 export default function MessageBubble({mes}) {
 
-  console.log('Phere',mes.timestamp, mes)
+  // console.log('Phere',mes.timestamp, mes)
   const timeObject = new Date(mes.timestamp);
   const time = `${timeObject.getHours()}.${String(timeObject.getMinutes()).padStart(2, '0')}`
 

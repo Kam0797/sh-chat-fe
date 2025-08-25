@@ -13,12 +13,14 @@ export default function ChatScreen() {
 
 
   let messageFieldRef = useRef(null);
-  let sendButtonRef = useRef();
+  let sendButtonRef = useRef(null);
+  let chatAreaRef = useRef(null);
   // console.log('fook', chatMap.current)
   const [meta, setMeta] = useState(null); // data of chat profile
   const navigate = useNavigate();
   
   const [searchParam] = useSearchParams();
+
   const currentChatId = searchParam.get('chatId');
   // console.log('debug::SP::currentChatId',currentChatId);
   // setSelectedChat(currentChatId);
@@ -90,7 +92,11 @@ export default function ChatScreen() {
       window.removeEventListener("resize", triggerScroll)
     };
   },[])
-
+useEffect(()=> {
+  if(chatAreaRef.current){
+  chatAreaRef.current.scrollTo({top: chatAreaRef.current.scrollHeight, behavior: 'smooth'})
+  }
+},[chatData])
 
   return (
     <div className="chat-screen-wrapper smooth-scroll">
@@ -111,7 +117,7 @@ export default function ChatScreen() {
           </div>
 
           {/* <div className="chat-area-wrapper"> */}
-          <div className="chat-area">
+          <div className="chat-area" ref={chatAreaRef}>
             {chatData?.map((message, index) => {
               return <MessageBubble mes={message} key={index} />;
             })}
