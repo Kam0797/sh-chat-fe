@@ -75,11 +75,11 @@
 
 }
 
-.logout-button {
+/* .logout-button {
   padding: 5px;
   background: #cc3c3caa;
   border-radius: 15px 0 0 15px
-}
+} */
 
 /*options-button*/
 
@@ -102,4 +102,11 @@
   aspect-ratio: 1/1;
   background-color: #000;
   border-radius: 50%;
+}
+
+
+@media (pointer: coarse) {
+ .new-chat {
+  position: fixed;
+  } 
 }

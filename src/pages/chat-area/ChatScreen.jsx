@@ -10,15 +10,18 @@ import MessageBubble from "../../components/reusables/message_bubble/MessageBubb
 export default function ChatScreen() {
   const { selectedChat, setSelectedChat, chatData, setChatData } = useContext(Context);
   setChatData(SelectAndLoadMessages(selectedChat,chatsDB))
+  console.log('#2',chatData)
 
 
   let messageFieldRef = useRef(null);
-  let sendButtonRef = useRef();
+  let sendButtonRef = useRef(null);
+  let chatAreaRef = useRef(null);
   // console.log('fook', chatMap.current)
   const [meta, setMeta] = useState(null); // data of chat profile
   const navigate = useNavigate();
   
   const [searchParam] = useSearchParams();
+
   const currentChatId = searchParam.get('chatId');
   // console.log('debug::SP::currentChatId',currentChatId);
   // setSelectedChat(currentChatId);
@@ -76,11 +79,13 @@ export default function ChatScreen() {
   //   return () =>
   //     window.visualViewport.removeEventListener("resize", updateHeight);
   // }, []);
+
   useEffect(()=> {
     const triggerScroll = () => {
-      window.scrollTo(0,60);
+      window.scrollTo(0,60,{behavior: 'smooth'});
       // setTimeout(()=> window.scrollTo(0,0))
     };
+    // window.height = 110%
     // triggerScroll();
     setTimeout(()=>triggerScroll(),2000)
 
@@ -90,7 +95,11 @@ export default function ChatScreen() {
       window.removeEventListener("resize", triggerScroll)
     };
   },[])
-
+useEffect(()=> {
+  if(chatAreaRef.current){
+  chatAreaRef.current.scrollTo({top: chatAreaRef.current.scrollHeight, behavior: 'smooth'})
+  }
+},[chatData])
 
   return (
     <div className="chat-screen-wrapper smooth-scroll">
@@ -111,7 +120,7 @@ export default function ChatScreen() {
           </div>
 
           {/* <div className="chat-area-wrapper"> */}
-          <div className="chat-area">
+          <div className="chat-area" ref={chatAreaRef}>
             {chatData?.map((message, index) => {
               return <MessageBubble mes={message} key={index} />;
             })}

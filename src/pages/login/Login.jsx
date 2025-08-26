@@ -39,6 +39,7 @@ export default function Login() {
         if (res.data.code) {
           localStorage.setItem("isLoggedIn", true); // use this to implement offline auth assumption
           localStorage.setItem("uemail", res.data.uemail);
+          localStorage.setItem("uid",res.data.uid);
           console.log('LSlog::',localStorage.getItem('uemail'), localStorage.getItem('isLoggedIn'))
           navigate("/sh-chat-fe/");
         } else {
