@@ -3,7 +3,7 @@
 import axios from 'axios';
 import { useState, createContext, useRef, useEffect } from 'react'
 import { io } from 'socket.io-client';
-import { liveQuery } from 'dexie';
+import { Dexie, liveQuery } from 'dexie';
 
 import { chatsDB, SelectAndLoadMessages, sendMessage, syncChats } from './utils/utils';
 import { useNavigate } from 'react-router-dom';
@@ -67,6 +67,7 @@ const ContextProvider = ({children})=> {
     profilePicURL: ""
   }
   const [profileData, setProfileData] = useState(profileTemplate)
+  // const [chatsDB, setChatsDB] = useState(null)
 
 
   //refs
@@ -75,9 +76,61 @@ const ContextProvider = ({children})=> {
   let CLRef = useRef(null)
   let CSRef = useRef(null)
 
+  // let userIdRef = useRef(null)
+
 
 //test
 // setChatData(SelectAndLoadMessages(selectedChat,chatsDB))
+
+
+// useEffect(()=> {
+//   // IIFC
+// (async()=>{
+//   const user = await axios.get(`${SERVER_IP}/profile`,{withCredentials: true})
+// userIdRef.current = user?.data.profile.uid;
+// console.log('UID',userIdRef.current, user)
+// if(userIdRef.current) {
+// // CUI
+//   const newChatsDB = new Dexie(userIdRef.current);
+//   setChatsDB(newChatsDB);
+// }
+// else {
+//   const chatsDBFromLS = new Dexie(localStorage.getItem('uid'))
+//   setChatsDB(chatsDBFromLS)
+// }
+
+// chatsDB.version(1).stores({
+//   chats:
+//     `&chatId,
+//     chatName,
+//     members,
+//     admin,
+//     mods,
+//     tags,
+//     type`,
+//   messages:
+//     `chatId,
+//     sender,
+//     timestamp,
+//     content,
+//     sendPending,
+//     &s_uid,
+//     reactions, 
+//     replyTo,
+//     forwardedFrom,
+//     edited,
+//     delivered,
+//     seen`, // reaction:[{uemail,'emoji'},...], //replyTo: s_uid
+//   contacts:
+//     `&uemail,
+//     nickname,
+//     blocked,
+//     faved`
+// });
+
+// })()
+// },[])
+
 
 useEffect(()=> {
   console.log('chatui::UE::openlog:isLoggedIn',localStorage.getItem('isLoggedIn'));
@@ -85,10 +138,17 @@ useEffect(()=> {
   // IIFC
   (async()=> {
     try {
-    const res = await axios.get(SERVER_IP+'/chat-room',
+    const res = await axios.get(SERVER_IP+'/profile',
       {withCredentials: true});
       if(!res.data.code || localStorage.getItem('isLoggedIn') === 'false') {
         navigate('/sh-chat-fe/login')
+      }
+      else if(res.data.profile.uid !== localStorage.getItem('uid')) {
+        localStorage.setItem('uid',res.data.profile.uid);
+        if(!sessionStorage.getItem('reloadOnce')) {
+        window.location.reload();
+        }
+        sessionStorage.setItem("reloadOnce",'true')
       }      
     } catch {
       navigate('/sh-chat-fe/login')
@@ -106,6 +166,7 @@ useEffect(()=> {
     incomingMessages?.forEach(async message => {
       const exists = await chatsDB.messages.get(message.s_uid);
       if (!exists) {
+        message.read = false;
         chatsDB.messages.add(message)
       }
       console.log('uid',chatsDB.messages.where('s_uid').equals(message.s_uid).toArray())
@@ -115,6 +176,12 @@ useEffect(()=> {
     catch (err) {
       console.error('error in fetching/saving to IDB', err);
     }
+  })
+  socket.on('messagesToServerS',async (incomingSuid)=> {
+    console.log('#3',incomingSuid)
+    const {temp_uid, s_uid} = incomingSuid;
+    console.log('#4',temp_uid, typeof temp_uid, s_uid)
+    await chatsDB.messages.where("temp_uid").equals(temp_uid).modify({s_uid:s_uid})
   })
 
   // subs
@@ -150,6 +217,8 @@ useEffect(()=> {
   }
 
 },[])
+
+
 
 
 

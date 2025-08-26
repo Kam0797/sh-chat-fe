@@ -10,6 +10,7 @@ import MessageBubble from "../../components/reusables/message_bubble/MessageBubb
 export default function ChatScreen() {
   const { selectedChat, setSelectedChat, chatData, setChatData } = useContext(Context);
   setChatData(SelectAndLoadMessages(selectedChat,chatsDB))
+  console.log('#2',chatData)
 
 
   let messageFieldRef = useRef(null);
@@ -78,11 +79,13 @@ export default function ChatScreen() {
   //   return () =>
   //     window.visualViewport.removeEventListener("resize", updateHeight);
   // }, []);
+
   useEffect(()=> {
     const triggerScroll = () => {
-      window.scrollTo(0,60);
+      window.scrollTo(0,60,{behavior: 'smooth'});
       // setTimeout(()=> window.scrollTo(0,0))
     };
+    // window.height = 110%
     // triggerScroll();
     setTimeout(()=>triggerScroll(),2000)
 

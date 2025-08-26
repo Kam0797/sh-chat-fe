@@ -1,10 +1,11 @@
 
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import './MessageBubble.css'
+import { chatsDB } from '../../../utils/utils';
 
 export default function MessageBubble({mes}) {
 
-  // console.log('Phere',mes.timestamp, mes)
+  console.log('Phere', JSON.stringify(mes,0,1))
   const timeObject = new Date(mes.timestamp);
   const time = `${timeObject.getHours()}.${String(timeObject.getMinutes()).padStart(2, '0')}`
 
@@ -17,6 +18,26 @@ export default function MessageBubble({mes}) {
     console.log('style',messageRef.current.style.wordBreak)
     messageRef.current.style.wordBreak = messageRef.current.style.wordBreak=='break-all'?'normal':'break-all';
   }
+  async function markRead() {
+    if(!mes.s_uid) console.error('err#6: s_uid not found for ',mes.temp_uid)
+    await chatsDB.messages.where("s_uid").equals(mes.s_uid).modify({read: true})
+  }
+
+useEffect(()=> {
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry =>{
+      if(entry.isIntersecting) {
+        console.log('vis');
+        markRead();
+      }
+
+    })
+  },{
+    threshold: 1
+  });
+  observer.observe(messageRef.current)
+},[])
+
   return (
     <>
     <div className="message-bubble-wrapper" style={{justifyContent:bubbleAlignment}} >

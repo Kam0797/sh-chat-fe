@@ -3,32 +3,63 @@ import Dexie, {liveQuery} from "dexie";
 import { useObservable } from "react-use";
 
 
+const SERVER_IP = 
+window.location.hostname.startsWith('192.168')
+? 'http://192.168.60.94:3000'
+: 'https://sh-chat.onrender.com';
+let chatsDB;
 
+function makeChatsDB(DBName='dummy') {
+  if(DBName !== 'dummy' && /^[A-Za-z0-9]+$/.test(DBName)){
+  return new Dexie(DBName)
+  }
+  else {
+    return new Dexie('dummy')
+  }
+}
+// IIFC
+// async function makeChatsDB(userId) {
+//   const user = await axios.get(`${SERVER_IP}/profile`,{withCredentials: true})
+// const userId = user?.data.profile.uid;
+// console.log('UID',userId, user)
+let userId = localStorage.getItem('uid');
 // CUI
-const chatsDB = new Dexie('shChatListDB');
+chatsDB = makeChatsDB(userId)
+
 
 chatsDB.version(1).stores({
   chats:
-    `++id,
-    chatId,
+    `&chatId,
     chatName,
     members,
     admin,
     mods,
-    tags`,
+    tags,
+    type`,
   messages:
     `++id,
     chatId,
     sender,
     timestamp,
-    delivered,
     content,
     sendPending,
-    s_uid`,
+    s_uid,
+    temp_uid,
+    reactions, 
+    replyTo,
+    forwardedFrom,
+    edited,
+    read,
+    delivered,
+    seen`, // reaction:[{uemail,'emoji'},...], //replyTo: s_uid
   contacts:
-    `uemails,
-    nicknames`
+    `&uemail,
+    nickname,
+    blocked,
+    faved`
 });
+// }
+// }
 
 // DANGER ZONE ////// 
 // chatsDB.messages.where({s_uid: }).delete() be careful, verify before uncommenting
@@ -61,7 +92,8 @@ async function sendMessageToDB(messageText, selectedChat, DB) {
       sender: '',
       timestamp: Date.now(),
       content: messageText,
-      sendPending: 1
+      sendPending: 1,
+      temp_uid: `${Date.now()}${Math.floor(Math.random()*100)}`
     })
   }catch(err) {
     console.log('IDB error', err?.message);
@@ -99,7 +131,7 @@ async function createChat(memb_arr, SERVER_IP, DB, setSelectedChat) {
       });
       // await syncChats(); // so you cant take its declaration out of this scope ie, this file
       console.log('debug::chat saved')
-      setSelectedChat(chatId);
+      setSelectedChat(chatId); //should nav
       return 1;
     }
     else if(res.data.code == 2) { // this is compat, make it client side, refer chatDB.contacts? 
@@ -146,6 +178,7 @@ async function createChat(memb_arr, SERVER_IP, DB, setSelectedChat) {
 // }
 
 function SelectAndLoadMessages(selectedChat, DB) {
+  // console.log('#1',selectedChat,DB)
   const messages = useObservable( 
     liveQuery(()=>
       DB.messages
