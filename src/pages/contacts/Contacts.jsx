@@ -61,11 +61,12 @@ export default function Contacts() {
   async function handleCreateChat() {
     const res = await createChat(newChatMembers, SERVER_IP, chatsDB, setSelectedChat);
     console.log('res',res)
-    if(res == 1 || res == 2) {
+    if(res.code == 1 || res.code == 2) { //this 'code' is return by createChat, not server
       const chats = await syncChats(SERVER_IP, chatsDB)
       setChatList(chats);
+      navigate(`/sh-chat-fe/chat?chatId=${res.chatId}`)
       // setTimeout(()=>{console.log(selectedChat ); return setSelectedChat(res.chatId)},400)
-      setChatScreenMode('messaging')
+      // setChatScreenMode('messaging')
       console.log('sel',selectedChat )
     }
     else {

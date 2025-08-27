@@ -59,6 +59,7 @@ const ContextProvider = ({children})=> {
   const [chatList, setChatList] = useState([]);
   const [newMessages, setNewMessages] = useState(null)
   const [newOutboundMessages, setNewOutboundMessages] = useState(null)
+  const [contactsMap, setContactsMap] = useState()
 
   //settings stuff
   const profileTemplate = {
@@ -99,37 +100,50 @@ const ContextProvider = ({children})=> {
 //   setChatsDB(chatsDBFromLS)
 // }
 
-// chatsDB.version(1).stores({
-//   chats:
-//     `&chatId,
-//     chatName,
-//     members,
-//     admin,
-//     mods,
-//     tags,
-//     type`,
-//   messages:
-//     `chatId,
-//     sender,
-//     timestamp,
-//     content,
-//     sendPending,
-//     &s_uid,
-//     reactions, 
-//     replyTo,
-//     forwardedFrom,
-//     edited,
-//     delivered,
-//     seen`, // reaction:[{uemail,'emoji'},...], //replyTo: s_uid
-//   contacts:
-//     `&uemail,
-//     nickname,
-//     blocked,
-//     faved`
-// });
+async function makeContactsMap() {
+  const contactsArray = await chatsDB.contacts.toArray();
+  // console.log('#7:contacts',JSON.stringify(contacts,0,1))
+  const contacts = new Map();
+  contactsArray.map(({uemail, nickname}) => {
+    contacts.set(uemail, nickname)
+  })
+  console.log('fin:',contacts)
+  setContactsMap(contacts)
+}
+async function getAndSetContactsData() {
+  console.log('#9::works')
+  const allUemails = new Set();
+  const chatData = await chatsDB.chats.toArray();
+  console.log('#9::chatData::', chatData,Array.isArray(chatData), chatData.length > 0);
+  if(Array.isArray(chatData) && chatData.length > 0) {
+    console.log('#9::works2')
+    chatData.map(chat => {
+      chat?.members?.forEach(member=> {
+        console.log('#9::',member)
+        allUemails.add(member)
+      })
+    })
+  }
+  console.log('#9::AUMLS::', typeof allUemails, allUemails)
+  if(allUemails.size > 0) {
+    console.log('#9::suck')
+    try{
+    const nicknamesArray = await axios.post(`${SERVER_IP}/users/nicknames`,{users: [...allUemails]}, {withCredentials: true});
+    const nicknames = nicknamesArray.data.contacts;
+    console.log('#9::nick::',typeof nicknames, nicknames)
+    if(nicknames) {
+      nicknames.forEach(async ({uemail,nickname})=> {
+        console.log('#8contactsSync',uemail,nickname)
+        await chatsDB.contacts.put({uemail: uemail, nickname: nickname})
+      })
+    }
+  }catch(e) {
+    console.error('Error#1::',e)
+  }
+  }
+  await makeContactsMap();
+}
 
-// })()
-// },[])
 
 
 useEffect(()=> {
@@ -207,7 +221,7 @@ useEffect(()=> {
     console.log('SyncChats::ahole::')
     // chatMap.current = await chatsDB.chats.toArray();
   })()
-
+  getAndSetContactsData();
 
   // console.log(typeof chatList, chatList)
   return ()=> {
@@ -223,7 +237,7 @@ useEffect(()=> {
 
 
   return(
-    <Context.Provider value={{SERVER_IP, selectedChat, setSelectedChat, chatData, setChatData, chatMap, socket, chatScreenMode, setChatScreenMode, chatList, setChatList, CLRef, CSRef, newOutboundMessages, setNewOutboundMessages, newMessages, setNewMessages, profileData, setProfileData, outboundMessageStream}}>
+    <Context.Provider value={{SERVER_IP, selectedChat, setSelectedChat, chatData, setChatData, chatMap, socket, chatScreenMode, setChatScreenMode, chatList, setChatList, CLRef, CSRef, newOutboundMessages, setNewOutboundMessages, newMessages, setNewMessages, profileData, setProfileData, outboundMessageStream, contactsMap, setContactsMap}}>
       {children}
     </Context.Provider>
   )
