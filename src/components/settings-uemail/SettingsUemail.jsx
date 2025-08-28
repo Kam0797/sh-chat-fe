@@ -1,6 +1,6 @@
 import axios from 'axios'
 import styles from './SettingsUemail.module.css'
-import { useContext, useEffect, useRef } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Context } from '../../Context'
 import PopMenuFrame from '../reusables/pop-menu-frame/PopMenuFrame'
 import { useNavigate } from 'react-router-dom'
@@ -8,17 +8,19 @@ import { useNavigate } from 'react-router-dom'
 
 
 export default function SettingsUemail() {
-  const { profileData, setProfiledata } = useContext(Context)
+  const { profileData, setProfileData } = useContext(Context)
   const navigate = useNavigate();
 
-  let menuRef = useRef(null)
+  // let menuRef = useRef(null)
+  const [showPopup, setShowPopup] = useState(false)
 
   const {SERVER_IP} = useContext(Context)
 
   async function getProfile() {
-    const res = await axios.get(`${SERVER_IP}/chat-room`,{withCredentials:true})
-    const profileDataFromServer = res.profileData;
-    setProfiledata(profileDataFromServer)
+    const res = await axios.get(`${SERVER_IP}/profile`,{withCredentials:true})
+    const profileDataFromServer = res.data.profile;
+    console.log('#21',profileDataFromServer)
+    setProfileData(profileDataFromServer)
   }
   async function handleLogout() {
     // if(window.confirm("Click OK to logout")) {
@@ -34,13 +36,13 @@ export default function SettingsUemail() {
   }
   useEffect(()=> {
     getProfile();
-  },[profileData])
+  },[])
 
   return(
     <>
     <div className={styles.uemailWrapper}>
-      <label className={styles.uemailText}>{profileData.uemail}</label>
-      <button className={styles.optionsWrapper} onClick={()=> menuRef.current.style.display = 'flex'}>
+      <label className={styles.uemailText}>{profileData?.uemail}</label>
+      <button className={styles.optionsWrapper} onClick={()=> {setShowPopup(true);console.log('#15',showPopup)}} onBlur={()=> {setShowPopup(false);console.log('#16',showPopup)}}>
         <div className='options-dot'></div>
         <div className='options-dot'></div>
         <div className='options-dot'></div>
@@ -48,7 +50,7 @@ export default function SettingsUemail() {
       {/* <div className={styles.uemailMenuWrapper}>
         
       </div> */}
-      <PopMenuFrame ref={menuRef}>
+      <PopMenuFrame showPopup={showPopup} setShowPopup={setShowPopup}>
         <div className={styles.logoutButton} onClick={()=>handleLogout()}>Log out</div>
       </PopMenuFrame>
     </div>

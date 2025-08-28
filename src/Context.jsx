@@ -107,33 +107,24 @@ async function makeContactsMap() {
   contactsArray.map(({uemail, nickname}) => {
     contacts.set(uemail, nickname)
   })
-  console.log('fin:',contacts)
   setContactsMap(contacts)
 }
 async function getAndSetContactsData() {
-  console.log('#9::works')
   const allUemails = new Set();
   const chatData = await chatsDB.chats.toArray();
-  console.log('#9::chatData::', chatData,Array.isArray(chatData), chatData.length > 0);
   if(Array.isArray(chatData) && chatData.length > 0) {
-    console.log('#9::works2')
     chatData.map(chat => {
       chat?.members?.forEach(member=> {
-        console.log('#9::',member)
         allUemails.add(member)
       })
     })
   }
-  console.log('#9::AUMLS::', typeof allUemails, allUemails)
   if(allUemails.size > 0) {
-    console.log('#9::suck')
     try{
     const nicknamesArray = await axios.post(`${SERVER_IP}/users/nicknames`,{users: [...allUemails]}, {withCredentials: true});
     const nicknames = nicknamesArray.data.contacts;
-    console.log('#9::nick::',typeof nicknames, nicknames)
     if(nicknames) {
       nicknames.forEach(async ({uemail,nickname})=> {
-        console.log('#8contactsSync',uemail,nickname)
         await chatsDB.contacts.put({uemail: uemail, nickname: nickname})
       })
     }
@@ -143,6 +134,19 @@ async function getAndSetContactsData() {
   }
   await makeContactsMap();
 }
+
+useEffect(() => {
+  const updateHeight = () => {
+    document.documentElement.style.setProperty(
+      "--vh",
+      `${window.visualViewport.height * 0.01}px`
+    );
+  };
+  window.visualViewport.addEventListener("resize", updateHeight);
+  updateHeight();
+  return () =>
+    window.visualViewport.removeEventListener("resize", updateHeight);
+}, []);
 
 
 

@@ -1,14 +1,32 @@
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import './ChatListItem.css'
 import { Context } from '../../../Context';
 import { useNavigate } from 'react-router-dom';
-import { getChatName } from '../../../utils/utils';
+import { chatsDB, getChatName } from '../../../utils/utils';
 
 export default function ChatlistItem({chat}) {
-  const { setSelectedChat, contactsMap} = useContext(Context);
+  const { setSelectedChat, contactsMap, selectedChat} = useContext(Context);
   const navigate = useNavigate();
+  const [lastMessage, setLastMessage] = useState(null)
 
   const chatName = getChatName(chat, contactsMap)
+
+  async function getLastMessage(DB, chatId) {
+    const mes = await DB?.messages.where("chatId").equals(chatId).sortBy("timestamp");
+    const lastMes = mes.at(-1) ?? '';
+    setLastMessage(lastMes)
+  }
+  function formatTime(timestamp) {
+    if(!timestamp) return ''
+    const timeObj = new Date(timestamp);
+    const hours = timeObj.getHours().toString().padStart(2, '0')
+    const minutes = timeObj.getMinutes().toString().padStart(2, '0');
+    return `${hours}:${minutes}`;
+  }
+
+  useEffect(()=> {
+    (async()=>{getLastMessage(chatsDB, chat.chatId)})()
+  },[])
 
   // console.log('################',chat)
   return (
@@ -17,10 +35,10 @@ export default function ChatlistItem({chat}) {
       <div className='details-area'>
         <div className='name-time'>
           <div className='name'>{chatName}</div>
-          <div className='time'>{chat.chatId.slice(2,4)}</div>
+          <div className='time'>{formatTime(lastMessage?.timestamp)}</div>
         </div>
         <div className='message-notif'>
-          <div className='last-message'>{chat.chatId}</div>
+          <div className='last-message'>{lastMessage?.content}</div>
           <div className='notif'>{1}</div>
         </div>
       </div>

@@ -4,6 +4,11 @@
   font-family: Sans;
   transition: all 0.1s ease-in-out;
 } 
+
+html, body {
+  overscroll-behavior-y: contain; 
+  /* ^disable pull-to-reload */
+}
 button, select, input , input:focus , textarea, textarea:focus {
   margin: 0;
   background: 0;
@@ -17,15 +22,17 @@ button, select, input , input:focus , textarea, textarea:focus {
 :root {
   --chatlist-item-bg: #1d1a4745;
   --message-color-cl: #000000bb;
-  --message-send-area-bg: #c8c9b2;
+  --message-send-area-bg: #c8c9b299;
   --chat-area-bg: #441f1f50;
   --chat-area-placeholder-bg: linear-gradient(45deg,#407080,#70804088);
+  --settings-page-bg: #AAA;
+  --settings-item-bg: #BBB;
 
   /* convention: --var-name-scheme: THEME-THING-WHATEVER-MORE; */
   /* the mode may be CAPS-ed, i dont want to override CSS conv [your conv sucks. may have to *drop* it ]*/
   --text-color: #AAA; /*text in light mode [it-IS-dark]*/
 
-  --settings-menu-frame-bg: #121212BB;
+  --settings-menu-frame-bg: #121212BB; /*dt*/
 
   --logout-button-bg: #910505d3;
 

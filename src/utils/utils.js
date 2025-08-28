@@ -233,13 +233,11 @@ async function syncChats(SERVER_IP, DB) {
 
 function getChatName(meta, contactsMap) {
   let chatName;
-  console.log('#11 works')
   // this func is a try on onliners. 
   if(meta && contactsMap){
     if(meta.members.size > 2) {
       if(meta.chatName) return meta.chatName;
       chatName =  meta.members.map(member => (contactsMap.get(member))).join('-')
-      console.log('#11:1:chatName',chatName)
       return chatName;
     }
     else{
