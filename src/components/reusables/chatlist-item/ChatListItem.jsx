@@ -9,7 +9,8 @@ export default function ChatlistItem({chat}) {
   const navigate = useNavigate();
   const [lastMessage, setLastMessage] = useState(null)
 
-  const chatName = getChatName(chat, contactsMap)
+  // const chatName = getChatName(chat, contactsMap)
+  // console.log('#12.1::',chatName)
 
   async function getLastMessage(DB, chatId) {
     const mes = await DB?.messages.where("chatId").equals(chatId).sortBy("timestamp");
@@ -31,10 +32,10 @@ export default function ChatlistItem({chat}) {
   // console.log('################',chat)
   return (
     <button className='chat-list-item' onClick={()=>{ navigate(`/sh-chat-fe/chat?chatId=${chat.chatId}`)} }>
-      <div className='profile-pic'>{chatName?.slice(0,2)}</div>
+      <div className='profile-pic'>{getChatName(chat, contactsMap)?.slice(0,2)}</div>
       <div className='details-area'>
         <div className='name-time'>
-          <div className='name'>{chatName}</div>
+          <div className='name'>{getChatName(chat, contactsMap)}</div>
           <div className='time'>{formatTime(lastMessage?.timestamp)}</div>
         </div>
         <div className='message-notif'>

@@ -208,7 +208,7 @@ async function syncChats(SERVER_IP, DB) {
     const chatsFromServer = Chats.data.chats;
     const chats = chatsFromServer.map(chat => ({
       chatId: chat.chatId,
-      chatName: chat.members.join('-'),
+      chatName: '',
       members: chat.members,
       admin: chat.admin,
       mods: chat.mods
@@ -235,9 +235,9 @@ function getChatName(meta, contactsMap) {
   let chatName;
   // this func is a try on onliners. 
   if(meta && contactsMap){
-    if(meta.members.size > 2) {
+    if(meta.members.length > 2) {
       if(meta.chatName) return meta.chatName;
-      chatName =  meta.members.map(member => (contactsMap.get(member))).join('-')
+      chatName =  meta.members.map(member => (contactsMap.get(member))).join('-');
       return chatName;
     }
     else{
