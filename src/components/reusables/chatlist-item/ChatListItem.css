@@ -7,7 +7,8 @@
   /* border: 1px dotted red; */
   min-height: 70px;
   background: var(--chatlist-item-bg);
-  padding: 5px
+  padding: 5px;
+  /* border-bottom: 1px solid var(--chatlist-item-bg); */
 }
 .profile-pic {
   height: 85%;

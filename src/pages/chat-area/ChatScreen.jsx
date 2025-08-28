@@ -4,11 +4,11 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { Context } from "../../Context";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
-import { chatsDB, sendMessageToDB, SelectAndLoadMessages } from "../../utils/utils";
+import { chatsDB, sendMessageToDB, SelectAndLoadMessages, getChatName } from "../../utils/utils";
 import MessageBubble from "../../components/reusables/message_bubble/MessageBubble";
 
 export default function ChatScreen() {
-  const { selectedChat, setSelectedChat, chatData, setChatData } = useContext(Context);
+  const { selectedChat, setSelectedChat, chatData, setChatData, contactsMap } = useContext(Context);
   setChatData(SelectAndLoadMessages(selectedChat,chatsDB))
   console.log('#2',chatData)
 
@@ -56,6 +56,24 @@ export default function ChatScreen() {
     textarea.style.height = textarea.scrollHeight  + "px";
   }
 
+  // function getChatName(meta, contactsMap) {
+  //   let chatName;
+  //   console.log('#11 works')
+  //   // this func is a try on onliners. 
+  //   if(meta && contactsMap){
+  //     if(meta.members.size > 2) {
+  //       if(meta.chatName) return meta.chatName;
+  //       chatName =  meta.members.map(member => (contactsMap.get(member))).join('-')
+  //       console.log('#11:1:chatName',chatName)
+  //       return chatName;
+  //     }
+  //     else{
+  //       chatName = meta.members[0] === localStorage.getItem('uemail')?contactsMap.get(meta.members[1]):contactsMap.get(meta.members[0]);
+  //       return chatName;
+  //     }
+  //   }
+  // }
+
   useEffect(() => {
     if (!selectedChat) return;
 
@@ -100,6 +118,7 @@ useEffect(()=> {
   chatAreaRef.current.scrollTo({top: chatAreaRef.current.scrollHeight, behavior: 'smooth'})
   }
 },[chatData])
+// console.log('#10:',contactsMap.get(meta.members[0]).slice(0, 2))
 
   return (
     <div className="chat-screen-wrapper smooth-scroll">
@@ -110,10 +129,10 @@ useEffect(()=> {
               className="profile-pic chat-back-button"
               onClick={() => navigate('/sh-chat-fe/')}
             >
-              {meta && meta.members[0].slice(0, 2)}
+              {getChatName(meta, contactsMap)?.slice(0,2)}
             </button>
             <div className="details-area">
-              <div className="chat-name">{meta && meta.members.join("-")}</div>
+              <div className="chat-name">{getChatName(meta, contactsMap)}</div>
               <div className="status">{"not online"}</div>
             </div>
             <div className="options-area">{"opt"}</div>
@@ -134,6 +153,7 @@ useEffect(()=> {
               onInput={() => updateTextAreaHeight()}
             />
             <button
+
               className="message-send-button"
               ref={sendButtonRef}
               onClick={() => {

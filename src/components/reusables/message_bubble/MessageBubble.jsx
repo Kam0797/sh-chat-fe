@@ -5,7 +5,7 @@ import { chatsDB } from '../../../utils/utils';
 
 export default function MessageBubble({mes}) {
 
-  console.log('Phere', JSON.stringify(mes,0,1))
+  // console.log('Phere', JSON.stringify(mes,0,1))
   const timeObject = new Date(mes.timestamp);
   const time = `${timeObject.getHours()}.${String(timeObject.getMinutes()).padStart(2, '0')}`
 
@@ -44,7 +44,7 @@ useEffect(()=> {
       <div className="message-bubble" style={{borderRadius: bubbleBorderRadius}} onClick={()=>changeWrap()}>
         <div className="message" ref={messageRef} >{mes.content} </div>
         <div className="message-info">
-          <div className="message-delivery-status">~</div>
+          <div className="message-delivery-status">{mes.s_uid && !mes.sender? '\u2726':null}</div> 
           <div className="mesaage-time">{time} </div>
         </div>
       </div>

@@ -40,5 +40,7 @@
 .message-delivery-status {
   display: flex;
   justify-content: flex-end;
-  align-items: flex-end;
+  align-items: center;
+  font-size: 0.6rem;
+  /* border: 1px solid */
 }

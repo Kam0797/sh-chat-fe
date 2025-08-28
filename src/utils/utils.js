@@ -131,18 +131,19 @@ async function createChat(memb_arr, SERVER_IP, DB, setSelectedChat) {
       });
       // await syncChats(); // so you cant take its declaration out of this scope ie, this file
       console.log('debug::chat saved')
-      setSelectedChat(chatId); //should nav
-      return 1;
+      // setSelectedChat(chatId); //should nav
+      return {code: 1, chatId: chatId};
     }
     else if(res.data.code == 2) { // this is compat, make it client side, refer chatDB.contacts? 
       console.log('debug::i see');
-      setSelectedChat(res.data.chatId.chatId);
-      return 2;
+      // setSelectedChat(res.data.chatId.chatId);
+      return {code: 1, chatId: res.data.chatId.chatId};
+      ;
     }
     console.log('ressssss', res.data.code, res.data.codeMsg)
   } catch(err) {
     console.error('Server error');
-    return 0;
+    return {code:0, chatId: null};
   }
 }
 
@@ -230,7 +231,23 @@ async function syncChats(SERVER_IP, DB) {
   }
 }
 
+function getChatName(meta, contactsMap) {
+  let chatName;
+  // this func is a try on onliners. 
+  if(meta && contactsMap){
+    if(meta.members.size > 2) {
+      if(meta.chatName) return meta.chatName;
+      chatName =  meta.members.map(member => (contactsMap.get(member))).join('-')
+      return chatName;
+    }
+    else{
+      chatName = meta.members[0] === localStorage.getItem('uemail')?contactsMap.get(meta.members[1]):contactsMap.get(meta.members[0]);
+      return chatName;
+    }
+  }
+}
 
 
 
-export { chatsDB, sendMessageToDB, sendMessage, createChat, SelectAndLoadMessages, syncChats }
+
+export { chatsDB, sendMessageToDB, sendMessage, createChat, SelectAndLoadMessages, syncChats, getChatName }
