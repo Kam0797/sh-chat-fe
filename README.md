@@ -1,12 +1,33 @@
-# React + Vite
+# Official frontend of sh-chat messaging platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<img src='./public/sh_chat_logo.svg' height='200' width='2000' >
 
-Currently, two official plugins are available:
+Try it [here](kam0797.github.io/sh-chat-fe/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### About Sh_chat
 
-## Expanding the ESLint configuration
+Sh_chat is a messaging app built with MERN stack and webSockets.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+##### Major dependencies
+
+- React [Frontend]
+
+- Express.js/Node [Backend]
+
+- MongoDB [DB]
+
+- Socket.io
+
+##### Other deps
+
+see package.json
+
+### The Backend
+
+Backend of this app is hosted on [Render](https://render.com), for source code, see [here](https://github.com/kam0797/sh-chat/)
+
+
+
+### mentions
+
+- Telegram: inspiration, ideas and yeah- the logo
