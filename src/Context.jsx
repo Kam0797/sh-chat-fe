@@ -59,7 +59,7 @@ const ContextProvider = ({children})=> {
   const [chatList, setChatList] = useState([]);
   const [newMessages, setNewMessages] = useState(null)
   const [newOutboundMessages, setNewOutboundMessages] = useState(null)
-  const [contactsMap, setContactsMap] = useState()
+  const [contactsMap, setContactsMap] = useState(new Map())
 
   //settings stuff
   const profileTemplate = {
@@ -242,7 +242,7 @@ useEffect(()=> {
 
 
   return(
-    <Context.Provider value={{SERVER_IP, selectedChat, setSelectedChat, chatData, setChatData, chatMap, socket, chatScreenMode, setChatScreenMode, chatList, setChatList, CLRef, CSRef, newOutboundMessages, setNewOutboundMessages, newMessages, setNewMessages, profileData, setProfileData, outboundMessageStream, contactsMap, setContactsMap}}>
+    <Context.Provider value={{SERVER_IP, selectedChat, setSelectedChat, chatData, setChatData, chatMap, socket, chatScreenMode, setChatScreenMode, chatList, setChatList, CLRef, CSRef, newOutboundMessages, setNewOutboundMessages, newMessages, setNewMessages, profileData, setProfileData, outboundMessageStream, contactsMap, setContactsMap, getAndSetContactsData}}>
       {children}
     </Context.Provider>
   )

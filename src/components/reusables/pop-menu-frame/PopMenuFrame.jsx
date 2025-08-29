@@ -1,7 +1,6 @@
 import styles from "./PopMenuFrame.module.css";
 
 export default function PopMenuFrame({ children, showPopup, setShowPopup }) {
-console.log('#20',showPopup)
   return (
     <>
       {showPopup && (
