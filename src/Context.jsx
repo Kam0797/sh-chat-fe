@@ -120,6 +120,7 @@ async function getAndSetContactsData() {
     })
   }
   if(allUemails.size > 0) {
+    await makeContactsMap(); // load from IDB
     try{
     const nicknamesArray = await axios.post(`${SERVER_IP}/users/nicknames`,{users: [...allUemails]}, {withCredentials: true});
     const nicknames = nicknamesArray.data.contacts;
@@ -132,7 +133,7 @@ async function getAndSetContactsData() {
     console.error('Error#1::',e)
   }
   }
-  await makeContactsMap();
+  await makeContactsMap(); // after server fetch
 }
 
 useEffect(() => {
