@@ -5,10 +5,11 @@
   transition: all 0.1s ease-in-out;
 } 
 
-html, body {
+/* html, body { // this is template
   overscroll-behavior-y: contain; 
-  /* ^disable pull-to-reload */
-}
+   ^disable pull-to-reload 
+} */
+ 
 button, select, input , input:focus , textarea, textarea:focus {
   margin: 0;
   background: 0;

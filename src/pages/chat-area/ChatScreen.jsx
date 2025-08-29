@@ -105,12 +105,15 @@ export default function ChatScreen() {
     };
     // window.height = 110%
     // triggerScroll();
-    setTimeout(()=>triggerScroll(),2000)
+    setTimeout(()=>triggerScroll(),2000);
+    const body = document.querySelector('html')
+    body.classList.add('disablePTR')
 
     window.addEventListener("resize", triggerScroll);
 
     return()=> {
-      window.removeEventListener("resize", triggerScroll)
+      window.removeEventListener("resize", triggerScroll);
+      if(body.classList.contains('disablePTR')) body.classList.remove('disablePTR')
     };
   },[])
 useEffect(()=> {
