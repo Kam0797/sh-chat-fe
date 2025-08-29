@@ -64,8 +64,8 @@ export default function Contacts() {
   function addMemberFromList(newMemEmail) {
     if (
       contactsMap &&
-      !contactsMap.has(newMemEmail) &&
-      newChatMembers.includes(newMemEmail)
+      (!contactsMap.has(newMemEmail) ||
+      newChatMembers.includes(newMemEmail))
     )
       return;
     setNewChatMembers((newChatMembers) => [...newChatMembers, newMemEmail]);
