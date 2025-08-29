@@ -46,6 +46,9 @@
   {handled in ChatList.css}
 } */
 
+.chat-back-button {
+  cursor: pointer;
+}
 
 .chat-area {
   background: var(--chat-area-bg) ;

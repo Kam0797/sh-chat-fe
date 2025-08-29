@@ -4,14 +4,19 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { Context } from "../../Context";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
-import { chatsDB, sendMessageToDB, SelectAndLoadMessages, getChatName } from "../../utils/utils";
+import {
+  chatsDB,
+  sendMessageToDB,
+  SelectAndLoadMessages,
+  getChatName,
+} from "../../utils/utils";
 import MessageBubble from "../../components/reusables/message_bubble/MessageBubble";
 
 export default function ChatScreen() {
-  const { selectedChat, setSelectedChat, chatData, setChatData, contactsMap } = useContext(Context);
-  setChatData(SelectAndLoadMessages(selectedChat,chatsDB))
-  console.log('#2',chatData)
-
+  const { selectedChat, setSelectedChat, chatData, setChatData, contactsMap } =
+    useContext(Context);
+  setChatData(SelectAndLoadMessages(selectedChat, chatsDB));
+  console.log("#2", chatData);
 
   let messageFieldRef = useRef(null);
   let sendButtonRef = useRef(null);
@@ -19,47 +24,53 @@ export default function ChatScreen() {
   // console.log('fook', chatMap.current)
   const [meta, setMeta] = useState(null); // data of chat profile
   const navigate = useNavigate();
-  
+
   const [searchParam] = useSearchParams();
 
-  const currentChatId = searchParam.get('chatId');
+  const currentChatId = searchParam.get("chatId");
   // console.log('debug::SP::currentChatId',currentChatId);
   // setSelectedChat(currentChatId);
-  (async()=>{
+  (async () => {
     try {
-      const chatIdObj = await chatsDB.chats.where('chatId').equals(currentChatId).first();
+      const chatIdObj = await chatsDB.chats
+        .where("chatId")
+        .equals(currentChatId)
+        .first();
       const validChatId = chatIdObj?.chatId;
-      setSelectedChat(validChatId)
+      setSelectedChat(validChatId);
     } catch {
-      setSelectedChat(null)
+      setSelectedChat(null);
     }
-  })()
+  })();
   // console.log('debug::CS:', typeof chatData, chatData);
 
   function handleSend() {
     sendMessageToDB(messageFieldRef.current.value, selectedChat, chatsDB);
     messageFieldRef.current.value = "";
     updateTextAreaHeight(true);
- }
+  }
 
-  function updateTextAreaHeight(fly=false) {
+  function updateTextAreaHeight(fly = false) {
     const textarea = messageFieldRef.current;
-    if (textarea.value.trim() == "" ) {
+    if (textarea.value.trim() == "") {
       textarea.style.height = "55px";
-      if(!fly) sendButtonRef.current.style.animation = 'button-slide-out .5s ease-in-out forwards'
+      if (!fly)
+        sendButtonRef.current.style.animation =
+          "button-slide-out .5s ease-in-out forwards";
       return;
     } else {
-      sendButtonRef.current.style.animation = 'button-slide-in .5s ease-in-out forwards'
+      sendButtonRef.current.style.animation =
+        "button-slide-in .5s ease-in-out forwards";
     }
     textarea.style.height = "0px";
-    console.log('scrollheight:',textarea.scrollHeight)
-    textarea.style.height = textarea.scrollHeight  + "px";
+    console.log("scrollheight:", textarea.scrollHeight);
+    textarea.style.height = textarea.scrollHeight + "px";
   }
 
   // function getChatName(meta, contactsMap) {
   //   let chatName;
   //   console.log('#11 works')
-  //   // this func is a try on onliners. 
+  //   // this func is a try on onliners.
   //   if(meta && contactsMap){
   //     if(meta.members.size > 2) {
   //       if(meta.chatName) return meta.chatName;
@@ -76,7 +87,7 @@ export default function ChatScreen() {
 
   useEffect(() => {
     if (!selectedChat) return;
-
+    
     chatsDB.chats
       .where("chatId")
       .equals(selectedChat)
@@ -98,30 +109,33 @@ export default function ChatScreen() {
   //     window.visualViewport.removeEventListener("resize", updateHeight);
   // }, []);
 
-  useEffect(()=> {
+  useEffect(() => {
     const triggerScroll = () => {
-      window.scrollTo(0,60,{behavior: 'smooth'});
+      window.scrollTo(0, 60, { behavior: "smooth" });
       // setTimeout(()=> window.scrollTo(0,0))
     };
     // window.height = 110%
     // triggerScroll();
-    setTimeout(()=>triggerScroll(),2000);
-    const body = document.querySelector('html')
-    body.classList.add('disablePTR')
+    setTimeout(() => triggerScroll(), 2000);
+    const body = document.querySelector("html");
+    body.classList.add("disablePTR");
 
     window.addEventListener("resize", triggerScroll);
 
-    return()=> {
+    return () => {
       window.removeEventListener("resize", triggerScroll);
-      if(body.classList.contains('disablePTR')) body.classList.remove('disablePTR')
+      if (body.classList.contains("disablePTR"))
+        body.classList.remove("disablePTR");
     };
-  },[])
-useEffect(()=> {
-  if(chatAreaRef.current){
-  chatAreaRef.current.scrollTo({top: chatAreaRef.current.scrollHeight, behavior: 'smooth'})
-  }
-},[chatData])
-// console.log('#10:',contactsMap.get(meta.members[0]).slice(0, 2))
+  }, []);
+  useEffect(() => {
+    if (chatAreaRef.current) {
+      chatAreaRef.current.scrollTo({
+        top: chatAreaRef.current.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+  }, [chatData]);
 
   return (
     <div className="chat-screen-wrapper smooth-scroll">
@@ -130,9 +144,9 @@ useEffect(()=> {
           <div className="chat-screen-top-bar">
             <button
               className="profile-pic chat-back-button"
-              onClick={() => navigate('/sh-chat-fe/')}
+              onClick={() => navigate("/sh-chat-fe/")}
             >
-              {getChatName(meta, contactsMap)?.slice(0,2)}
+              {getChatName(meta, contactsMap)?.slice(0, 2)}
             </button>
             <div className="details-area">
               <div className="chat-name">{getChatName(meta, contactsMap)}</div>
@@ -156,12 +170,13 @@ useEffect(()=> {
               onInput={() => updateTextAreaHeight()}
             />
             <button
-
               className="message-send-button"
               ref={sendButtonRef}
               onClick={() => {
                 console.log("text:::", messageFieldRef.current.value);
-                if(messageFieldRef.current.value.trim()!='') sendButtonRef.current.style.animation = 'button-fly-send .5s ease-in-out forwards';
+                if (messageFieldRef.current.value.trim() != "")
+                  sendButtonRef.current.style.animation =
+                    "button-fly-send .5s ease-in-out forwards";
                 messageFieldRef.current.focus();
                 handleSend();
               }}
@@ -181,7 +196,7 @@ useEffect(()=> {
           {/* </div> */}
         </>
       )}
-      {!selectedChat && (
+      {/* {!selectedChat && (
         <>
           <p className="profile-pic chat-screen-alt">
             <b>Sh_chat</b>
@@ -189,7 +204,7 @@ useEffect(()=> {
             <br /> Click on a chat!
           </p>
         </>
-      )}
+      )} */}
     </div>
   );
 }

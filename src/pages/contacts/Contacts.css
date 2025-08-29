@@ -5,6 +5,7 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
+  background: var(--chat-area-bg);
 }
 .contacts-header {
   border: 1px solid yellow;
@@ -17,13 +18,13 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  width: 15%;
   font-size: 20px;
+  font-weight: 900;
   /* border: 1px solid; */
-  height: 100%;
   overflow: hidden;
-  padding: 0 0 0 5px;
+  padding: 4px 7px;
   cursor: pointer;
+  border-radius: 50%;
 }
 .contacts-search-area {
   border: 1px dashed red;
@@ -41,7 +42,8 @@
   background: #80808035;
   border-radius: 4px;
   flex: 5;
-  padding: 1px 1px 1px 5px
+  padding: 1px 1px 1px 5px;
+  font-size: 1.2rem
 }
 .new-chat-button {
   display: flex;
@@ -56,17 +58,23 @@
 .selected-members-area {
   display: flex;
   flex-wrap: wrap;
+  gap: 5px;
 }
+.add-5pd {
+  padding: 5px;
+}
+
 .contacts-list-wrapper {
   border: 1px solid;
   padding: 5px;
   height: 100%
 }
 .contacts-list {
-  border: 1px dotted red;
-  height: 100%
-}
-.selected-members-area {
   display: flex;
-  gap: 5px;
+  flex-direction: column;
+  gap: 1px;
+  border: 1px dotted red;
+  height: 100%;
+  border-radius: 10px;
+  overflow: hidden;
 }

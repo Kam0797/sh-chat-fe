@@ -19,7 +19,6 @@ export default function SettingsUemail() {
   async function getProfile() {
     const res = await axios.get(`${SERVER_IP}/profile`,{withCredentials:true})
     const profileDataFromServer = res.data.profile;
-    console.log('#21',profileDataFromServer)
     setProfileData(profileDataFromServer)
   }
   async function handleLogout() {

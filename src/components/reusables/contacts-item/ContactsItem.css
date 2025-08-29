@@ -1,0 +1,63 @@
+
+
+.contacts-item-wrapper {
+  /* see ChatListItem.css/.chat-list-item */
+  position: relative;
+}
+
+.contact-email {
+  display: flex;
+  
+  /* border: 1px dotted; */
+  width: 100%;
+  height: 70%;
+  justify-content: flex-start;
+  align-items: center;
+}
+.contact-name {
+  display: flex;
+  /* border: 1px dotted; */
+  width: 100%;
+  height: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 1.5rem;
+}
+.c-name-email-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 70%;
+}
+.contact-status {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  /* border: 1px solid green; */
+  height: 100%;
+  width: clamp(25px,15%,35px)
+}
+.add-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.profile-pic {
+  /* aspect-ratio: 1/1; */
+  height: 85%;
+}
+.add-up {
+  display: flex;
+  /* border: 1px solid; */
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  aspect-ratio: 1/1;
+  font-weight: 900;
+  margin-right: 10px;
+  /* outline: 1px solid;
+  outline-offset: 5px; */
+  cursor: pointer;
+  border-radius: 50%;
+  user-select: none;
+}
