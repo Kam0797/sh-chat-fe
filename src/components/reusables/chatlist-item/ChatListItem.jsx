@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { chatsDB, getChatName } from '../../../utils/utils';
 
 export default function ChatlistItem({chat}) {
-  const { setSelectedChat, contactsMap, selectedChat} = useContext(Context);
+  const { setSelectedChat, contactsMap, selectedChat, unreadMap} = useContext(Context);
   const navigate = useNavigate();
   const [lastMessage, setLastMessage] = useState(null)
 
@@ -27,20 +27,25 @@ export default function ChatlistItem({chat}) {
 
   useEffect(()=> {
     (async()=>{getLastMessage(chatsDB, chat.chatId)})()
-  },[])
+  },[unreadMap])
+
+  useEffect(()=> {
+    console.log('URmap',unreadMap)
+  },[unreadMap])
 
   // console.log('################',chat)
   return (
+    lastMessage &&
     <button className='chat-list-item' onClick={()=>{ navigate(`/sh-chat-fe/chat?chatId=${chat.chatId}`)} }>
-      <div className='profile-pic'>{getChatName(chat, contactsMap)?.slice(0,2)}</div>
+      <div className='profile-pic f-jbm'>{getChatName(chat, contactsMap)?.slice(0,2)}</div>
       <div className='details-area'>
         <div className='name-time'>
-          <div className='name'>{getChatName(chat, contactsMap)}</div>
-          <div className='time'>{formatTime(lastMessage?.timestamp)}</div>
+          <div className='name'><span className='add-ellipsis f-nunito'>{getChatName(chat, contactsMap)}</span></div>
+          <div className='time f-jbm'>{formatTime(lastMessage?.timestamp)}</div>
         </div>
-        <div className='message-notif'>
-          <div className='last-message'>{lastMessage?.content}</div>
-          <div className='notif'>{1}</div>
+        <div className='message-unreadcount'>
+          <div className='last-message'><span className='add-ellipsis f-m'>{lastMessage?.content}</span></div>
+          {unreadMap?.get(chat.chatId) && <div className='unread-count'>{unreadMap?.get(chat.chatId) < 100 ? unreadMap?.get(chat.chatId) : '99+'}</div>}
         </div>
       </div>
     </button>

@@ -1,3 +1,6 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap'); */
+
+
 *{
   padding: 0;
   margin: 0;
@@ -9,7 +12,11 @@
   overscroll-behavior-y: contain; 
    ^disable pull-to-reload 
 } */
- 
+
+/* body {
+  font-family: ;
+} */
+
 button, select, input , input:focus , textarea, textarea:focus {
   margin: 0;
   background: 0;
@@ -23,15 +30,26 @@ button, select, input , input:focus , textarea, textarea:focus {
 :root {
   --chatlist-item-bg: #1d1a4745;
   --message-color-cl: #000000bb;
-  --message-send-area-bg: #c8c9b299;
-  --chat-area-bg: #441f1f50;
-  --chat-area-placeholder-bg: linear-gradient(45deg,#407080,#70804088);
+  --message-send-area-bg: #6ba6c999;
+  --message-send-area-text: #fff1f1;
+  --message-bubble-bg: #1bb68f ;
+  /* --chat-area-bg: #441f1f50; */
+  --chat-area-bg: var(--chat-area-placeholder-bg);
+  --chat-area-placeholder-bg: linear-gradient(65deg,#407080,#143c49,#70804088);
+  --chat-screen-wrapper-bg: linear-gradient(90deg, #143c49, #407080);
+  --chat-screen-top-bar-text: rgb(175, 209, 236);
+  --settings-nickname-text: var(--chat-screen-top-bar-text);
   --settings-page-bg: #AAA;
-  --settings-item-bg: #BBB;
+  --settings-item-bg: #BBBBBB;
+  /* --settings-profile-nickname: var(--text-color); */
+  /* --profile-cover-bg: #999; */
+  --profile-cover-bg: var(--chat-area-placeholder-bg) ;
+  --profile-pic-bg-temp: #c5b039;
+  /* introduce random colors^ */
 
   /* convention: --var-name-scheme: THEME-THING-WHATEVER-MORE; */
   /* the mode may be CAPS-ed, i dont want to override CSS conv [your conv sucks. may have to *drop* it ]*/
-  --text-color: #AAA; /*text in light mode [it-IS-dark]*/
+  --text-color: #050404; /*text in light mode [it-IS-dark]*/
 
   --settings-menu-frame-bg: #121212BB; /*dt*/
 
@@ -39,5 +57,4 @@ button, select, input , input:focus , textarea, textarea:focus {
 
 
 
-  /* --dark-text: #AAA; */
 }

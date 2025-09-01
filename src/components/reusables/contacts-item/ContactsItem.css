@@ -7,10 +7,11 @@
 
 .contact-email {
   display: flex;
-  
   /* border: 1px dotted; */
   width: 100%;
   height: 70%;
+  font-weight: 100;
+  font-size: 0.9rem;
   justify-content: flex-start;
   align-items: center;
 }
@@ -28,6 +29,7 @@
   flex-direction: column;
   height: 100%;
   width: 70%;
+  position: relative;
 }
 .contact-status {
   display: flex;
@@ -39,8 +41,11 @@
   width: clamp(25px,15%,35px)
 }
 .add-ellipsis {
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  /* background-color: red; */
+  /* border: 1px solid; */
 }
 .profile-pic {
   /* aspect-ratio: 1/1; */
@@ -61,3 +66,28 @@
   border-radius: 50%;
   user-select: none;
 }
+.open-chat {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  /* border: 1px solid; */
+  font-size: 2.5rem;
+  padding: 5px;
+  transform: translateY(-50%) rotate(300deg);
+  cursor: pointer;
+  border-radius: 50%;
+  transition: transform 0.2s ease-in-out;
+}
+.open-chat:hover {
+  transform: translateY(-50%) rotate(300deg) scale(1.5);
+  transition: transform 0.2s ease-in-out;
+}
+
+
+/* for high-dpi-screens :phones :touchscreens */
+@media (pointer: coarse) {
+  .open-chat {
+    font-size: 1.8rem;
+  }
+}
+

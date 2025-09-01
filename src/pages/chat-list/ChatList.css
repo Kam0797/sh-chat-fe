@@ -111,3 +111,9 @@
   position: fixed;
   } 
 }
+
+@media (min-width: 650px) {
+  .chat-list-wrapper {
+    max-width: 50vw
+  }
+}

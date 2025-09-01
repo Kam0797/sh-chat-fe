@@ -1,4 +1,9 @@
 // import { useState } from 'react'
+import "@fontsource/noto-sans";
+import "@fontsource/jetbrains-mono"
+import "@fontsource/montserrat"
+import "@fontsource/nunito"
+
 import "./App.css";
 
 import AppRoutes from "./routes/AppRoutes";

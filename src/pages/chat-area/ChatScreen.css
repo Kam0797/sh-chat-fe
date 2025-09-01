@@ -3,7 +3,7 @@
   flex: 1;
   flex-direction: column;
   justify-content: space-between;
-  /* height: 100dvh; */
+  height: 100dvh;
    /*^doesnt work as expected see App.css/ui-wrapper/height for info */ 
   /* max-height: calc(var(--vh)*100); */
   /* height: 100%; */
@@ -11,6 +11,8 @@
   /* border: 2px dashed green; */
   flex:1;
   overflow: hidden;
+  position: relative;
+  background: var(--chat-screen-wrapper-bg);
 
 }
 .disablePTR {
@@ -22,21 +24,26 @@
 } */
 
 
-.smooth-scroll  {
+/* .smooth-scroll  {
   transition: scroll 1s ease-in-out;
-}
+} */
 .chat-screen-top-bar {
   display: flex;
   height: 70px;
   width: 100%;
-  border: 1px solid grey;
+  /* border: 1px solid grey; */
   justify-content: space-between;
   align-items: center;
+  /* background: var(--chat-screen-top-bar-bg); */
+  color: var(--chat-screen-top-bar-text);
+
 }
 
 .chat-name {
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
+  /* max-width: 80%; */
+  display: flex;
 }
 .status {
   font-weight: 300;
@@ -59,13 +66,15 @@
   /* justify-content: flex-end; */
   gap: 3px;
   height:100%;
-  padding: 15px 4px
+  padding: 15px 6px 65px 6px;
+  border-radius: 15px 15px 0 0;
 }
 .message-send-area {
   /* border: px dotted;  */
-  min-height: 60px;
+  /* min-height: 60px; */
+  height: 1px;
   /* height: 45px; */
-  background: var(--chat-area-bg);
+  /* background: var(--message-send-area-bg); */
   display: flex;
   /* justify-content: flex-end; */
   position: relative;
@@ -89,7 +98,12 @@
   bottom: -15px;
   left: 0;
   transition: width 0.5s ease-in-out;
+  color: var(--message-send-area-text)
 }
+.message-send-text::placeholder {
+  color: var(--message-send-area-text)
+}
+
 .shrink-mes-box {
   width: calc(100% - 260px)
 }
@@ -133,5 +147,16 @@
 }
 /* .send-button-logo-path {
   stroke: #000
+} */
+
+/* @media (min-width: 650px) {
+  .chat-screen-wrapper {
+    max-width: 50vw;
+  }
+}
+@media (max-width: 650px) {
+  .chat-screen-wrapper {
+    min-width: 100vw
+  }
 } */
 

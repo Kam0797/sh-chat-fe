@@ -13,7 +13,8 @@
   justify-content: space-between;
   padding: 4px 3px 13px 6px;
   position: relative;
-  background: #6a93a0BB;
+  /* background: #6a93a0BB; */
+  background: var(--message-bubble-bg);
   border-radius: 15px 10px 0 10px;
 }
 .message {
@@ -34,7 +35,7 @@
   font-size: 0.8rem;
   position: absolute;
   bottom: -1px;
-  right: 3px;
+  right: 7px;
   gap: 3px;
 }
 .message-delivery-status {

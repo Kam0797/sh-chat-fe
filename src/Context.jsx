@@ -30,9 +30,10 @@ try {
 
 
 //observables
-const messageStream = liveQuery(()=> {
-  return chatsDB
-  .messages.toCollection()
+const unreadMessageStream = liveQuery(()=> {
+  return chatsDB.messages
+  .where('read')
+  .equals(0)
   .sortBy('timestamp')
 });
 
@@ -60,9 +61,11 @@ const ContextProvider = ({children})=> {
   const [newMessages, setNewMessages] = useState(null)
   const [newOutboundMessages, setNewOutboundMessages] = useState(null)
   const [contactsMap, setContactsMap] = useState(new Map())
+  const [unreadMap, setUnreadMap] = useState(new Map())
 
   //settings stuff
   const profileTemplate = {
+    uid: '',
     uemail: localStorage.getItem('uemail'),
     nickname: localStorage.getItem('uemail')?.split('@')[0],
     profilePicURL: ""
@@ -110,6 +113,7 @@ async function makeContactsMap() {
   setContactsMap(contacts)
 }
 async function getAndSetContactsData() {
+  await makeContactsMap(); // just load from IDB
   const allUemails = new Set();
   const chatData = await chatsDB.chats.toArray();
   if(Array.isArray(chatData) && chatData.length > 0) {
@@ -120,7 +124,6 @@ async function getAndSetContactsData() {
     })
   }
   if(allUemails.size > 0) {
-    await makeContactsMap(); // load from IDB
     try{
     const nicknamesArray = await axios.post(`${SERVER_IP}/users/nicknames`,{users: [...allUemails]}, {withCredentials: true});
     const nicknames = nicknamesArray.data.contacts;
@@ -136,18 +139,18 @@ async function getAndSetContactsData() {
   await makeContactsMap(); // after server fetch
 }
 
-useEffect(() => {
-  const updateHeight = () => {
-    document.documentElement.style.setProperty(
-      "--vh",
-      `${window.visualViewport.height * 0.01}px`
-    );
-  };
-  window.visualViewport.addEventListener("resize", updateHeight);
-  updateHeight();
-  return () =>
-    window.visualViewport.removeEventListener("resize", updateHeight);
-}, []);
+// useEffect(() => {
+//   const updateHeight = () => {
+//     document.documentElement.style.setProperty(
+//       "--vh",
+//       `${window.visualViewport.height * 0.01}px`
+//     );
+//   };
+//   window.visualViewport.addEventListener("resize", updateHeight);
+//   updateHeight();
+//   return () =>
+//     window.visualViewport.removeEventListener("resize", updateHeight);
+// }, []);
 
 
 
@@ -185,10 +188,12 @@ useEffect(()=> {
     incomingMessages?.forEach(async message => {
       const exists = await chatsDB.messages.get(message.s_uid);
       if (!exists) {
-        message.read = false;
+        message.read = 0;
         chatsDB.messages.add(message)
+        console.log('incoming mes:',message)
       }
-      console.log('uid',chatsDB.messages.where('s_uid').equals(message.s_uid).toArray())
+      const log1 = await chatsDB.messages.where('s_uid').equals(message.s_uid).toArray()
+      console.log('uid',log1)
     })
     console.log('messages fetched and saved in IDB. Fin mes:', incomingMessages[-1] || []);
     }
@@ -197,15 +202,28 @@ useEffect(()=> {
     }
   })
   socket.on('messagesToServerS',async (incomingSuid)=> {
-    console.log('#3',incomingSuid)
     const {temp_uid, s_uid} = incomingSuid;
-    console.log('#4',temp_uid, typeof temp_uid, s_uid)
     await chatsDB.messages.where("temp_uid").equals(temp_uid).modify({s_uid:s_uid})
   })
 
   // subs
-  const messageSub = messageStream.subscribe(messages => {
+  const unreadMessageSub = unreadMessageStream.subscribe( {
     // trigger renders, add notifs - no, just make a map
+    next: messages => {
+      console.log('################################3')
+      const chatIdMap = new Map()
+      messages.forEach(({chatId}) => {
+        if(!chatId) return
+        chatIdMap.set(chatId, (chatIdMap.get(chatId) || 0) + 1)
+        console.log('wtf:::::::::::',chatId, (chatIdMap.get(chatId) || 0) + 1)
+      })
+      setUnreadMap(chatIdMap)
+      console.log('msstream', messages)
+      console.log('unreadMap:',unreadMap, chatIdMap)
+    },
+    error: err => {
+      console.error('debug:unreadmessageSub',err)
+    }
   });
   const outboundSub = outboundMessageStream.subscribe( {
     next: messages => {
@@ -231,7 +249,7 @@ useEffect(()=> {
   // console.log(typeof chatList, chatList)
   return ()=> {
     socket?.disconnect();
-    messageSub.unsubscribe();
+    unreadMessageSub.unsubscribe();
     outboundSub.unsubscribe();
   }
 
@@ -241,8 +259,10 @@ useEffect(()=> {
 
 
 
+
+
   return(
-    <Context.Provider value={{SERVER_IP, selectedChat, setSelectedChat, chatData, setChatData, chatMap, socket, chatScreenMode, setChatScreenMode, chatList, setChatList, CLRef, CSRef, newOutboundMessages, setNewOutboundMessages, newMessages, setNewMessages, profileData, setProfileData, outboundMessageStream, contactsMap, setContactsMap, getAndSetContactsData}}>
+    <Context.Provider value={{SERVER_IP, selectedChat, setSelectedChat, chatData, setChatData, chatMap, socket, chatScreenMode, setChatScreenMode, chatList, setChatList, CLRef, CSRef, newOutboundMessages, setNewOutboundMessages, newMessages, setNewMessages, profileData, setProfileData, outboundMessageStream, contactsMap, setContactsMap, getAndSetContactsData, makeContactsMap, unreadMap}}>
       {children}
     </Context.Provider>
   )
