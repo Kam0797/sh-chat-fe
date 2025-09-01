@@ -13,7 +13,7 @@
 }
 .profile-pic {
   height: 85%;
-  background:  #c300ff70;
+  background:  var(--profile-pic-bg-temp);
   aspect-ratio: 1/1;
   display: flex;
   justify-content: center;

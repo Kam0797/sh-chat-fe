@@ -137,7 +137,7 @@ export default function ChatScreen() {
   }, [chatData]);
 
   return (
-    <div className="chat-screen-wrapper smooth-scroll">
+    <div className="chat-screen-wrapper">
       {selectedChat && (
         <>
           <div className="chat-screen-top-bar">
@@ -149,13 +149,13 @@ export default function ChatScreen() {
             </button>
             <div className="details-area">
               <div className="chat-name">
-                <span className="add-ellipsis f-nunito">
+                <span className="add-ellipsis f-nunito" >
                   {getChatName(meta, contactsMap)}
                 </span>
               </div>
               <div className="status">{"not online"}</div>
             </div>
-            <div className="options-area">{"opt"}</div>
+            <div className="options-area">{"..."}</div>
           </div>
 
           {/* <div className="chat-area-wrapper"> */}
@@ -168,7 +168,7 @@ export default function ChatScreen() {
             <textarea
               // rows="1"
               placeholder="Type here"
-              className="message-send-text"
+              className="message-send-text f-nunito"
               ref={messageFieldRef}
               onInput={() => updateTextAreaHeight()}
             />
