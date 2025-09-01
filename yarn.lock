@@ -405,6 +405,36 @@
   resolved "https://registry.yarnpkg.com/@floating-ui/utils/-/utils-0.2.10.tgz#a2a1e3812d14525f725d011a73eceb41fef5bc1c"
   integrity sha512-aGTxbpbg8/b5JfU1HXSrbH3wXZuLPJcNEcZQFMxLs3oSzgtVu6nFPkbbGGUvBcUjKV2YyB9Wxxabo+HEH9tcRQ==
 
+"@fontsource/jetbrains-mono@^5.2.6":
+  version "5.2.6"
+  resolved "https://registry.yarnpkg.com/@fontsource/jetbrains-mono/-/jetbrains-mono-5.2.6.tgz#1a78f8ef6fa206f619298cbefd769ab4ef1279f4"
+  integrity sha512-nz//dBr99hXZmHp10wgNI00qThWImkzRR5PQjvRM+rpmuHO5rYBJCqPPWufidCvmkkryXx/GOP/lgqsM3R3Org==
+
+"@fontsource/montserrat@^5.2.6":
+  version "5.2.6"
+  resolved "https://registry.yarnpkg.com/@fontsource/montserrat/-/montserrat-5.2.6.tgz#083aba8d818c843cd2bb461c7f455680a12ad2ce"
+  integrity sha512-AfFxq1q5tgkOsjQfMFsh95uMXh39VbGOuBLlHLFg16/txv93lqK7Sr6jev0neuJzZy1kqRG16SH6xpUYnk4cZg==
+
+"@fontsource/noto-sans@^5.2.7":
+  version "5.2.7"
+  resolved "https://registry.yarnpkg.com/@fontsource/noto-sans/-/noto-sans-5.2.7.tgz#cd11c60592b68263c633bc31a3eb9e733af3d94b"
+  integrity sha512-mTpMSMft6Nb+ZSF4DSiJVYnLzKCRjHNFieZ/swuxSDQK+v1hjUeDTBxLHKUdfmC+ZPg6TUEWw4oRq2ltnDbSjQ==
+
+"@fontsource/nunito@^5.2.6":
+  version "5.2.6"
+  resolved "https://registry.yarnpkg.com/@fontsource/nunito/-/nunito-5.2.6.tgz#62f2fefbb0acc917e6f9a2e26cbdcc4c44c168c3"
+  integrity sha512-FjSPmzBFZ3za4w2USmCWrxDaZ1fTWowSpV9DXfs7Ll/150BI48epE6E69MtOx8GqOPimHNkVUkES22lqDw+bug==
+
+"@fontsource/playfair-display@^5.2.6":
+  version "5.2.6"
+  resolved "https://registry.yarnpkg.com/@fontsource/playfair-display/-/playfair-display-5.2.6.tgz#5d5fb1516ead8b5aaacb9627d949d2f1b8f7f593"
+  integrity sha512-hWfFm2j+Dlg+UwabNJu5vi45otmLSG64hUzNFJ8pIDBgqWBviEPpVaDIZWHm2RYyIxhg9YXTPsZWdpvsu7fkqQ==
+
+"@fontsource/roboto-condensed@^5.2.6":
+  version "5.2.6"
+  resolved "https://registry.yarnpkg.com/@fontsource/roboto-condensed/-/roboto-condensed-5.2.6.tgz#b137319ae64ee8117700cd700a667d6388dac04c"
+  integrity sha512-xcvHM/urk/hdZknJNBpUzFdAA00QgKq+FdAfjO8soi9xeTlAPNz2wD2k+K7omsCfedGcOlQ6VnWJIRkF0egUjg==
+
 "@humanfs/core@^0.19.1":
   version "0.19.1"
   resolved "https://registry.yarnpkg.com/@humanfs/core/-/core-0.19.1.tgz#17c55ca7d426733fe3c561906b8173c336b40a77"

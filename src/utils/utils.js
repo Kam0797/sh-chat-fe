@@ -247,7 +247,13 @@ function getChatName(meta, contactsMap) {
   }
 }
 
+async function getProfile(SERVER_IP, setProfileData) {
+  const res = await axios.get(`${SERVER_IP}/profile`,{withCredentials:true})
+  const profileDataFromServer = res.data.profile;
+  console.log('profFSr:',profileDataFromServer)
+  setProfileData(profileDataFromServer)
+}
 
 
 
-export { chatsDB, sendMessageToDB, sendMessage, createChat, SelectAndLoadMessages, syncChats, getChatName }
+export { chatsDB, sendMessageToDB, sendMessage, createChat, SelectAndLoadMessages, syncChats, getChatName, getProfile    }

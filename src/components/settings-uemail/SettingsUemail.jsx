@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from 'react'
 import { Context } from '../../Context'
 import PopMenuFrame from '../reusables/pop-menu-frame/PopMenuFrame'
 import { useNavigate } from 'react-router-dom'
+import { getProfile } from '../../utils/utils'
 
 
 
@@ -16,11 +17,7 @@ export default function SettingsUemail() {
 
   const {SERVER_IP} = useContext(Context)
 
-  async function getProfile() {
-    const res = await axios.get(`${SERVER_IP}/profile`,{withCredentials:true})
-    const profileDataFromServer = res.data.profile;
-    setProfileData(profileDataFromServer)
-  }
+
   async function handleLogout() {
     // if(window.confirm("Click OK to logout")) {
       const res = await axios.get(SERVER_IP+'/auth/logout',
@@ -34,14 +31,14 @@ export default function SettingsUemail() {
       }
   }
   useEffect(()=> {
-    getProfile();
+    getProfile(SERVER_IP, setProfileData);
   },[])
 
   return(
     <>
     <div className={styles.uemailWrapper}>
       <label className={styles.uemailText}>{profileData?.uemail}</label>
-      <button className={styles.optionsWrapper} onClick={()=> {setShowPopup(true);console.log('#15',showPopup)}} onBlur={()=> {setShowPopup(false);console.log('#16',showPopup)}}>
+      <button className={styles.optionsWrapper} onClick={()=> {setShowPopup(true);console.log('#15',showPopup)}} >
         <div className='options-dot'></div>
         <div className='options-dot'></div>
         <div className='options-dot'></div>

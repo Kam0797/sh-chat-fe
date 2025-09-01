@@ -20,7 +20,7 @@ export default function MessageBubble({mes}) {
   }
   async function markRead() {
     if(!mes.s_uid) console.error('err#6: s_uid not found for ',mes.temp_uid)
-    await chatsDB.messages.where("s_uid").equals(mes.s_uid).modify({read: true})
+    await chatsDB.messages.where("s_uid").equals(mes.s_uid).modify({read: 1})
   }
 
 useEffect(()=> {
@@ -42,10 +42,10 @@ useEffect(()=> {
     <>
     <div className="message-bubble-wrapper" style={{justifyContent:bubbleAlignment}} >
       <div className="message-bubble" style={{borderRadius: bubbleBorderRadius}} onClick={()=>changeWrap()}>
-        <div className="message" ref={messageRef} >{mes.content} </div>
+        <div className="message f-m" ref={messageRef} >{mes.content} </div>
         <div className="message-info">
           <div className="message-delivery-status">{mes.s_uid && !mes.sender? '\u2726':null}</div> 
-          <div className="mesaage-time">{time} </div>
+          <div className="mesaage-time ">{time} </div>
         </div>
       </div>
     </div>

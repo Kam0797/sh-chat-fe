@@ -16,3 +16,7 @@
   position: relative;  /* if conflicts set this just for .settings-item-action-component */
   /* border: 1px dotted; */
 }
+.settings-item-name {
+  font-size: 1.3rem;
+  font-weight: 700;
+}

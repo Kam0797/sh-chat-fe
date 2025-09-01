@@ -3,7 +3,7 @@
   flex: 1;
   flex-direction: column;
   justify-content: space-between;
-  /* height: 100dvh; */
+  height: 100dvh;
    /*^doesnt work as expected see App.css/ui-wrapper/height for info */ 
   /* max-height: calc(var(--vh)*100); */
   /* height: 100%; */
@@ -11,6 +11,7 @@
   /* border: 2px dashed green; */
   flex:1;
   overflow: hidden;
+  position: relative;
 
 }
 .disablePTR {
@@ -29,14 +30,14 @@
   display: flex;
   height: 70px;
   width: 100%;
-  border: 1px solid grey;
+  /* border: 1px solid grey; */
   justify-content: space-between;
   align-items: center;
 }
 
 .chat-name {
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
 }
 .status {
   font-weight: 300;
@@ -59,13 +60,16 @@
   /* justify-content: flex-end; */
   gap: 3px;
   height:100%;
-  padding: 15px 4px
+  padding: 15px 6px;
+  border-radius: 15px 15px 0 0;
 }
 .message-send-area {
   /* border: px dotted;  */
   min-height: 60px;
   /* height: 45px; */
-  background: var(--chat-area-bg);
+  /* background: var(--message-send-area-bg); */
+  background: #00000000;
+  z-index: 4;
   display: flex;
   /* justify-content: flex-end; */
   position: relative;

@@ -16,7 +16,6 @@ export default function ChatScreen() {
   const { selectedChat, setSelectedChat, chatData, setChatData, contactsMap } =
     useContext(Context);
   setChatData(SelectAndLoadMessages(selectedChat, chatsDB));
-  console.log("#2", chatData);
 
   let messageFieldRef = useRef(null);
   let sendButtonRef = useRef(null);
@@ -87,7 +86,7 @@ export default function ChatScreen() {
 
   useEffect(() => {
     if (!selectedChat) return;
-    
+
     chatsDB.chats
       .where("chatId")
       .equals(selectedChat)
@@ -110,22 +109,22 @@ export default function ChatScreen() {
   // }, []);
 
   useEffect(() => {
-    const triggerScroll = () => {
-      window.scrollTo(0, 60, { behavior: "smooth" });
-      // setTimeout(()=> window.scrollTo(0,0))
-    };
+    // const triggerScroll = () => {
+    //   window.scrollTo(0, 60, { behavior: "smooth" });
+    //   // setTimeout(()=> window.scrollTo(0,0))
+    // };
     // window.height = 110%
     // triggerScroll();
-    setTimeout(() => triggerScroll(), 2000);
+    // setTimeout(() => triggerScroll(), 2000);
     const body = document.querySelector("html");
     body.classList.add("disablePTR");
 
-    window.addEventListener("resize", triggerScroll);
+    // window.addEventListener("resize", triggerScroll);
 
     return () => {
-      window.removeEventListener("resize", triggerScroll);
-      if (body.classList.contains("disablePTR"))
-        body.classList.remove("disablePTR");
+      // window.removeEventListener("resize", triggerScroll);
+      // if (body.classList.contains("disablePTR"))
+      body.classList.remove("disablePTR");
     };
   }, []);
   useEffect(() => {
@@ -143,13 +142,17 @@ export default function ChatScreen() {
         <>
           <div className="chat-screen-top-bar">
             <button
-              className="profile-pic chat-back-button"
+              className="profile-pic chat-back-button f-jbm"
               onClick={() => navigate("/sh-chat-fe/")}
             >
               {getChatName(meta, contactsMap)?.slice(0, 2)}
             </button>
             <div className="details-area">
-              <div className="chat-name">{getChatName(meta, contactsMap)}</div>
+              <div className="chat-name">
+                <span className="add-ellipsis f-nunito">
+                  {getChatName(meta, contactsMap)}
+                </span>
+              </div>
               <div className="status">{"not online"}</div>
             </div>
             <div className="options-area">{"opt"}</div>
