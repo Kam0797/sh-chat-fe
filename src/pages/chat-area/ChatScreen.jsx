@@ -167,6 +167,7 @@ export default function ChatScreen() {
           <div className="message-send-area">
             <textarea
               // rows="1"
+              autoFocus
               placeholder="Type here"
               className="message-send-text f-nunito"
               ref={messageFieldRef}
