@@ -36,7 +36,7 @@ export default function ChatlistItem({chat}) {
   // console.log('################',chat)
   return (
     lastMessage &&
-    <button className='chat-list-item' onClick={()=>{ navigate(`/sh-chat-fe/chat?chatId=${chat.chatId}`)} }>
+    <button className='chat-list-item' onClick={()=>{setSelectedChat(chat.chatId); navigate(`/sh-chat-fe/chat?chatId=${chat.chatId}`)} }>
       <div className='profile-pic f-jbm'>{getChatName(chat, contactsMap)?.slice(0,2)}</div>
       <div className='details-area'>
         <div className='name-time'>

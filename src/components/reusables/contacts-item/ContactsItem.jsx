@@ -23,7 +23,7 @@ export default function ContactsItem({contact, addMemberFromList}) {
       <div className='contacts-item-wrapper'>
         <div className='profile-pic f-jbm'><span className='add-ellipsis f-jbm'>{contact[1]?.slice(0,2) }</span></div>
         <div className='c-name-email-wrapper'>
-          <div className='contact-name'><span className='add-ellipsis f-nunito'>{contact[1]+'hHHSHSSHXSJSJHAssgsd'}</span></div>
+          <div className='contact-name'><span className='add-ellipsis f-nunito'>{contact[1]}</span></div>
           <div className='contact-email'><span className='add-ellipsis f-jbm'>{contact[0]}</span></div>
           <button className='open-chat' onClick={()=> createChatFromList()}>&#x27A4;</button>
         </div>
