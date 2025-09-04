@@ -2,10 +2,12 @@
 
 .new-chat-member-wrapper {
   display: flex;
-  border: 1px solid;
+  /* border: 1px dotted; */
   padding: 4px 1px 4px 9px;
   border-radius: 20px;
   cursor: default;
+  background: var(--new-member-area-item-bg);
+  color: var(--text-color)
 }
 .new-chat-member-wrapper {
   display: flex;
@@ -21,12 +23,14 @@
   aspect-ratio: 1/1;
   margin: 0 19px 0 5px;
   /* font-size: 1rem; */
-  outline: 1px solid #000;
-  outline-offset: -3px;
+  /* outline: 1px solid #000;
+  outline-offset: -3px; */
   border-radius: 50%;
   font-weight: 900;
-  color: red;
+  color: var(--logout-button-bg);
+  background-color: var(--logout-button-text);
   cursor: pointer;
+  color: var(--new-member-area-item-close-button)
 }
 
 @media (max-width: 450px) {

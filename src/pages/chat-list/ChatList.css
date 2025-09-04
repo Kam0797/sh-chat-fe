@@ -6,21 +6,22 @@
   justify-content: flex-start;
   /* border: 1px solid red; */
   height: 100vh;
-  background: var(--chatlist-item-bg);
+  background: var(--chatlist-page-bg);
   overflow: hidden;
   min-width: 250px;
 }
 .sort-list-wrapper {
   display: flex;
-  border: 1px solid orange;
-  padding: 8px;
+  /* border: 1px solid orange; */
+  padding: 5px;
   height: 100%;
   overflow: hidden;
 }
 .options-bar {
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
   display: flex;
   justify-content: space-between;
+  color: var(--chat-screen-top-bar-text)
 }
 .sort-area {
   border: 1px solid;
@@ -28,11 +29,15 @@
   display: flex;
   justify-content: space-around;
   flex: 2;
+  color: inherit
 }
 .sort-button {
   border: 1px dotted;
   width: 70px;
-  padding-top: 10px
+  padding-top: 10px;
+  color: inherit;
+  font-family: Nunito;
+  font-weight: 700;
 }
 .sort-button:hover {
   border-bottom: 3px solid purple
@@ -67,7 +72,8 @@
   aspect-ratio: 1/1;
   /* border: 1px solid; */
   cursor: pointer;
-  background: #51a1af;
+  background: var(--new-chat-plus-button-bg);
+  color: var(--new-chat-plus-button-text);
   font-size: 40px;
   display: flex;
   justify-content: center;
@@ -101,7 +107,7 @@
 .options-dot {
   height: 5px;
   aspect-ratio: 1/1;
-  background-color: #000;
+  background-color: var(--text-color);
   border-radius: 50%;
 }
 

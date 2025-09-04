@@ -6,6 +6,7 @@ import { Context } from "../../Context";
 import SettingsItem from "../../components/reusables/settings-item/SettingsItem";
 import SettingsUemail from "../../components/settings-uemail/SettingsUemail";
 import { chatsDB, getProfile } from "../../utils/utils";
+import SettingsTheme from "../../components/settings-theme/SettingsTheme";
 
 export default function Settings() {
   const navigate = useNavigate();
@@ -131,6 +132,8 @@ export default function Settings() {
         </div>
         <div className="settings-items-area-wrapper">
           <SettingsItem label={"Email"} Component={<SettingsUemail />} />
+          <SettingsItem label={"Theme"} Component={<SettingsTheme
+           />} />
         </div>
       </div>
     </>

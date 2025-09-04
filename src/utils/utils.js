@@ -103,7 +103,7 @@ async function sendMessageToDB(messageText, selectedChat, DB) {
 async function sendMessage(socket, DB, messagesToSend) {
   try {
     socket.emit('messagesToServer', messagesToSend);
-    await DB.messages.where('sendPending').equals(1).modify({sendPending:0})    
+    // await DB.messages.where('sendPending').equals(1).modify({sendPending:0})    
   } catch(err) {
     console.error('Error sending messages', err)
   }
@@ -254,6 +254,61 @@ async function getProfile(SERVER_IP, setProfileData) {
   setProfileData(profileDataFromServer)
 }
 
+function themeHandler(theme=null, all=false) {
+
+  const themes = [
+    {
+      name: 'Dark',
+      code: 'dark',
+      text: '#a1a3aa',
+      bg: '#212122',
+      accentColor: ''
+    },
+    {
+      name: 'Light',
+      code: 'light',
+      text: '#212122',
+      bg: '#a1a3aa',
+      accentColor: ''
+    },
+    {
+      name: 'Neurons',
+      code: 'neurons',
+      text: '#afd1ec',
+      bg: '#224d5b',
+      accentColor: ''
+    },
+    {
+      name: 'System',
+      code: '',
+      text: '#555',
+      bg: 'linear-gradient(130deg,#000,#000,#000,#fff,#fff,#fff)',
+      accentColor: ''
+    }   
+  ]
+  const themesMap = new Map()
+  themes.map(themeObj=> {
+    themesMap.set(themeObj.code, themeObj)
+  });
+
+  if(all) {
+    return themesMap;
+  }
+  const doc = document.querySelector('html');
+  if(theme || theme === '') {
+    if(themesMap.has(theme)) {
+    doc.dataset.theme = themesMap.get(theme).code
+    localStorage.setItem('theme',doc.dataset.theme)
+    console.info('theme set:', theme)
+    }
+    else {
+      console.error('error:themeHandler:invalid theme', theme)
+    }
+  }
+  // console.info('hey',doc.dataset.theme,theme)
+  return doc.dataset.theme;
+}
 
 
-export { chatsDB, sendMessageToDB, sendMessage, createChat, SelectAndLoadMessages, syncChats, getChatName, getProfile    }
+
+export { chatsDB, sendMessageToDB, sendMessage, createChat, SelectAndLoadMessages, syncChats, getChatName, getProfile, themeHandler  }

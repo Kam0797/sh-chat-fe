@@ -3,6 +3,7 @@
 /* AppLayout styles */
 
 
+/* fonts */
 
 .f-jbm {
   font-family: JetBrains Mono, Noto Sans;
@@ -25,6 +26,20 @@
 .f-space-mono {
   font-family: Space Mono;
 }
+
+/* behavior */
+
+.add-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: inherit;
+  /* background-color: red; */
+  /* border: 1px solid; */
+}
+
+
+
 
 .ui-wrapper {
   position: relative;

@@ -13,9 +13,8 @@ import {
 import MessageBubble from "../../components/reusables/message_bubble/MessageBubble";
 
 export default function ChatScreen() {
-  const { selectedChat, setSelectedChat, chatData, setChatData, contactsMap } =
+  const { selectedChat, setSelectedChat, chatData, setChatData, contactsMap, isTouchScreen } =
     useContext(Context);
-  setChatData(SelectAndLoadMessages(selectedChat, chatsDB));
 
   let messageFieldRef = useRef(null);
   let sendButtonRef = useRef(null);
@@ -29,7 +28,9 @@ export default function ChatScreen() {
   const currentChatId = searchParam.get("chatId");
   // console.log('debug::SP::currentChatId',currentChatId);
   // setSelectedChat(currentChatId);
-  (async () => {
+useEffect(()=>{
+  // setSelectedChat(currentChatId);
+    (async () => {
     try {
       const chatIdObj = await chatsDB.chats
         .where("chatId")
@@ -37,10 +38,16 @@ export default function ChatScreen() {
         .first();
       const validChatId = chatIdObj?.chatId;
       setSelectedChat(validChatId);
+
     } catch {
       setSelectedChat(null);
     }
   })();
+},[currentChatId])
+
+  setChatData(SelectAndLoadMessages(selectedChat, chatsDB));
+
+
   // console.log('debug::CS:', typeof chatData, chatData);
 
   function handleSend() {
@@ -136,9 +143,10 @@ export default function ChatScreen() {
     }
   }, [chatData]);
 
+  // if( selectedChat && currentChatId && currentChatId == chatData[0]?.chatId) {
   return (
     <div className="chat-screen-wrapper">
-      {selectedChat && (
+      {selectedChat && currentChatId && (currentChatId == chatData[0]?.chatId || chatData.length == 0)&& (
         <>
           <div className="chat-screen-top-bar">
             <button
@@ -153,7 +161,7 @@ export default function ChatScreen() {
                   {getChatName(meta, contactsMap)}
                 </span>
               </div>
-              <div className="status">{"not online"}</div>
+              <div className="status">{"~ not online"}</div>
             </div>
             <div className="options-area">{"..."}</div>
           </div>
@@ -167,7 +175,7 @@ export default function ChatScreen() {
           <div className="message-send-area">
             <textarea
               // rows="1"
-              autoFocus
+              autoFocus={!isTouchScreen}
               placeholder="Type here"
               className="message-send-text f-nunito"
               ref={messageFieldRef}
@@ -211,4 +219,5 @@ export default function ChatScreen() {
       )} */}
     </div>
   );
+// }
 }
