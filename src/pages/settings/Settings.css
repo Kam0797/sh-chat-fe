@@ -1,7 +1,7 @@
 
 
 .settings-page-wrapper {
-  border: 2px dashed #055;
+  /* border: 2px dashed #055; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -72,6 +72,7 @@
   font-size: 1rem;
   font-weight: 800;
   background: var(--settings-item-bg);
+  color: var(--text-color)
 }
 .nickname-edit {
   aspect-ratio: 1/1;
@@ -117,6 +118,7 @@
   padding: 4px 7px;
   cursor: pointer;
   border-radius: 50%;
+  color: var(--icons-color2);
 }
 .settings-back-button:hover {
   background-color: var(--chatlist-item-bg);

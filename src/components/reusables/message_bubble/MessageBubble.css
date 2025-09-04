@@ -16,6 +16,7 @@
   /* background: #6a93a0BB; */
   background: var(--message-bubble-bg);
   border-radius: 15px 10px 0 10px;
+  color: var(--message-bubble-text-color)
 }
 .message {
   /* border: 1px dotted; */

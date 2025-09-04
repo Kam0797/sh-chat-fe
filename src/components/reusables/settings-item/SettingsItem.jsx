@@ -1,6 +1,7 @@
 import './SettingItem.css'
 
 export default function SettingsItem({label,Component}) {
+  // why not you just pass as {children} ??
 
   return(
     <>

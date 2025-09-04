@@ -8,7 +8,8 @@
   min-height: 70px;
   background: var(--chatlist-item-bg);
   padding: 5px;
-  /* width: 100% */
+  border-radius: 4px;
+  width: 100%
   /* border-bottom: 1px solid var(--chatlist-item-bg); */
 }
 .profile-pic {
@@ -21,6 +22,7 @@
   border-radius: 50%;
   margin-left: 5px;
   font-size: 1.5rem;
+  color: var(--profile-pic-text-temp)
   /* border: 1px dashed; */
 }
 .details-area {
@@ -31,6 +33,7 @@
   flex-direction: column;  
   margin: 0 5px 0 10px;
   justify-content: center;
+  color: var(--text-color)
   /* border: 1px dashed red */
 }
 .name-time {
@@ -65,7 +68,7 @@
 }
 .last-message {
   display: flex;
-  color: var(--message-color-cl);
+  color: var(--last-message-text-cl);
   /* font-family: serif; */
   max-width: calc(100% - 45px);
 }

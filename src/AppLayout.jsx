@@ -1,14 +1,16 @@
 import { Outlet, Route, Routes } from "react-router-dom";
 import ChatList from "./pages/chat-list/ChatList";
 import ChatScreen from "./pages/chat-area/ChatScreen";
-import { useMediaQuery } from "react-responsive";
 import Contacts from "./pages/contacts/Contacts";
 import ChatAreaPlaceholder from "./pages/chat-area-placeholder/ChatAreaPlaceholder";
 import Settings from "./pages/settings/Settings";
+import { useContext } from "react";
+import { Context } from "./Context";
 
 export default function AppLayout() {
+  const {isWide} = useContext(Context)
 
-  const isWide = useMediaQuery({minWidth:650});
+  // const isWide = useMediaQuery({minWidth:650});
   if(isWide) {
   return(
  

@@ -5,8 +5,9 @@ import { useState, createContext, useRef, useEffect } from 'react'
 import { io } from 'socket.io-client';
 import { Dexie, liveQuery } from 'dexie';
 
-import { chatsDB, SelectAndLoadMessages, sendMessage, syncChats } from './utils/utils';
+import { chatsDB, SelectAndLoadMessages, sendMessage, syncChats, themeHandler } from './utils/utils';
 import { useNavigate } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
 const Context = createContext();
 
 const SERVER_IP = 
@@ -27,6 +28,12 @@ try {
   console.log('server offline', err)
 }
 
+// theme restore
+if(localStorage.getItem('theme')) {
+  console.info('Restoring theme...')
+  const doc = document.querySelector('html')
+  doc.dataset.theme = themeHandler(localStorage.getItem('theme'))
+}
 
 
 //observables
@@ -50,6 +57,11 @@ const ContextProvider = ({children})=> {
 
   const navigate = useNavigate()
 
+  // conts
+  const isWide = useMediaQuery({minWidth:650});
+  const isTouchScreen = useMediaQuery({query: "(pointer:coarse)"})
+
+
 
 
   
@@ -62,6 +74,7 @@ const ContextProvider = ({children})=> {
   const [newOutboundMessages, setNewOutboundMessages] = useState(null)
   const [contactsMap, setContactsMap] = useState(new Map())
   const [unreadMap, setUnreadMap] = useState(new Map())
+  // const [theme, setTheme] = useState('')
 
   //settings stuff
   const profileTemplate = {
@@ -203,7 +216,9 @@ useEffect(()=> {
   })
   socket.on('messagesToServerS',async (incomingSuid)=> {
     const {temp_uid, s_uid} = incomingSuid;
-    await chatsDB.messages.where("temp_uid").equals(temp_uid).modify({s_uid:s_uid})
+    await chatsDB.messages.where("temp_uid").equals(temp_uid).modify({s_uid:s_uid, sendPending:0})
+    // theres a room for simplification: if(!temp_id) = sendPending==1
+    // but liveQuery may not pick it, and is towards obsurity. so i think to keep it as above :)
   })
 
   // subs
@@ -262,7 +277,7 @@ useEffect(()=> {
 
 
   return(
-    <Context.Provider value={{SERVER_IP, selectedChat, setSelectedChat, chatData, setChatData, chatMap, socket, chatScreenMode, setChatScreenMode, chatList, setChatList, CLRef, CSRef, newOutboundMessages, setNewOutboundMessages, newMessages, setNewMessages, profileData, setProfileData, outboundMessageStream, contactsMap, setContactsMap, getAndSetContactsData, makeContactsMap, unreadMap}}>
+    <Context.Provider value={{SERVER_IP, selectedChat, setSelectedChat, chatData, setChatData, chatMap, socket, chatScreenMode, setChatScreenMode, chatList, setChatList, CLRef, CSRef, newOutboundMessages, setNewOutboundMessages, newMessages, setNewMessages, profileData, setProfileData, outboundMessageStream, contactsMap, setContactsMap, getAndSetContactsData, makeContactsMap, unreadMap, isWide, isTouchScreen}}>
       {children}
     </Context.Provider>
   )

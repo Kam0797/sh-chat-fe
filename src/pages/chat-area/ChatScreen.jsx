@@ -13,7 +13,7 @@ import {
 import MessageBubble from "../../components/reusables/message_bubble/MessageBubble";
 
 export default function ChatScreen() {
-  const { selectedChat, setSelectedChat, chatData, setChatData, contactsMap } =
+  const { selectedChat, setSelectedChat, chatData, setChatData, contactsMap, isTouchScreen } =
     useContext(Context);
 
   let messageFieldRef = useRef(null);
@@ -146,7 +146,7 @@ useEffect(()=>{
   // if( selectedChat && currentChatId && currentChatId == chatData[0]?.chatId) {
   return (
     <div className="chat-screen-wrapper">
-      {selectedChat && currentChatId && currentChatId == chatData[0]?.chatId && (
+      {selectedChat && currentChatId && (currentChatId == chatData[0]?.chatId || chatData.length == 0)&& (
         <>
           <div className="chat-screen-top-bar">
             <button
@@ -161,7 +161,7 @@ useEffect(()=>{
                   {getChatName(meta, contactsMap)}
                 </span>
               </div>
-              <div className="status">{"not online"}</div>
+              <div className="status">{"~ not online"}</div>
             </div>
             <div className="options-area">{"..."}</div>
           </div>
@@ -175,7 +175,7 @@ useEffect(()=>{
           <div className="message-send-area">
             <textarea
               // rows="1"
-              autoFocus
+              autoFocus={!isTouchScreen}
               placeholder="Type here"
               className="message-send-text f-nunito"
               ref={messageFieldRef}

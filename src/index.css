@@ -28,33 +28,319 @@ button, select, input , input:focus , textarea, textarea:focus {
 
 
 :root {
-  --chatlist-item-bg: #1d1a4745;
+
+  --page-bg: #d1d0e2;
+
   --message-color-cl: #000000bb;
-  --message-send-area-bg: #6ba6c999;
-  --message-send-area-text: #fff1f1;
-  --message-bubble-bg: #1bb68f ;
+  --message-send-area-bg: #95c9e799;
+  --message-send-area-text: #292a2b;
+  --message-bubble-bg: #23b866 ;
   /* --chat-area-bg: #441f1f50; */
   --chat-area-bg: var(--chat-area-placeholder-bg);
-  --chat-area-placeholder-bg: linear-gradient(65deg,#407080,#143c49,#70804088);
-  --chat-screen-wrapper-bg: linear-gradient(90deg, #143c49, #407080);
-  --chat-screen-top-bar-text: rgb(175, 209, 236);
+  --chat-area-placeholder-bg: linear-gradient(65deg,#95b9c5,#60cdf1,#d5fc6188);
+  --chat-screen-wrapper-bg: linear-gradient(90deg, #43cabf, #80d5f1);
+  
+  --chat-screen-top-bar-text: #0a2235;
   --settings-nickname-text: var(--chat-screen-top-bar-text);
-  --settings-page-bg: #AAA;
-  --settings-item-bg: #BBBBBB;
+
+  --settings-page-bg: var(--page-bg);
+  --chatlist-page-bg: var(--page-bg);
+  --contacts-page-bg: var(--page-bg);
+
+  --settings-item-bg: #c6c5d6;
+  --chatlist-item-bg: #c6c5d6;
+
+  --icons-color: #2e6568;
+  --icons-color2: #2e6568;
+
+  --new-chat-plus-button-bg: #51a1af;
+  --new-chat-plus-button-text: #1d1a47;
+
+
+  --open-chat-button-bg: #419ebb;
+  --open-chat-button-text: #FFF;
+
+  --new-member-area-item-bg: linear-gradient(65deg,#95b9c588,#60cdf188,#d5fc6188);
+  --new-member-area-item-close-button: #aa0404;
+
+  /* --chatlist-item-bg: #1d1a4745; */
+
   /* --settings-profile-nickname: var(--text-color); */
   /* --profile-cover-bg: #999; */
   --profile-cover-bg: var(--chat-area-placeholder-bg) ;
-  --profile-pic-bg-temp: #c5b039;
+  /* --profile-pic-bg-temp: #23a0b688; */
+  --profile-pic-bg-temp: linear-gradient(245deg,#95b9c5,#60cdf1,#d5fc6188);
+
+  --profile-pic-text-temp: var(--chat-screen-top-bar-text);
   /* introduce random colors^ */
 
   /* convention: --var-name-scheme: THEME-THING-WHATEVER-MORE; */
   /* the mode may be CAPS-ed, i dont want to override CSS conv [your conv sucks. may have to *drop* it ]*/
   --text-color: #050404; /*text in light mode [it-IS-dark]*/
 
-  --settings-menu-frame-bg: #121212BB; /*dt*/
+  --settings-menu-frame-bg: #9594a9aa; /*dt*/
 
-  --logout-button-bg: #910505d3;
-
-
-
+  --logout-button-bg: #e03c3cd3;
 }
+
+
+@media(prefers-color-scheme: dark) {
+:root {
+
+
+  --page-bg: #141c22;
+
+  --last-message-text-cl: #bee7f1bb;
+  --message-send-area-bg: #0f121499;
+  --message-send-area-text: #fff1f1;
+  --message-bubble-bg: #144438 ;
+ 
+  --chat-area-bg: var(--chat-area-placeholder-bg);
+  --chat-area-placeholder-bg: linear-gradient(65deg,#20353d,#0a1d24,#333f0f88);
+  --chat-screen-wrapper-bg: linear-gradient(90deg, #071418, #031c24);
+  --chat-screen-top-bar-text: #afd1ec;
+  --settings-nickname-text: var(--chat-screen-top-bar-text);
+
+  --settings-page-bg: var(--page-bg);
+  --chatlist-page-bg: var(--page-bg);
+  --contacts-page-bg: var(--page-bg);
+
+  --settings-item-bg: #29303a;
+  --chatlist-item-bg: #1c2127;
+
+  --icons-color: #4a999e;
+  --icons-color2: #4a999e;
+
+  --new-chat-plus-button-bg: #51a1af;
+  --new-chat-plus-button-text: #1d1a47;
+
+  --open-chat-button-bg: #175b70;
+  --open-chat-button-text: #d8d5d5;
+
+  --new-member-area-item-bg: linear-gradient(65deg,#20353d88,#0a1d2488,#333f0f88);
+  --new-member-area-item-close-button: #eb5757;
+
+
+  --profile-cover-bg: var(--chat-area-placeholder-bg) ;
+  --profile-pic-bg-temp: linear-gradient(245deg,#2a4049,#0a1d24,#40501088);
+  /* introduce random colors^ */
+
+  --text-color: #cbd4e0; 
+  /* --text-color-2:  */
+
+  --settings-menu-frame-bg: #252323aa; /*dt*/
+
+  --logout-button-bg: #e03c3cd3;
+ }
+}
+
+[data-theme='light'] {
+
+  --page-bg: #d1d0e2;
+
+  --message-color-cl: #000000bb;
+  --message-send-area-bg: #95c9e799;
+  --message-send-area-text: #292a2b;
+  --message-bubble-bg: #23b866 ;
+  /* --chat-area-bg: #441f1f50; */
+  --chat-area-bg: var(--chat-area-placeholder-bg);
+  --chat-area-placeholder-bg: linear-gradient(65deg,#95b9c5,#60cdf1,#d5fc6188);
+  --chat-screen-wrapper-bg: linear-gradient(90deg, #43cabf, #80d5f1);
+  
+  --chat-screen-top-bar-text: #0a2235;
+  --settings-nickname-text: var(--chat-screen-top-bar-text);
+
+  --settings-page-bg: var(--page-bg);
+  --chatlist-page-bg: var(--page-bg);
+  --contacts-page-bg: var(--page-bg);
+
+  --settings-item-bg: #c6c5d6;
+  --chatlist-item-bg: #c6c5d6;
+
+  --icons-color: #2e6568;
+  --icons-color2: #2e6568;
+
+  --new-chat-plus-button-bg: #51a1af;
+  --new-chat-plus-button-text: #1d1a47;
+
+
+  --open-chat-button-bg: #419ebb;
+  --open-chat-button-text: #FFF;
+
+  --new-member-area-item-bg: linear-gradient(65deg,#95b9c588,#60cdf188,#d5fc6188);
+  --new-member-area-item-close-button: #aa0404;
+
+  /* --chatlist-item-bg: #1d1a4745; */
+
+  /* --settings-profile-nickname: var(--text-color); */
+  /* --profile-cover-bg: #999; */
+  --profile-cover-bg: var(--chat-area-placeholder-bg) ;
+  /* --profile-pic-bg-temp: #23a0b688; */
+  --profile-pic-bg-temp: linear-gradient(245deg,#95b9c5,#60cdf1,#d5fc6188);
+
+  --profile-pic-text-temp: var(--chat-screen-top-bar-text);
+  /* introduce random colors^ */
+
+  /* convention: --var-name-scheme: THEME-THING-WHATEVER-MORE; */
+  /* the mode may be CAPS-ed, i dont want to override CSS conv [your conv sucks. may have to *drop* it ]*/
+  --text-color: #050404; /*text in light mode [it-IS-dark]*/
+
+  --settings-menu-frame-bg: #9594a9aa; /*dt*/
+
+  --logout-button-bg: #e03c3cd3;
+}
+
+
+ [data-theme="dark"] {
+
+
+  --page-bg: #141c22;
+
+  --last-message-text-cl: #bee7f1bb;
+  --message-send-area-bg: #0f121499;
+  --message-send-area-text: #fff1f1;
+  --message-bubble-bg: #144438 ;
+ 
+  --chat-area-bg: var(--chat-area-placeholder-bg);
+  --chat-area-placeholder-bg: linear-gradient(65deg,#20353d,#0a1d24,#333f0f88);
+  --chat-screen-wrapper-bg: linear-gradient(90deg, #071418, #031c24);
+  --chat-screen-top-bar-text: #afd1ec;
+  --settings-nickname-text: var(--chat-screen-top-bar-text);
+
+  --settings-page-bg: var(--page-bg);
+  --chatlist-page-bg: var(--page-bg);
+  --contacts-page-bg: var(--page-bg);
+
+  --settings-item-bg: #29303a;
+  --chatlist-item-bg: #1c2127;
+
+  --icons-color: #4a999e;
+  --icons-color2: #4a999e;
+
+  --new-chat-plus-button-bg: #51a1af;
+  --new-chat-plus-button-text: #1d1a47;
+
+  --open-chat-button-bg: #175b70;
+  --open-chat-button-text: #d8d5d5;
+
+  --new-member-area-item-bg: linear-gradient(65deg,#20353d88,#0a1d2488,#333f0f88);
+  --new-member-area-item-close-button: #eb5757;
+
+
+  --profile-cover-bg: var(--chat-area-placeholder-bg) ;
+  --profile-pic-bg-temp: linear-gradient(245deg,#2a4049,#0a1d24,#40501088);
+  /* introduce random colors^ */
+
+  --text-color: #cbd4e0; 
+
+  /* --text-color-2:  */
+
+  --settings-menu-frame-bg: #252323aa; /*dt*/
+
+  --logout-button-bg: #e03c3cd3;
+ }
+
+
+ [data-theme="neurons"] {
+  --page-bg: #0a3338;
+
+  --last-message-text-cl: #bee7f1bb;
+  --message-bubble-text-color: #202020;
+  --message-send-area-bg: #4786aa99;
+  --message-send-area-text: #fff;
+  --message-bubble-bg: #1bb68f ;
+ 
+  --chat-area-bg: var(--chat-area-placeholder-bg);
+  --chat-area-placeholder-bg: linear-gradient(65deg,#407080,#143c49,#70804088);
+  --chat-screen-wrapper-bg: linear-gradient(90deg, #143c49, #407080);
+  --chat-screen-top-bar-text: #d1d1ff;
+  --settings-nickname-text: var(--chat-screen-top-bar-text);
+
+  --settings-page-bg: var(--page-bg);
+  --chatlist-page-bg: var(--page-bg);
+  --contacts-page-bg: var(--page-bg);
+
+  --settings-item-bg: #116f72;
+  --chatlist-item-bg: #092a2e;
+
+  --icons-color: #217994;
+  --icons-color2: #abd9e7;
+
+  --new-chat-plus-button-bg: #51a1af;
+  --new-chat-plus-button-text: #1d1a47;
+
+  --open-chat-button-bg: #175b70;
+  --open-chat-button-text: #d8d5d5;
+
+  --new-member-area-item-bg: linear-gradient(65deg,#40708088,#143c4988,#70804088);
+  --new-member-area-item-close-button: #eb5757;
+
+
+  --profile-cover-bg: var(--chat-area-placeholder-bg) ;
+  --profile-pic-bg-temp: linear-gradient(245deg,#407080,#143c49,#70804088);
+  /* introduce random colors^ */
+
+  --text-color: #d1d1ff; 
+  /* --text-color-2:  */
+
+  --settings-menu-frame-bg: #0b2229aa; /*dt*/
+
+  --logout-button-bg: #e03c3cd3;
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ [data-theme="nope"] {
+  --page-bg: #0a3338;
+
+  --last-message-text-cl: #FFFFFFbb;
+  --message-send-area-bg: #6ba6c999;
+  --message-send-area-text: #fff1f1;
+  --message-bubble-bg: #1bb68f ;
+ 
+  --chat-area-bg: var(--chat-area-placeholder-bg);
+  --chat-area-placeholder-bg: linear-gradient(65deg,#407080,#143c49,#70804088);
+  --chat-screen-wrapper-bg: linear-gradient(90deg, #143c49, #407080);
+  --chat-screen-top-bar-text: rgb(175, 209, 236);
+  --settings-nickname-text: var(--chat-screen-top-bar-text);
+
+  --settings-page-bg: var(--page-bg);
+  --chatlist-page-bg: var(--page-bg);
+  --contacts-page-bg: var(--page-bg);
+
+  --settings-item-bg: #c6c5d6;
+  --chatlist-item-bg: #c6c5d6;
+
+  --icons-color: #4a999e;
+  --new-member-area-item-close-button: #000;
+
+  --new-chat-plus-button-bg: #51a1af;
+  --new-chat-plus-button-text: #1d1a47;
+
+  --open-chat-button-bg: #419ebb;
+  --open-chat-button-text: #FFF;
+
+
+  --profile-cover-bg: var(--chat-area-placeholder-bg) ;
+  --profile-pic-bg-temp: #c5b039;
+  /* introduce random colors^ */
+
+  --text-color: #050404; 
+
+  --settings-menu-frame-bg: #9594a9; /*dt*/
+
+  --logout-button-bg: #e03c3cd3;
+ }
+

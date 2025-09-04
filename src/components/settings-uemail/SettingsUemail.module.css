@@ -14,6 +14,7 @@
 .uemail-text {
   font-family: Jetbrains Mono;
   font-size: 1rem;
+  color: var(--text-color);
 }
 .options-wrapper {
   /* border: 1px solid red; */
@@ -38,5 +39,6 @@
   padding: 5px 3px;
   border-radius: 7px;
   cursor: pointer;
+  color: var(--text-color)
   /* border: 1px solid green; */
 }

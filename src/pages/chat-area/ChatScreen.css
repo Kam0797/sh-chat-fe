@@ -35,7 +35,6 @@
   justify-content: space-between;
   align-items: center;
   /* background: var(--chat-screen-top-bar-bg); */
-  color: var(--chat-screen-top-bar-text);
 
 }
 
@@ -44,10 +43,12 @@
   font-size: 1.3rem;
   /* max-width: 80%; */
   display: flex;
+  color: var(--chat-screen-top-bar-text);
 }
 .status {
   font-weight: 300;
   font-size: 0.75rem;
+  color: var(--last-message-text-cl)
 }
 /* .options-area {
   {handled in ChatList.css}
@@ -68,6 +69,7 @@
   height:100%;
   padding: 15px 6px 65px 6px;
   border-radius: 15px 15px 0 0;
+  scrollbar-width: 1px;
 }
 .message-send-area {
   /* border: px dotted;  */
@@ -111,7 +113,7 @@
   /* border: 1px solid; */
   position: absolute;
   right: 0;
-  bottom: 0;
+  bottom: 5px;
   z-index: 6;
   display: flex;
   justify-content: center;
@@ -159,4 +161,13 @@
     min-width: 100vw
   }
 } */
+
+@media (pointer: coarse) {
+  .message-send-text, .message-send-text:focus {
+    bottom: -10px;
+    border-radius: 10px;
+    width: 100%
+  }
+
+}
 

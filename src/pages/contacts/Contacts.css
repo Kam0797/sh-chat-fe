@@ -6,7 +6,7 @@
   flex-direction: column;
   width: 100%;
   height: 100dvh;
-  background: var(--chat-area-bg);
+  background: var(--contacts-page-bg);
   justify-content: flex-start;
   overflow: hidden;
   min-width: 250px;
@@ -19,6 +19,7 @@
   align-items: center;
   font-size: 1.5rem;
   font-weight: 900;
+  color: var(--chat-screen-top-bar-text)
 }
 .back-to-messaging {
   display: flex;
@@ -31,6 +32,7 @@
   padding: 4px 7px;
   cursor: pointer;
   border-radius: 50%;
+  color: var(--icons-color)
 }
 .contacts-search-area {
   /* border: 1px dashed red; */
@@ -42,24 +44,30 @@
   /* border: 1px solid blue; */
   display: flex;
   padding: 4px 4px;
-  gap: 4px
+  gap: 4px;
 }
 .contacts-search-box, .contacts-search-box:focus {
   background: #80808035;
   border-radius: 4px;
   flex: 4;
   padding: 4px 1px 4px 10px;
-  font-size: 1.2rem
+  font-size: 1.2rem;
+  background: var(--chatlist-item-bg);
+  color: var(--text-color);
 }
 .new-chat-button {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #419ebb;
+  background: var(--open-chat-button-bg);
   padding: 2px;
-  color: #fff;
+  color: var(--open-chat-button-text);
   border-radius: 4px;
   flex: 1;
+  cursor: pointer;
+}
+.new-chat-button:focus {
+  outline: 2px solid var(--open-chat-button-text);
 }
 .selected-members-area {
   display: flex;
@@ -84,6 +92,7 @@
   flex-direction: column;
   gap: 1px;
   /* border: 1px dotted red; */
+  scrollbar-width: none;
   height: 100%;
   width: 100% ;
   border-radius: 10px;
@@ -95,6 +104,9 @@
   .contacts-search-box, .contacts-search-box:focus {
     padding: 10px 4px 10px 14px;
     border-radius: 15px;
+  }
+  .new-chat-button, .new-chat-button:focus {
+    border-radius: 25px;
   }
   }
 
