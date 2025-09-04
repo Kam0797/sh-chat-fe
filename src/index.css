@@ -31,10 +31,12 @@ button, select, input , input:focus , textarea, textarea:focus {
 
   --page-bg: #d1d0e2;
 
-  --message-color-cl: #000000bb;
+  --last-message-text-cl: #000000bb;
   --message-send-area-bg: #95c9e799;
   --message-send-area-text: #292a2b;
   --message-bubble-bg: #23b866 ;
+  --message-bubble-text-color: #202020;
+
   /* --chat-area-bg: #441f1f50; */
   --chat-area-bg: var(--chat-area-placeholder-bg);
   --chat-area-placeholder-bg: linear-gradient(65deg,#95b9c5,#60cdf1,#d5fc6188);
@@ -94,6 +96,8 @@ button, select, input , input:focus , textarea, textarea:focus {
   --message-send-area-bg: #0f121499;
   --message-send-area-text: #fff1f1;
   --message-bubble-bg: #144438 ;
+  --message-bubble-text-color: #d4dcdf;
+
  
   --chat-area-bg: var(--chat-area-placeholder-bg);
   --chat-area-placeholder-bg: linear-gradient(65deg,#20353d,#0a1d24,#333f0f88);
@@ -138,10 +142,12 @@ button, select, input , input:focus , textarea, textarea:focus {
 
   --page-bg: #d1d0e2;
 
-  --message-color-cl: #000000bb;
+  --last-message-text-cl: #000000bb;
   --message-send-area-bg: #95c9e799;
   --message-send-area-text: #292a2b;
   --message-bubble-bg: #23b866 ;
+  --message-bubble-text-color: #202020;
+
   /* --chat-area-bg: #441f1f50; */
   --chat-area-bg: var(--chat-area-placeholder-bg);
   --chat-area-placeholder-bg: linear-gradient(65deg,#95b9c5,#60cdf1,#d5fc6188);
@@ -200,6 +206,8 @@ button, select, input , input:focus , textarea, textarea:focus {
   --message-send-area-bg: #0f121499;
   --message-send-area-text: #fff1f1;
   --message-bubble-bg: #144438 ;
+  --message-bubble-text-color: #d4dcdf;
+
  
   --chat-area-bg: var(--chat-area-placeholder-bg);
   --chat-area-placeholder-bg: linear-gradient(65deg,#20353d,#0a1d24,#333f0f88);
