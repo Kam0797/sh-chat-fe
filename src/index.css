@@ -83,6 +83,12 @@ button, select, input , input:focus , textarea, textarea:focus {
   --settings-menu-frame-bg: #9594a9aa; /*dt*/
 
   --logout-button-bg: #e03c3cd3;
+
+  --cl-sort-button-bg: #d1d0e205;
+  --cl-sort-button-selected-bg: linear-gradient(0deg,#3c6d834b,#d1d0e205);
+  --cl-sort-button-border: #3c6c83b0;
+
+  --send-button-logo-color: #1b4747;
 }
 
 
@@ -135,6 +141,13 @@ button, select, input , input:focus , textarea, textarea:focus {
   --settings-menu-frame-bg: #252323aa; /*dt*/
 
   --logout-button-bg: #e03c3cd3;
+
+  --cl-sort-button-bg: #9396aa05;
+  --cl-sort-button-selected-bg: linear-gradient(0deg,#ddeedd36,#9396aa05);
+  --cl-sort-button-border: #ddeedd86;
+
+  --send-button-logo-color: #4ba3af;
+
  }
 }
 
@@ -194,6 +207,13 @@ button, select, input , input:focus , textarea, textarea:focus {
   --settings-menu-frame-bg: #9594a9aa; /*dt*/
 
   --logout-button-bg: #e03c3cd3;
+
+  --cl-sort-button-bg: #d1d0e205;
+  --cl-sort-button-selected-bg: linear-gradient(0deg,#3c6d834b,#d1d0e205);
+  --cl-sort-button-border: #3c6c83b0;
+
+  --send-button-logo-color: #1b4747;
+
 }
 
 
@@ -246,6 +266,12 @@ button, select, input , input:focus , textarea, textarea:focus {
   --settings-menu-frame-bg: #252323aa; /*dt*/
 
   --logout-button-bg: #e03c3cd3;
+
+  --cl-sort-button-bg: #9396aa05;
+  --cl-sort-button-selected-bg: linear-gradient(0deg,#96adab36,#141c22);
+  --cl-sort-button-border: #ddeedd86;
+
+  --send-button-logo-color: #4ba3af;
  }
 
 
@@ -256,12 +282,12 @@ button, select, input , input:focus , textarea, textarea:focus {
   --message-bubble-text-color: #202020;
   --message-send-area-bg: #4786aa99;
   --message-send-area-text: #fff;
-  --message-bubble-bg: #1bb68f ;
+  --message-bubble-bg: #199c7c ;
  
   --chat-area-bg: var(--chat-area-placeholder-bg);
   --chat-area-placeholder-bg: linear-gradient(65deg,#407080,#143c49,#70804088);
   --chat-screen-wrapper-bg: linear-gradient(90deg, #143c49, #407080);
-  --chat-screen-top-bar-text: #d1d1ff;
+  --chat-screen-top-bar-text: #d1eeff;
   --settings-nickname-text: var(--chat-screen-top-bar-text);
 
   --settings-page-bg: var(--page-bg);
@@ -288,12 +314,19 @@ button, select, input , input:focus , textarea, textarea:focus {
   --profile-pic-bg-temp: linear-gradient(245deg,#407080,#143c49,#70804088);
   /* introduce random colors^ */
 
-  --text-color: #d1d1ff; 
+  --text-color: #d1eeff; 
   /* --text-color-2:  */
 
   --settings-menu-frame-bg: #0b2229aa; /*dt*/
 
   --logout-button-bg: #e03c3cd3;
+
+  --cl-sort-button-bg: #0d3a4105;
+  --cl-sort-button-selected-bg: linear-gradient(0deg,#2e7c7854,#9396aa05);
+  --cl-sort-button-border: #61dad471;
+
+  --send-button-logo-color: #e2ebec;
+
  }
 
 
