@@ -9,7 +9,8 @@ export default function ChatlistItem({chat, showThese}) {
   const navigate = useNavigate();
   const [lastMessage, setLastMessage] = useState(null);
   const [isGroup, setIsGroup] = useState(null);
-  const [innerCondition, setInnerCondition] = useState()
+  const [innerCondition, setInnerCondition] = useState();
+ 
 
   // const chatName = getChatName(chat, contactsMap)
   // console.log('#12.1::',chatName)
@@ -31,12 +32,18 @@ export default function ChatlistItem({chat, showThese}) {
     switch(list) {
       case 'all':
         setInnerCondition(true);
+        console.log('SEL:all',true);
+        // return true;
         break;
       case 'chats':
         setInnerCondition(!isGroup);
+        console.log('SEL:NG',!isGroup);
+        // return !isGroup;
         break;
       case 'groups':
         setInnerCondition(isGroup);
+        console.log('SEL:G',isGroup);
+        // return isGroup;
         break;
     }
   }
@@ -52,9 +59,16 @@ export default function ChatlistItem({chat, showThese}) {
 
   useEffect(()=> {
     (async()=>{getLastMessage(chatsDB, chat.chatId)})()
-    setConditionForChatList(showThese)
-    console.info('inf::',innerCondition,showThese)
-  },[unreadMap, showThese])
+    // setConditionForChatList(showThese);
+    // console.info('inf::',innerCondition,showThese)
+  },[unreadMap, chat.chatId])
+
+  useEffect(()=> {
+    if(isGroup !== null && showThese) {
+      setConditionForChatList(showThese);
+      console.info('inf1::',innerCondition,showThese)
+    }
+  },[showThese, isGroup])
 
 
   // console.log('################',chat)

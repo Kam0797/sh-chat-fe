@@ -145,7 +145,8 @@
 /* svg */
 .send-button-logo {
   height: 80%;
-  fill: #2a1e5c
+  fill: var(--send-button-logo-color);
+  stroke: var(--send-button-logo-stroke);
 }
 /* .send-button-logo-path {
   stroke: #000

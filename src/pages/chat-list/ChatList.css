@@ -43,14 +43,16 @@
   color: inherit;
   font-family: Nunito;
   font-weight: 700;
-  border-radius: 10%;
+  border-radius: 3px;
+  background: var(--cl-sort-button-bg);
 
 }
 .sort-button:hover {
   transform: scale(1.1);
 }
 .sort-button-selected {
-  border-bottom: 3px solid purple
+  border-bottom: 3px solid var(--cl-sort-button-border);
+  background: var(--cl-sort-button-selected-bg);
 }
 
 .options-area {
@@ -126,6 +128,9 @@
  .new-chat {
   position: fixed;
   } 
+  .sort-button:hover {
+    transform: scale(1);
+  }
 }
 
 @media (min-width: 650px) {

@@ -14,7 +14,7 @@ export default function ChatList() {
   const {SERVER_IP, selectedChat, setChatData , socket, chatList, setChatList, outboundMessageStream, messageStream } = useContext(Context);
   const navigate = useNavigate();
 
-  const [showThese, setShowThese] = useState(localStorage.getItem('visibleChats') || 'all')
+  const [showThese, setShowThese] = useState(localStorage.getItem('visibleChats'))
 
   // console.log('debug::ChatList::',data, typeof data)
 
