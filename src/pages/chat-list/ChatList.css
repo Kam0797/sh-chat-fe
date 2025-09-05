@@ -24,22 +24,32 @@
   color: var(--chat-screen-top-bar-text)
 }
 .sort-area {
-  border: 1px solid;
+  /* border: 1px solid; */
   height: 45px;
   display: flex;
   justify-content: space-around;
+  align-items: flex-end;
   flex: 2;
   color: inherit
 }
 .sort-button {
-  border: 1px dotted;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* border: 1px dotted; */
   width: 70px;
-  padding-top: 10px;
+  padding-top: 5px;
+  height: 80%;
   color: inherit;
   font-family: Nunito;
   font-weight: 700;
+  border-radius: 10%;
+
 }
 .sort-button:hover {
+  transform: scale(1.1);
+}
+.sort-button-selected {
   border-bottom: 3px solid purple
 }
 

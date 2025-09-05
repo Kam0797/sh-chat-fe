@@ -1,7 +1,7 @@
 import axios from 'axios'
 import ChatlistItem from '../../components/reusables/chatlist-item/ChatListItem'
 import './ChatList.css'
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Context } from '../../Context'
 import { useNavigate } from 'react-router-dom'
 
@@ -13,6 +13,9 @@ import { liveQuery } from 'dexie'
 export default function ChatList() {
   const {SERVER_IP, selectedChat, setChatData , socket, chatList, setChatList, outboundMessageStream, messageStream } = useContext(Context);
   const navigate = useNavigate();
+
+  const [showThese, setShowThese] = useState(localStorage.getItem('visibleChats') || 'all')
+
   // console.log('debug::ChatList::',data, typeof data)
 
   // const { SERVER_IP, ChatList, setChatScreenMode } = useContext(Context)
@@ -29,7 +32,7 @@ export default function ChatList() {
   //   .sortBy('timestamp')
   // });
   
-  // const outboundMessageStream = liveQuery(()=> {
+  // const outboundMessageStream = liveQuery(()=> {all
   //   return chatsDB.messages
   //     .where('sendPending')
   //     .equals(1)
@@ -118,9 +121,9 @@ export default function ChatList() {
         <button className='new-chat' onClick={()=>{navigate('/sh-chat-fe/contacts')}} >+</button>
         <div className='options-bar'>
           <div className='sort-area'>
-            <button className='sort-button all'>All</button>
-            <button className='sort-button favorites'>Favs</button>
-            <button className='sort-button groups'>Groups</button>
+            <button className={`sort-button all ${showThese==='all'?'sort-button-selected':null}`} onClick={()=> {setShowThese('all'); localStorage.setItem('visibleChats','all')}}>All</button>
+            <button className={`sort-button chats ${showThese==='chats'?'sort-button-selected':null}`} onClick={()=> {setShowThese('chats'); localStorage.setItem('visibleChats','chats')}}>Chats</button>
+            <button className={`sort-button groups ${showThese==='groups'?'sort-button-selected':null}`} onClick={()=> {setShowThese('groups'); localStorage.setItem('visibleChats','groups')}}>Groups</button>
           </div>
           <div className='options-area'>
             <button className='search-button'></button>
@@ -135,7 +138,7 @@ export default function ChatList() {
           <div className='sort-list'>
             {
               chatList?.map((chat) => {
-                  return <ChatlistItem chat={chat} key={chat.chatId} />
+                  return <ChatlistItem chat={chat} showThese={showThese} key={chat.chatId} />
               })
             }
           </div>
