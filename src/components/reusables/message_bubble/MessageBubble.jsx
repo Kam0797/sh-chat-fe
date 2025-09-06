@@ -19,7 +19,7 @@ export default function MessageBubble({mes}) {
     messageRef.current.style.wordBreak = messageRef.current.style.wordBreak=='break-all'?'normal':'break-all';
   }
   async function markRead() {
-    if(!mes.s_uid) console.error('err#6: s_uid not found for ',mes.temp_uid)
+    if(!mes.s_uid) return
     await chatsDB.messages.where("s_uid").equals(mes.s_uid).modify({read: 1})
   }
 
@@ -36,7 +36,9 @@ useEffect(()=> {
     threshold: 1
   });
   observer.observe(messageRef.current)
-},[])
+
+
+},[mes.s_uid])
 
   return (
     <>
