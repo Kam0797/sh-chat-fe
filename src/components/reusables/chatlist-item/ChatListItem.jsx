@@ -4,10 +4,13 @@ import { Context } from '../../../Context';
 import { useNavigate } from 'react-router-dom';
 import { chatsDB, getChatName } from '../../../utils/utils';
 
-export default function ChatlistItem({chat}) {
-  const { setSelectedChat, contactsMap, selectedChat} = useContext(Context);
+export default function ChatlistItem({chat, showThese}) {
+  const { setSelectedChat, contactsMap, selectedChat, unreadMap} = useContext(Context);
   const navigate = useNavigate();
-  const [lastMessage, setLastMessage] = useState(null)
+  const [lastMessage, setLastMessage] = useState(null);
+  const [isGroup, setIsGroup] = useState(null);
+  const [innerCondition, setInnerCondition] = useState();
+ 
 
   // const chatName = getChatName(chat, contactsMap)
   // console.log('#12.1::',chatName)
@@ -15,8 +18,37 @@ export default function ChatlistItem({chat}) {
   async function getLastMessage(DB, chatId) {
     const mes = await DB?.messages.where("chatId").equals(chatId).sortBy("timestamp");
     const lastMes = mes.at(-1) ?? '';
-    setLastMessage(lastMes)
+    const chatDetails = await DB?.chats.where("chatId").equals(chatId).first();
+    const isGroup = chatDetails.members.length > 2;
+    setLastMessage(lastMes);
+    setIsGroup(isGroup);
   }
+
+  function setConditionForChatList(list) {
+    console.log('i work', list)
+    if(!list) {
+      console.warn('arg `list` invalid')
+    } 
+    switch(list) {
+      case 'all':
+        setInnerCondition(true);
+        console.log('SEL:all',true);
+        // return true;
+        break;
+      case 'chats':
+        setInnerCondition(!isGroup);
+        console.log('SEL:NG',!isGroup);
+        // return !isGroup;
+        break;
+      case 'groups':
+        setInnerCondition(isGroup);
+        console.log('SEL:G',isGroup);
+        // return isGroup;
+        break;
+    }
+  }
+
+
   function formatTime(timestamp) {
     if(!timestamp) return ''
     const timeObj = new Date(timestamp);
@@ -27,20 +59,31 @@ export default function ChatlistItem({chat}) {
 
   useEffect(()=> {
     (async()=>{getLastMessage(chatsDB, chat.chatId)})()
-  },[])
+    // setConditionForChatList(showThese);
+    // console.info('inf::',innerCondition,showThese)
+  },[unreadMap, chat.chatId])
+
+  useEffect(()=> {
+    if(isGroup !== null && showThese) {
+      setConditionForChatList(showThese);
+      console.info('inf1::',innerCondition,showThese)
+    }
+  },[showThese, isGroup])
+
 
   // console.log('################',chat)
   return (
-    <button className='chat-list-item' onClick={()=>{ navigate(`/sh-chat-fe/chat?chatId=${chat.chatId}`)} }>
-      <div className='profile-pic'>{getChatName(chat, contactsMap)?.slice(0,2)}</div>
+    (lastMessage || isGroup) && innerCondition &&
+    <button className='chat-list-item' onClick={()=>{setSelectedChat(chat.chatId); navigate(`/sh-chat-fe/chat?chatId=${chat.chatId}`)} }>
+      <div className='profile-pic f-jbm'>{getChatName(chat, contactsMap)?.slice(0,2)}</div>
       <div className='details-area'>
         <div className='name-time'>
-          <div className='name'>{getChatName(chat, contactsMap)}</div>
-          <div className='time'>{formatTime(lastMessage?.timestamp)}</div>
+          <div className='name'><span className='add-ellipsis f-nunito'>{getChatName(chat, contactsMap)}</span></div>
+          <div className='time f-jbm'>{formatTime(lastMessage?.timestamp)}</div>
         </div>
-        <div className='message-notif'>
-          <div className='last-message'>{lastMessage?.content}</div>
-          <div className='notif'>{1}</div>
+        <div className='message-unreadcount'>
+          <div className='last-message'><span className='add-ellipsis f-m'>{lastMessage?.content}</span></div>
+          {unreadMap?.get(chat.chatId) && <div className='unread-count'>{unreadMap?.get(chat.chatId) < 100 ? unreadMap?.get(chat.chatId) : '99+'}</div>}
         </div>
       </div>
     </button>

@@ -3,16 +3,19 @@
 .contacts-item-wrapper {
   /* see ChatListItem.css/.chat-list-item */
   position: relative;
+  color: var(--text-color)
 }
 
 .contact-email {
   display: flex;
-  
   /* border: 1px dotted; */
   width: 100%;
   height: 70%;
+  font-weight: 100;
+  font-size: 0.9rem;
   justify-content: flex-start;
   align-items: center;
+  color: var(--last-message-text-cl)
 }
 .contact-name {
   display: flex;
@@ -28,26 +31,25 @@
   flex-direction: column;
   height: 100%;
   width: 70%;
+  position: relative;
 }
-.contact-status {
+/* .contact-status {
   display: flex;
   justify-content: center;
   align-items: center;
   
-  /* border: 1px solid green; */
+  /* border: 1px solid green; 
   height: 100%;
   width: clamp(25px,15%,35px)
-}
-.add-ellipsis {
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+} */
+
 .profile-pic {
   /* aspect-ratio: 1/1; */
   height: 85%;
 }
 .add-up {
   display: flex;
+  color: var(--icons-color);
   /* border: 1px solid; */
   justify-content: center;
   align-items: center;
@@ -60,4 +62,33 @@
   cursor: pointer;
   border-radius: 50%;
   user-select: none;
+  transition: transform 0.2s ease-in-out;
+
 }
+.open-chat {
+  position: absolute;
+  color: var(--icons-color);
+  right: 0;
+  top: 50%;
+  /* border: 1px solid; */
+  font-size: 2.5rem;
+  padding: 5px;
+  transform: translateY(-50%) rotate(300deg);
+  cursor: pointer;
+  border-radius: 50%;
+  transition: transform 0.2s ease-in-out;
+}
+.open-chat:hover {
+  transform: translateY(-50%) rotate(300deg) scale(1.5);
+}
+.add-up:hover {
+  transform: scale(1.5);
+}
+
+/* for high-dpi-screens :phones :touchscreens */
+@media (pointer: coarse) {
+  .open-chat {
+    font-size: 1.8rem;
+  }
+}
+

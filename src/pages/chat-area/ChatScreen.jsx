@@ -13,10 +13,8 @@ import {
 import MessageBubble from "../../components/reusables/message_bubble/MessageBubble";
 
 export default function ChatScreen() {
-  const { selectedChat, setSelectedChat, chatData, setChatData, contactsMap } =
+  const { selectedChat, setSelectedChat, chatData, setChatData, contactsMap, isTouchScreen } =
     useContext(Context);
-  setChatData(SelectAndLoadMessages(selectedChat, chatsDB));
-  console.log("#2", chatData);
 
   let messageFieldRef = useRef(null);
   let sendButtonRef = useRef(null);
@@ -30,7 +28,9 @@ export default function ChatScreen() {
   const currentChatId = searchParam.get("chatId");
   // console.log('debug::SP::currentChatId',currentChatId);
   // setSelectedChat(currentChatId);
-  (async () => {
+useEffect(()=>{
+  // setSelectedChat(currentChatId);
+    (async () => {
     try {
       const chatIdObj = await chatsDB.chats
         .where("chatId")
@@ -38,10 +38,16 @@ export default function ChatScreen() {
         .first();
       const validChatId = chatIdObj?.chatId;
       setSelectedChat(validChatId);
+
     } catch {
       setSelectedChat(null);
     }
   })();
+},[currentChatId])
+
+  setChatData(SelectAndLoadMessages(selectedChat, chatsDB));
+
+
   // console.log('debug::CS:', typeof chatData, chatData);
 
   function handleSend() {
@@ -87,7 +93,7 @@ export default function ChatScreen() {
 
   useEffect(() => {
     if (!selectedChat) return;
-    
+
     chatsDB.chats
       .where("chatId")
       .equals(selectedChat)
@@ -110,22 +116,22 @@ export default function ChatScreen() {
   // }, []);
 
   useEffect(() => {
-    const triggerScroll = () => {
-      window.scrollTo(0, 60, { behavior: "smooth" });
-      // setTimeout(()=> window.scrollTo(0,0))
-    };
+    // const triggerScroll = () => {
+    //   window.scrollTo(0, 60, { behavior: "smooth" });
+    //   // setTimeout(()=> window.scrollTo(0,0))
+    // };
     // window.height = 110%
     // triggerScroll();
-    setTimeout(() => triggerScroll(), 2000);
+    // setTimeout(() => triggerScroll(), 2000);
     const body = document.querySelector("html");
     body.classList.add("disablePTR");
 
-    window.addEventListener("resize", triggerScroll);
+    // window.addEventListener("resize", triggerScroll);
 
     return () => {
-      window.removeEventListener("resize", triggerScroll);
-      if (body.classList.contains("disablePTR"))
-        body.classList.remove("disablePTR");
+      // window.removeEventListener("resize", triggerScroll);
+      // if (body.classList.contains("disablePTR"))
+      body.classList.remove("disablePTR");
     };
   }, []);
   useEffect(() => {
@@ -137,22 +143,27 @@ export default function ChatScreen() {
     }
   }, [chatData]);
 
+  // if( selectedChat && currentChatId && currentChatId == chatData[0]?.chatId) {
   return (
-    <div className="chat-screen-wrapper smooth-scroll">
-      {selectedChat && (
+    <div className="chat-screen-wrapper">
+      {selectedChat && currentChatId && (currentChatId == chatData[0]?.chatId || chatData.length == 0)&& (
         <>
           <div className="chat-screen-top-bar">
             <button
-              className="profile-pic chat-back-button"
+              className="profile-pic chat-back-button f-jbm"
               onClick={() => navigate("/sh-chat-fe/")}
             >
               {getChatName(meta, contactsMap)?.slice(0, 2)}
             </button>
             <div className="details-area">
-              <div className="chat-name">{getChatName(meta, contactsMap)}</div>
-              <div className="status">{"not online"}</div>
+              <div className="chat-name">
+                <span className="add-ellipsis f-nunito" >
+                  {getChatName(meta, contactsMap)}
+                </span>
+              </div>
+              <div className="status">{"~ not online"}</div>
             </div>
-            <div className="options-area">{"opt"}</div>
+            <div className="options-area">{"..."}</div>
           </div>
 
           {/* <div className="chat-area-wrapper"> */}
@@ -164,8 +175,9 @@ export default function ChatScreen() {
           <div className="message-send-area">
             <textarea
               // rows="1"
+              autoFocus={!isTouchScreen}
               placeholder="Type here"
-              className="message-send-text"
+              className="message-send-text f-nunito"
               ref={messageFieldRef}
               onInput={() => updateTextAreaHeight()}
             />
@@ -207,4 +219,5 @@ export default function ChatScreen() {
       )} */}
     </div>
   );
+// }
 }

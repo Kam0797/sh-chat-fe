@@ -1,18 +1,25 @@
 
 .contacts-wrapper {
   flex: 1;
-  border: 1px solid;
+  /* border: 1px solid; */
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  background: var(--chat-area-bg);
+  width: 100%;
+  height: 100dvh;
+  background: var(--contacts-page-bg);
+  justify-content: flex-start;
+  overflow: hidden;
+  min-width: 250px;
 }
 .contacts-header {
-  border: 1px solid yellow;
+  /* border: 1px solid yellow; */
   display: flex;
   gap: 5px;
   padding: 5px 0 5px 0;
   align-items: center;
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--chat-screen-top-bar-text)
 }
 .back-to-messaging {
   display: flex;
@@ -25,35 +32,42 @@
   padding: 4px 7px;
   cursor: pointer;
   border-radius: 50%;
+  color: var(--icons-color)
 }
 .contacts-search-area {
-  border: 1px dashed red;
+  /* border: 1px dashed red; */
   display: flex;
   flex-direction: column;
 
 }
 .contacts-search-box-area {
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
   display: flex;
-  padding: 4px;
-  gap: 4px
+  padding: 4px 4px;
+  gap: 4px;
 }
 .contacts-search-box, .contacts-search-box:focus {
   background: #80808035;
   border-radius: 4px;
-  flex: 5;
-  padding: 1px 1px 1px 5px;
-  font-size: 1.2rem
+  flex: 4;
+  padding: 4px 1px 4px 10px;
+  font-size: 1.2rem;
+  background: var(--chatlist-item-bg);
+  color: var(--text-color);
 }
 .new-chat-button {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #419ebb;
+  background: var(--open-chat-button-bg);
   padding: 2px;
-  color: #fff;
+  color: var(--open-chat-button-text);
   border-radius: 4px;
   flex: 1;
+  cursor: pointer;
+}
+.new-chat-button:focus {
+  outline: 2px solid var(--open-chat-button-text);
 }
 .selected-members-area {
   display: flex;
@@ -65,16 +79,39 @@
 }
 
 .contacts-list-wrapper {
-  border: 1px solid;
+  /* border: 1px solid green; */
   padding: 5px;
-  height: 100%
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 .contacts-list {
   display: flex;
   flex-direction: column;
   gap: 1px;
-  border: 1px dotted red;
+  /* border: 1px dotted red; */
+  scrollbar-width: none;
   height: 100%;
+  width: 100% ;
   border-radius: 10px;
-  overflow: hidden;
+  overflow: auto;
 }
+
+
+@media screen and (min-resolution: 200dpi) and (max-resolution: 400dpi) {
+  .contacts-search-box, .contacts-search-box:focus {
+    padding: 10px 4px 10px 14px;
+    border-radius: 15px;
+  }
+  .new-chat-button, .new-chat-button:focus {
+    border-radius: 25px;
+  }
+  }
+
+  @media (min-width: 650px) {
+    .contacts-wrapper {
+      max-width: 50vw;
+    }
+  }

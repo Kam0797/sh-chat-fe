@@ -5,8 +5,9 @@ import { useState, createContext, useRef, useEffect } from 'react'
 import { io } from 'socket.io-client';
 import { Dexie, liveQuery } from 'dexie';
 
-import { chatsDB, SelectAndLoadMessages, sendMessage, syncChats } from './utils/utils';
+import { chatsDB, SelectAndLoadMessages, sendMessage, syncChats, themeHandler } from './utils/utils';
 import { useNavigate } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
 const Context = createContext();
 
 const SERVER_IP = 
@@ -27,12 +28,19 @@ try {
   console.log('server offline', err)
 }
 
+// theme restore
+if(localStorage.getItem('theme')) {
+  console.info('Restoring theme...')
+  const doc = document.querySelector('html')
+  doc.dataset.theme = themeHandler(localStorage.getItem('theme'))
+}
 
 
 //observables
-const messageStream = liveQuery(()=> {
-  return chatsDB
-  .messages.toCollection()
+const unreadMessageStream = liveQuery(()=> {
+  return chatsDB.messages
+  .where('read')
+  .equals(0)
   .sortBy('timestamp')
 });
 
@@ -49,6 +57,11 @@ const ContextProvider = ({children})=> {
 
   const navigate = useNavigate()
 
+  // conts
+  const isWide = useMediaQuery({minWidth:650});
+  const isTouchScreen = useMediaQuery({query: "(pointer:coarse)"})
+
+
 
 
   
@@ -60,9 +73,12 @@ const ContextProvider = ({children})=> {
   const [newMessages, setNewMessages] = useState(null)
   const [newOutboundMessages, setNewOutboundMessages] = useState(null)
   const [contactsMap, setContactsMap] = useState(new Map())
+  const [unreadMap, setUnreadMap] = useState(new Map())
+  // const [theme, setTheme] = useState('')
 
   //settings stuff
   const profileTemplate = {
+    uid: '',
     uemail: localStorage.getItem('uemail'),
     nickname: localStorage.getItem('uemail')?.split('@')[0],
     profilePicURL: ""
@@ -110,6 +126,7 @@ async function makeContactsMap() {
   setContactsMap(contacts)
 }
 async function getAndSetContactsData() {
+  await makeContactsMap(); // just load from IDB
   const allUemails = new Set();
   const chatData = await chatsDB.chats.toArray();
   if(Array.isArray(chatData) && chatData.length > 0) {
@@ -120,7 +137,6 @@ async function getAndSetContactsData() {
     })
   }
   if(allUemails.size > 0) {
-    await makeContactsMap(); // load from IDB
     try{
     const nicknamesArray = await axios.post(`${SERVER_IP}/users/nicknames`,{users: [...allUemails]}, {withCredentials: true});
     const nicknames = nicknamesArray.data.contacts;
@@ -136,18 +152,18 @@ async function getAndSetContactsData() {
   await makeContactsMap(); // after server fetch
 }
 
-useEffect(() => {
-  const updateHeight = () => {
-    document.documentElement.style.setProperty(
-      "--vh",
-      `${window.visualViewport.height * 0.01}px`
-    );
-  };
-  window.visualViewport.addEventListener("resize", updateHeight);
-  updateHeight();
-  return () =>
-    window.visualViewport.removeEventListener("resize", updateHeight);
-}, []);
+// useEffect(() => {
+//   const updateHeight = () => {
+//     document.documentElement.style.setProperty(
+//       "--vh",
+//       `${window.visualViewport.height * 0.01}px`
+//     );
+//   };
+//   window.visualViewport.addEventListener("resize", updateHeight);
+//   updateHeight();
+//   return () =>
+//     window.visualViewport.removeEventListener("resize", updateHeight);
+// }, []);
 
 
 
@@ -179,17 +195,23 @@ useEffect(()=> {
 
   }); // may have to reconnect
 
-  socket?.on('messagesToClient',(incomingMessages)=> {
+  socket?.on('messagesToClient',async (incomingMessages)=> {
     try {
-    console.log('imes:', typeof incomingMessages, incomingMessages);
-    incomingMessages?.forEach(async message => {
+    console.log('imes:', typeof incomingMessages, incomingMessages, !incomingMessages?.size);
+    // incomingMessages?.forEach(async message =>
+      if(incomingMessages.size == 0) return;
+    for(const message of incomingMessages ?? []) {
+      
       const exists = await chatsDB.messages.get(message.s_uid);
       if (!exists) {
-        message.read = false;
-        chatsDB.messages.add(message)
+        message.read = 0;
+        await chatsDB.messages.add(message);
+        socket.emit('confirmMessagesToClient',[message.s_uid])
+        console.log('incoming mes:',message, 'conf sent')
       }
-      console.log('uid',chatsDB.messages.where('s_uid').equals(message.s_uid).toArray())
-    })
+      const log1 = await chatsDB.messages.where('s_uid').equals(message.s_uid).toArray()
+      console.log('uid',log1)
+    }
     console.log('messages fetched and saved in IDB. Fin mes:', incomingMessages[-1] || []);
     }
     catch (err) {
@@ -197,15 +219,28 @@ useEffect(()=> {
     }
   })
   socket.on('messagesToServerS',async (incomingSuid)=> {
-    console.log('#3',incomingSuid)
     const {temp_uid, s_uid} = incomingSuid;
-    console.log('#4',temp_uid, typeof temp_uid, s_uid)
-    await chatsDB.messages.where("temp_uid").equals(temp_uid).modify({s_uid:s_uid})
+    await chatsDB.messages.where("temp_uid").equals(temp_uid).modify({s_uid:s_uid, sendPending:0})
+    // theres a room for simplification: if(!temp_id) = sendPending==1
+    // but liveQuery may not pick it, and is towards obsurity. so i think to keep it as above :)
   })
 
   // subs
-  const messageSub = messageStream.subscribe(messages => {
+  const unreadMessageSub = unreadMessageStream.subscribe( {
     // trigger renders, add notifs - no, just make a map
+    next: messages => {
+      const chatIdMap = new Map()
+      messages.forEach(({chatId}) => {
+        if(!chatId) return
+        chatIdMap.set(chatId, (chatIdMap.get(chatId) || 0) + 1)
+      })
+      setUnreadMap(chatIdMap)
+      // console.log('msstream', messages)
+      // console.log('unreadMap:',unreadMap, chatIdMap)
+    },
+    error: err => {
+      console.error('debug:unreadmessageSub',err)
+    }
   });
   const outboundSub = outboundMessageStream.subscribe( {
     next: messages => {
@@ -231,7 +266,7 @@ useEffect(()=> {
   // console.log(typeof chatList, chatList)
   return ()=> {
     socket?.disconnect();
-    messageSub.unsubscribe();
+    unreadMessageSub.unsubscribe();
     outboundSub.unsubscribe();
   }
 
@@ -241,8 +276,10 @@ useEffect(()=> {
 
 
 
+
+
   return(
-    <Context.Provider value={{SERVER_IP, selectedChat, setSelectedChat, chatData, setChatData, chatMap, socket, chatScreenMode, setChatScreenMode, chatList, setChatList, CLRef, CSRef, newOutboundMessages, setNewOutboundMessages, newMessages, setNewMessages, profileData, setProfileData, outboundMessageStream, contactsMap, setContactsMap, getAndSetContactsData}}>
+    <Context.Provider value={{SERVER_IP, selectedChat, setSelectedChat, chatData, setChatData, chatMap, socket, chatScreenMode, setChatScreenMode, chatList, setChatList, CLRef, CSRef, newOutboundMessages, setNewOutboundMessages, newMessages, setNewMessages, profileData, setProfileData, outboundMessageStream, contactsMap, setContactsMap, getAndSetContactsData, makeContactsMap, unreadMap, isWide, isTouchScreen}}>
       {children}
     </Context.Provider>
   )

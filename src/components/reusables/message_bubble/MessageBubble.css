@@ -13,8 +13,10 @@
   justify-content: space-between;
   padding: 4px 3px 13px 6px;
   position: relative;
-  background: #6a93a0BB;
+  /* background: #6a93a0BB; */
+  background: var(--message-bubble-bg);
   border-radius: 15px 10px 0 10px;
+  color: var(--message-bubble-text-color)
 }
 .message {
   /* border: 1px dotted; */
@@ -27,6 +29,7 @@
   word-break: break-line;
   margin-right: 10px;
   overflow: auto;
+  font-weight: 700;
 }
 .message-info {
   display: flex;
@@ -34,13 +37,15 @@
   font-size: 0.8rem;
   position: absolute;
   bottom: -1px;
-  right: 3px;
+  right: 7px;
   gap: 3px;
+  font-weight: 300;
 }
 .message-delivery-status {
   display: flex;
   justify-content: flex-end;
   align-items: center;
   font-size: 0.6rem;
+  font-weight: 300;
   /* border: 1px solid */
 }

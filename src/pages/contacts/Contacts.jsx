@@ -118,26 +118,29 @@ export default function Contacts() {
           >
             &#x21A9;
           </button>
-          <span className="Contacts-heading">Contacts</span>
+          <span className="Contacts-heading f-m">Contacts</span>
         </div>
         <div className="contacts-search-area">
           <div className="contacts-search-box-area">
             <input
               className="contacts-search-box"
               type="text"
+              placeholder="Type email to add contact"
               ref={searchBoxRef}
               onKeyDown={(e) => {
                 if (e.key == " " || e.key == "Enter") addMembers(e);
               }}
             />
-            <button
+            {newChatMembers.length > 0 &&
+              <button
               className="new-chat-button"
               onClick={() => {
                 return handleCreateChat();
               }}
             >
-              Chat!
+              {newChatMembers.length < 2?`Open Chat`:'Make Group'}
             </button>
+            }
           </div>
           <div
             className="selected-members-area add-5pd"

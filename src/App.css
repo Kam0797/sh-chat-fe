@@ -1,5 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 /* AppLayout styles */
+
+
+/* fonts */
+
+.f-jbm {
+  font-family: JetBrains Mono, Noto Sans;
+}
+.f-rc {
+  font-family: Roboto Condensed, Noto Sans;
+}
+.f-m {
+  font-family: Montserrat, Noto Sans;
+}
+/* let above remain as-is */
+.f-nunito {
+  font-family: Nunito, Noto Sans, Arial;
+}
+.f-mono {
+  font-family: monospace;
+  font-weight: 300;
+  font-size: 0.9rem;
+}
+.f-space-mono {
+  font-family: Space Mono;
+}
+
+/* behavior */
+
+.add-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: inherit;
+  /* background-color: red; */
+  /* border: 1px solid; */
+}
+
+
+
 
 .ui-wrapper {
   position: relative;

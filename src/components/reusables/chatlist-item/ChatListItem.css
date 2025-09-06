@@ -8,11 +8,13 @@
   min-height: 70px;
   background: var(--chatlist-item-bg);
   padding: 5px;
+  border-radius: 4px;
+  width: 100%
   /* border-bottom: 1px solid var(--chatlist-item-bg); */
 }
 .profile-pic {
   height: 85%;
-  background:  #c300ff70;
+  background:  var(--profile-pic-bg-temp);
   aspect-ratio: 1/1;
   display: flex;
   justify-content: center;
@@ -20,36 +22,55 @@
   border-radius: 50%;
   margin-left: 5px;
   font-size: 1.5rem;
+  color: var(--profile-pic-text-temp)
+  /* border: 1px dashed; */
 }
 .details-area {
   /* border: 1px solid ; */
-  width: 100%;
+  width: calc(100% - 75px);
   height: 80%;
   display: flex;
   flex-direction: column;  
   margin: 0 5px 0 10px;
   justify-content: center;
+  color: var(--text-color)
   /* border: 1px dashed red */
 }
 .name-time {
   display: flex;
-  /* border: 1px dotted blue; */
+  /* border: 1px dotted rgb(0, 255, 42); */
   justify-content: space-between;
   flex:1;
+  width: 100%;
 }
-.name {
+.name-time .name {
+  /* font-family: serif; */
   font-size: 1.2rem;
+  font-weight: 900;
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
+  max-width: calc(100% - 45px);
+  /* border: 1px dotted; */
 }
 
-.message-notif {
+
+
+.message-unreadcount {
   display: flex;
   justify-content: space-between;
   flex: 1;
 }
+.unread-count {
+  border: 1px solid;
+  border-radius: 100px;
+  padding: 2px  6px ;
+  background: var(--unread-count-bg);
+}
 .last-message {
-  color: var(--message-color-cl);
+  display: flex;
+  color: var(--last-message-text-cl);
+  /* font-family: serif; */
+  max-width: calc(100% - 45px);
 }
 
 /*hover*/

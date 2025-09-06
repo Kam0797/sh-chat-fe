@@ -15,4 +15,9 @@
   padding: 0 15px 0 15px;
   position: relative;  /* if conflicts set this just for .settings-item-action-component */
   /* border: 1px dotted; */
+  color: var(--text-color)
+}
+.settings-item-name {
+  font-size: 1.3rem;
+  font-weight: 700;
 }
