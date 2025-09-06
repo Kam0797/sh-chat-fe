@@ -195,19 +195,23 @@ useEffect(()=> {
 
   }); // may have to reconnect
 
-  socket?.on('messagesToClient',(incomingMessages)=> {
+  socket?.on('messagesToClient',async (incomingMessages)=> {
     try {
-    console.log('imes:', typeof incomingMessages, incomingMessages);
-    incomingMessages?.forEach(async message => {
+    console.log('imes:', typeof incomingMessages, incomingMessages, !incomingMessages?.size);
+    // incomingMessages?.forEach(async message =>
+      if(incomingMessages.size == 0) return;
+    for(const message of incomingMessages ?? []) {
+      
       const exists = await chatsDB.messages.get(message.s_uid);
       if (!exists) {
         message.read = 0;
-        chatsDB.messages.add(message)
-        console.log('incoming mes:',message)
+        await chatsDB.messages.add(message);
+        socket.emit('confirmMessagesToClient',[message.s_uid])
+        console.log('incoming mes:',message, 'conf sent')
       }
       const log1 = await chatsDB.messages.where('s_uid').equals(message.s_uid).toArray()
       console.log('uid',log1)
-    })
+    }
     console.log('messages fetched and saved in IDB. Fin mes:', incomingMessages[-1] || []);
     }
     catch (err) {
@@ -225,16 +229,14 @@ useEffect(()=> {
   const unreadMessageSub = unreadMessageStream.subscribe( {
     // trigger renders, add notifs - no, just make a map
     next: messages => {
-      console.log('################################3')
       const chatIdMap = new Map()
       messages.forEach(({chatId}) => {
         if(!chatId) return
         chatIdMap.set(chatId, (chatIdMap.get(chatId) || 0) + 1)
-        console.log('wtf:::::::::::',chatId, (chatIdMap.get(chatId) || 0) + 1)
       })
       setUnreadMap(chatIdMap)
-      console.log('msstream', messages)
-      console.log('unreadMap:',unreadMap, chatIdMap)
+      // console.log('msstream', messages)
+      // console.log('unreadMap:',unreadMap, chatIdMap)
     },
     error: err => {
       console.error('debug:unreadmessageSub',err)
