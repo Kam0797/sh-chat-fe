@@ -19,7 +19,7 @@ window.location.hostname.startsWith('192.168')
 
 let socket = null;
 try {
-  if(axios.get(SERVER_IP+'/chat-room')) {
+  if(axios.get(SERVER_IP+'/chat-room',{withCredentials: true})) {
     socket = io(SERVER_IP,
       {withCredentials: true}
     );
