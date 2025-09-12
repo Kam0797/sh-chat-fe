@@ -12,7 +12,7 @@ const Context = createContext();
 
 const SERVER_IP = 
 window.location.hostname.startsWith('192.168')
-? 'http://192.168.60.94:3000'
+? 'http://192.168.134.94:3000'
 : 'https://sh-chat.onrender.com';
 
 // const SERVER_IP = 'http://192.168.125.94:3000'

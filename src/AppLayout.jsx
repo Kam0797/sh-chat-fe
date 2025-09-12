@@ -1,4 +1,4 @@
-import { Outlet, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import ChatList from "./pages/chat-list/ChatList";
 import ChatScreen from "./pages/chat-area/ChatScreen";
 import Contacts from "./pages/contacts/Contacts";
