@@ -55,6 +55,10 @@
   display: flex;
   flex:1;
 }
+.ui-wrapper-partition2 {
+  display: flex;
+  flex: 3;
+}
 
 @supports not (height: 100dvh) {
   .ui-wrapper {

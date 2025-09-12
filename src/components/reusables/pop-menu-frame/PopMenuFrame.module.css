@@ -3,7 +3,7 @@
 .frame-wrapper {
   position: absolute;
   right: 15px;
-  top: 0;
+  top: 10px;
   /* border: 1px solid; */
   flex-direction: column;
   align-items: center;
@@ -20,8 +20,8 @@
   backdrop-filter: blur(1px);
   overflow: hidden;
 }
+
 .close-button-wrapper {
-  /* border: 1px dotted; */
   width: 100%;
   display: flex;
   justify-content: flex-end;
@@ -36,12 +36,13 @@
 }
 .menu-items-wrapper {
   /* border: 1px dashed; */
-  width: 100%;
+  width: calc(100% - 20px);
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 5px;
-  gap: 6px
+  gap: 6px;
+
 }
 
 

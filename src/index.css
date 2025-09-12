@@ -23,7 +23,7 @@ button, select, input , input:focus , textarea, textarea:focus {
   border: 0;
   border-radius: 0;
   outline: 0;
-  color: #1d1a47
+  /* color: #1d1a47 */
 }
 
 
@@ -80,7 +80,7 @@ button, select, input , input:focus , textarea, textarea:focus {
   /* the mode may be CAPS-ed, i dont want to override CSS conv [your conv sucks. may have to *drop* it ]*/
   --text-color: #050404; /*text in light mode [it-IS-dark]*/
 
-  --settings-menu-frame-bg: #9594a9aa; /*dt*/
+  --settings-menu-frame-bg: #9594a966; /*dt*/
 
   --logout-button-bg: #e03c3cd3;
 
@@ -89,6 +89,11 @@ button, select, input , input:focus , textarea, textarea:focus {
   --cl-sort-button-border: #3c6c83b0;
 
   --send-button-logo-color: #1b4747;
+
+  --chat-name-input-border: #00000046;
+
+    /* popup */
+    --chat-settings-bg: #00000015;
 }
 
 
@@ -148,6 +153,11 @@ button, select, input , input:focus , textarea, textarea:focus {
 
   --send-button-logo-color: #4ba3af;
 
+  --chat-name-input-border: #ffffff46;
+
+  /* popup */
+  --chat-settings-bg: #ffffff25;
+
  }
 }
 
@@ -204,7 +214,7 @@ button, select, input , input:focus , textarea, textarea:focus {
   /* the mode may be CAPS-ed, i dont want to override CSS conv [your conv sucks. may have to *drop* it ]*/
   --text-color: #050404; /*text in light mode [it-IS-dark]*/
 
-  --settings-menu-frame-bg: #9594a9aa; /*dt*/
+  --settings-menu-frame-bg: #9594a966; /*dt*/
 
   --logout-button-bg: #e03c3cd3;
 
@@ -214,6 +224,10 @@ button, select, input , input:focus , textarea, textarea:focus {
 
   --send-button-logo-color: #1b4747;
 
+  --chat-name-input-border: #00000046;
+
+  /* popup */
+  --chat-settings-bg: #00000010;
 }
 
 
@@ -272,6 +286,12 @@ button, select, input , input:focus , textarea, textarea:focus {
   --cl-sort-button-border: #ddeedd86;
 
   --send-button-logo-color: #4ba3af;
+
+  --chat-name-input-border: #ffffff46; 
+
+  /* popup */
+  --chat-settings-bg: #ffffff25;
+
  }
 
 
@@ -327,6 +347,10 @@ button, select, input , input:focus , textarea, textarea:focus {
 
   --send-button-logo-color: #e2ebec;
 
+  --chat-name-input-border: #ffffff46;
+
+  /* popup */
+  --chat-settings-bg: #ffffff25;
  }
 
 
@@ -342,6 +366,7 @@ button, select, input , input:focus , textarea, textarea:focus {
 
 
 
+ /* for backup only!!! worry never */
 
  [data-theme="nope"] {
   --page-bg: #0a3338;

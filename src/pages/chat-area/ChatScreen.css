@@ -34,6 +34,7 @@
   /* border: 1px solid grey; */
   justify-content: space-between;
   align-items: center;
+  position: relative;
   /* background: var(--chat-screen-top-bar-bg); */
 
 }
@@ -44,6 +45,7 @@
   /* max-width: 80%; */
   display: flex;
   color: var(--chat-screen-top-bar-text);
+  width: calc(100% - 30px)
 }
 .status {
   font-weight: 300;
@@ -56,6 +58,28 @@
 
 .chat-back-button {
   cursor: pointer;
+}
+.chat-options {
+  position: absolute;
+  /* border: 1px solid; */
+  right: 0;
+  top: 0;
+}
+
+.clear-chat-button {
+  /* border: 1px solid #fff; */
+  /* color: var(--chat-screen-top-bar-text); */
+  color: #c20909d2;
+  font-size: 1rem;
+  padding: 7px 7px 7px 10px;
+  text-align: left;
+  width: calc(100% - 10px);
+  border-radius: 5px;
+  background: var(--chat-settings-bg);
+  font-family: Nunito;
+  font-weight: 900; 
+  cursor: pointer;
+  user-select: none;
 }
 
 .chat-area {
