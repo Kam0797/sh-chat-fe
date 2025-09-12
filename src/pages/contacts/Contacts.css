@@ -79,7 +79,7 @@
 }
 .chat-name-input, .chat-name-input:focus {
   outline: 2px solid var(--chat-name-input-border);
-  width: calc(100% - 20px -14px);
+  width: calc(100% - 20px - 14px);
   margin: 5px 10px;
   padding: 4px 4px 4px 10px;
   color: var(--chat-screen-top-bar-text);
