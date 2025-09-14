@@ -23,14 +23,17 @@
   background-size: cover;
   flex-direction: column;
   border-radius: 0 0 25px 25px;
-  /* min-height: 380px; */
   max-height: 220px;
+  overflow: hidden;
+  animation: rotate-bg 5s infinite linear;
+
 }
 .profile-pic-img {
   height: 65%; 
   font-size: 6rem;
   font-weight: 100;
   margin: 15px;
+  /* animation: rotate-bg 5s infinite linear; */
 }
 .profile-name-wrapper {
   position: relative;
@@ -39,11 +42,13 @@
   /* padding: 0 5px; */
   font-weight: 300;
   letter-spacing: 1px;
-
+  max-width: 70%;
+  /* overflow: auto; */
 }
 .profile-name-label {
   margin: 0 20px;
   font-weight: 600;
+  word-break: break-all;
   color: var(--settings-nickname-text);
   /* border: 1px solid; */
 }
@@ -54,33 +59,46 @@
   font-size: inherit;
   width: auto;
   min-width: 0;
+  /* max-width: 80%; */
   font-weight: inherit;
   letter-spacing: inherit;
   text-align: center;
   font-weight: 600;
   color: var(--settings-nickname-text);
+  overflow: hidden;
   /* field-sizing: content; */
   /* ^ is a good feature. disabled for consistency. when FF supports, enable this and rm JS-work #field-sizing */
 }
 .nickname-button {
   position: absolute;
-  top: -5px;
-  right: 15px;
+
   transform: translateX(100%);
   /* border: 1px solid red; */
   border-radius: 100%;
   font-size: 1rem;
   font-weight: 800;
   background: var(--settings-item-bg);
-  color: var(--text-color)
+  background: var(--chat-area-bg);
+  color: var(--text-color);
+  cursor: pointer;
 }
 .nickname-edit {
   aspect-ratio: 1/1;
   padding: 2px 3px 0 5px;
+  top: -10px;
+  right: 15px;
 }
 .nickname-save {
   /* aspect-ratio: unset; */
   padding: 0 4px;
+  top: -15px;
+  right: 25px;
+}
+.nickname-revert {
+  top: -16px;
+  right: -10px;
+  height: 25px;
+  aspect-ratio: 1/1;
 }
 /* .profile-name-text, .profile-name-text:hover{
   display: flex;
@@ -133,6 +151,13 @@
   align-items: center;
   padding-top: 5px;
 }
+.footer {
+  color: var(--chat-screen-top-bar-text);
+  padding: 3px 0px;
+  border-top: 1px solid var(--icons-color2);
+  width: 80%;
+  text-align: center;
+}
 /* .nickname-button {
   position: absolute;
   right: 0;
@@ -161,4 +186,18 @@ and (min-resolution:.001dpcm) {
     /* aspect-ratio: unset; */
     padding: 0 4px;
   }
+}
+
+/* may break  chromium specific */
+@supports (-webkit-app-region: inherit) {
+  .nickname-save {
+    right: 0;
+  }
+  .nickname-revert {
+    top: -16px;
+    right: -35px;
+    height: 25px;
+    aspect-ratio: 1/1;
+    }
+
 }

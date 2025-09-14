@@ -2,14 +2,15 @@
   display: flex;
   flex: 1;
   flex-direction: column;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
+  /* justify-content: space-between; */
   height: 100dvh;
    /*^doesnt work as expected see App.css/ui-wrapper/height for info */ 
   /* max-height: calc(var(--vh)*100); */
   /* height: 100%; */
   width: 100%;
   /* border: 2px dashed green; */
-  flex:1;
   overflow: hidden;
   position: relative;
   background: var(--chat-screen-wrapper-bg);
@@ -34,6 +35,7 @@
   /* border: 1px solid grey; */
   justify-content: space-between;
   align-items: center;
+  position: relative;
   /* background: var(--chat-screen-top-bar-bg); */
 
 }
@@ -44,11 +46,13 @@
   /* max-width: 80%; */
   display: flex;
   color: var(--chat-screen-top-bar-text);
+  width: calc(100% - 30px)
 }
 .status {
   font-weight: 300;
   font-size: 0.75rem;
-  color: var(--last-message-text-cl)
+  color: var(--last-message-text-cl);
+  cursor: pointer;
 }
 /* .options-area {
   {handled in ChatList.css}
@@ -56,6 +60,28 @@
 
 .chat-back-button {
   cursor: pointer;
+}
+.chat-options {
+  position: absolute;
+  /* border: 1px solid; */
+  right: 0;
+  top: 0;
+}
+
+.clear-chat-button {
+  /* border: 1px solid #fff; */
+  /* color: var(--chat-screen-top-bar-text); */
+  color: var(--clear-chat-button-text);
+  font-size: 1rem;
+  padding: 7px 0px 7px 10px;
+  text-align: left;
+  width: calc(100%);
+  border-radius: 5px;
+  background: var(--chat-settings-bg);
+  font-family: Nunito;
+  font-weight: 900; 
+  cursor: pointer;
+  user-select: none;
 }
 
 .chat-area {
@@ -67,6 +93,7 @@
   /* justify-content: flex-end; */
   gap: 3px;
   height:100%;
+  width: calc(100% - 14px);
   padding: 15px 6px 65px 6px;
   border-radius: 15px 15px 0 0;
   scrollbar-width: 1px;
@@ -75,6 +102,7 @@
   /* border: px dotted;  */
   /* min-height: 65px; */
   height: 1px;
+  width: 100%;
   /* height: 45px; */
   /* background: var(--message-send-area-bg); */
   display: flex;

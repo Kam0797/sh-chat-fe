@@ -3,13 +3,12 @@
 .frame-wrapper {
   position: absolute;
   right: 15px;
-  top: 0;
+  top: 10px;
   /* border: 1px solid; */
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   z-index: 5;
-  padding: 10px;
 
   /* width: 60vw; */
   max-width: 300px;
@@ -19,16 +18,33 @@
   border-radius: 10px;
   backdrop-filter: blur(1px);
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+.fw-padding-not-chat-screen {
+  padding: 10px
+}
+.fw-padding-chat-screen {
+  padding: 2px;
+}
+
 .close-button-wrapper {
-  /* border: 1px dotted; */
   width: 100%;
   display: flex;
   justify-content: flex-end;
   font-size: 1rem;
+  /* border: 1px solid; */
+  margin-top: 5px
 }
 .close-button {
   color: var(--text-color);
+  background: var(--page-bg);
+  /* aspect-ratio: 1/1; */
+  display: flex;
+  justify-content: center;
+  width: 20px;
+
   margin-right: 7px;
   font-size: 1rem;
   cursor: pointer;
@@ -36,12 +52,19 @@
 }
 .menu-items-wrapper {
   /* border: 1px dashed; */
-  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   padding: 5px;
-  gap: 6px
+  gap: 6px;
+
+}
+.menu-items-wrapper-chat-screen {
+  width: calc(100% - 14px)
+}
+.menu-items-wrapper-not-chat-screen {
+  width: calc(100% );
 }
 
 

@@ -110,13 +110,19 @@ async function sendMessage(socket, DB, messagesToSend) {
 }
 
 // CUI
-async function createChat(memb_arr, SERVER_IP, DB, setSelectedChat) {
+async function createChat(memb_arr, SERVER_IP, DB, setSelectedChat, chatName) {
   console.log('debug::createChat::',typeof memb_arr, memb_arr)
   // const memb_arr = memb_string.split(/[\s,]+/);
   console.log('debug::createChat::',memb_arr);
+  if(memb_arr.length > 1 && !chatName) {
+    return console.error('group requires a name')
+  }
   try {
     const res = await axios.post(SERVER_IP+'/chat/new',
-      {members: memb_arr},
+      {
+        members: memb_arr,
+        chatName: chatName || ''
+      },
       {withCredentials: true}
     );
     if(res.data.code == 1) {
@@ -208,13 +214,13 @@ async function syncChats(SERVER_IP, DB) {
     const chatsFromServer = Chats.data.chats;
     const chats = chatsFromServer.map(chat => ({
       chatId: chat.chatId,
-      chatName: '',
+      chatName: chat.chatName || '',
       members: chat.members,
       admin: chat.admin,
       mods: chat.mods
     }))    
-    await DB.chats.clear(); // user has to decide if they have to delete, the server cant take away that. 
-    // Qfix -change impl^
+    // await DB.chats.clear(); // user has to decide if they have to delete, the server cant take away that. 
+    // Qfix -change impl^ :changed, check
     console.log('SC:debug::chats',chats)
     await DB.chats.bulkPut(chats);
     console.log('debug::SC1',typeof chats, chats)
@@ -234,8 +240,9 @@ async function syncChats(SERVER_IP, DB) {
 function getChatName(meta, contactsMap) {
   let chatName;
   // this func is a try on onliners. 
+  // console.log('META',meta)
   if(meta && contactsMap){
-    if(meta.members.length > 2) {
+    if(meta?.members.length > 2) {
       if(meta.chatName) return meta.chatName;
       chatName =  meta.members.map(member => (contactsMap.get(member))).join('-');
       return chatName;

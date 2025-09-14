@@ -55,6 +55,14 @@
   display: flex;
   flex:1;
 }
+.ui-wrapper-partition2 {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  background: var(--chat-area-bg);
+  min-width: 50%;
+}
 
 @supports not (height: 100dvh) {
   .ui-wrapper {
@@ -64,5 +72,5 @@
 
 :root {
   max-height: calc(var(--vh)*100);
-  overflow-y: hidden;
+  overflow: hidden;
 }

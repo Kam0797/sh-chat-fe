@@ -12,14 +12,14 @@ const Context = createContext();
 
 const SERVER_IP = 
 window.location.hostname.startsWith('192.168')
-? 'http://192.168.60.94:3000'
+? 'http://192.168.134.94:3000'
 : 'https://sh-chat.onrender.com';
 
 // const SERVER_IP = 'http://192.168.125.94:3000'
 
 let socket = null;
 try {
-  if(axios.get(SERVER_IP+'/chat-room')) {
+  if(axios.get(SERVER_IP+'/chat-room',{withCredentials: true})) {
     socket = io(SERVER_IP,
       {withCredentials: true}
     );
@@ -205,7 +205,7 @@ useEffect(()=> {
       const exists = await chatsDB.messages.get(message.s_uid);
       if (!exists) {
         message.read = 0;
-        await chatsDB.messages.add(message);
+        await chatsDB.messages.put(message);
         socket.emit('confirmMessagesToClient',[message.s_uid])
         console.log('incoming mes:',message, 'conf sent')
       }

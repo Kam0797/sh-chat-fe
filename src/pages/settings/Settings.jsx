@@ -7,6 +7,9 @@ import SettingsItem from "../../components/reusables/settings-item/SettingsItem"
 import SettingsUemail from "../../components/settings-uemail/SettingsUemail";
 import { chatsDB, getProfile } from "../../utils/utils";
 import SettingsTheme from "../../components/settings-theme/SettingsTheme";
+import SettingsLicense from "../../components/settings-license/SettingsLicense";
+import { ArrowLeft, Check, Leaf, Pencil, Undo, Undo2 } from "lucide-react";
+import SettingsBugsIdeas from "../../components/settings-bugs-ideas/SettingsBugsIdeas";
 
 export default function Settings() {
   const navigate = useNavigate();
@@ -15,16 +18,13 @@ export default function Settings() {
     profileData,
     setProfileData,
     makeContactsMap,
-    contactsMap,
   } = useContext(Context);
   const [isNicknameEditable, setIsNicknameEditable] = useState(false);
-  const [editableNickname, setEditableNickname] = useState("");
 
   let nicknameRef = useRef(null);
 
   async function handleSaveNickname() {
     try {
-      console.log("i work@21");
       const res = await axios.post(
         `${SERVER_IP}/profile/nickname`,
         {
@@ -40,21 +40,21 @@ export default function Settings() {
           .modify({ nickname: res.data.nickname });
         await getProfile(SERVER_IP, setProfileData);
         await makeContactsMap();
-        console.log(
-          "big21::",
-          res.data,
-          contactsMap.get("man@sh.sh"),
-          "cm:",
-          contactsMap
-        );
+        // console.log(
+        //   "big21::",
+        //   res.data,
+        //   contactsMap.get("man@sh.sh"),
+        //   "cm:",
+        //   contactsMap
+        // );
       } else {
         console.error("nickname update failed", res.data.codeMsg);
       }
-      const see = await chatsDB.contacts
-        .where("uemail")
-        .equals("man@sh.sh")
-        .first();
-      console.log("see:::", see);
+      // const see = await chatsDB.contacts
+      //   .where("uemail")
+      //   .equals("man@sh.sh")
+      //   .first();
+      // console.log("see:::", see);
     } catch (e) {
       console.error("debug::handleSaveNickname: nickname update failed", e);
     }
@@ -82,7 +82,8 @@ export default function Settings() {
               navigate("/sh-chat-fe/");
             }}
           >
-            &#x21A9;
+            {/* &#x21A9; */}
+            <ArrowLeft strokeWidth={3} />
           </button>
           {/* <img className='profile-pic-img f-jbm' src='/sh-chat-fe/sh_chat_logo.svg' alt='Logo' /> */}
           <div className="profile-pic profile-pic-img f-fbm">
@@ -90,19 +91,21 @@ export default function Settings() {
           </div>
           {!isNicknameEditable ? (
             <div className="profile-name-wrapper">
-            <p className="profile-name-label f-m">
+            <p className="profile-name-label f-m add-ellipsis">
               {profileData?.nickname}
             </p>
             <button
-            className="nickname-button nickname-edit "
+            className="nickname-button nickname-edit f-"
             onClick={() => setIsNicknameEditable(true)}
           >
-            &#x1F589;
+            {/* &#x1F589; */}
+            <Pencil size={17}/>
           </button>
           </div>
           ) : (
             <div className="profile-name-wrapper">
               <input
+                maxLength={20}
                 className="profile-name-input f-m"
                 ref={nicknameRef}
                 value={profileData.nickname}
@@ -113,7 +116,6 @@ export default function Settings() {
                       ...prev,
                       nickname: e.target.value,
                     }));
-                    // updateInputWidth(e);
                   }
                 }
                 // onFocus={()=> updateInputWidth()}
@@ -125,16 +127,21 @@ export default function Settings() {
                   setIsNicknameEditable(false);
                 }}
               >
-                &#x2713;
+                {/* &#x2713; */}
+                <Check size={19} strokeWidth={4} />
               </button>
+              <button className="nickname-button nickname-revert"
+                onClick={async ()=> {setIsNicknameEditable(false); getProfile(SERVER_IP,setProfileData)}}><Undo2 size={15} strokeWidth={3}/></button>
             </div>
           )}
         </div>
         <div className="settings-items-area-wrapper">
           <SettingsItem label={"Email"} Component={<SettingsUemail />} />
-          <SettingsItem label={"Theme"} Component={<SettingsTheme
-           />} />
+          <SettingsItem label={"Theme"} Component={<SettingsTheme />} />
+          <SettingsItem label={"Licence"} Component={<SettingsLicense />} />
+          <SettingsItem label={"Bugs & Ideas"} Component={<SettingsBugsIdeas />} />
         </div>
+        <footer className="footer f-nunito">Sh-chat v1.2.0</footer>
       </div>
     </>
   );

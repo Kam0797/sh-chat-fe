@@ -8,6 +8,7 @@ import { chatsDB, createChat, syncChats } from "../../utils/utils";
 import { useNavigate } from "react-router-dom";
 import ContactsItem from "../../components/reusables/contacts-item/ContactsItem";
 import NewChatMember from "../../components/reusables/new-chat-member/NewChatMember";
+import { ArrowLeft } from "lucide-react";
 
 export default function Contacts() {
   const [newChatMembers, setNewChatMembers] = useState([]);
@@ -24,6 +25,7 @@ export default function Contacts() {
   const navigate = useNavigate();
   let searchBoxRef = useRef(null);
   let selectedMembersAreaRef = useRef(null);
+  let chatNameRef = useRef(null);
 
   async function addMembers(e) {
     console.log("works", e.target.value);
@@ -77,11 +79,17 @@ export default function Contacts() {
   // })
 
   async function handleCreateChat() {
+    if(newChatMembers.length > 1 && chatNameRef.current.value.trim() == '') {
+      console.error('group requires a name');
+      // call notif
+      return
+    }
     const res = await createChat(
       newChatMembers,
       SERVER_IP,
       chatsDB,
-      setSelectedChat
+      setSelectedChat,
+      chatNameRef.current.value.trim()
     );
     console.log("res", res);
     if (res.code == 1 || res.code == 2) {
@@ -116,7 +124,8 @@ export default function Contacts() {
               navigate("/sh-chat-fe/");
             }}
           >
-            &#x21A9;
+            {/* &#x21A9; */}
+            <ArrowLeft strokeWidth={3} />
           </button>
           <span className="Contacts-heading f-m">Contacts</span>
         </div>
@@ -156,6 +165,9 @@ export default function Contacts() {
               );
             })}
           </div>
+          {newChatMembers.length > 1 &&
+            <input className="chat-name-input f-nunito" placeholder="A cool name for this chat.." ref={chatNameRef} />
+          }
         </div>
         <div className="contacts-list-wrapper">
           <div className="contacts-list">

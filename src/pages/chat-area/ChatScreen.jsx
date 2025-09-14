@@ -11,21 +11,39 @@ import {
   getChatName,
 } from "../../utils/utils";
 import MessageBubble from "../../components/reusables/message_bubble/MessageBubble";
+import PopMenuFrame from "../../components/reusables/pop-menu-frame/PopMenuFrame";
+import Loading from "../../components/loading/Loading";
+import ChatAreaPlaceholder from "../chat-area-placeholder/ChatAreaPlaceholder";
+
+// chat-settings
+
+async function clearChat(chatId) {
+  // const isUserSure = await Confirm('Clear Chat?',"this action can't be undone")
+  const isUserSure = true //temp
+  console.log('hey', chatId)
+
+  if(isUserSure) {
+    console.log('hey', chatId)
+    chatsDB.messages.where('chatId').equals(chatId).delete()
+  }
+}
 
 export default function ChatScreen() {
-  const { selectedChat, setSelectedChat, chatData, setChatData, contactsMap, isTouchScreen } =
-    useContext(Context);
+  const { selectedChat, setSelectedChat, chatData, setChatData, contactsMap, isTouchScreen } = useContext(Context);
 
   let messageFieldRef = useRef(null);
   let sendButtonRef = useRef(null);
   let chatAreaRef = useRef(null);
   // console.log('fook', chatMap.current)
   const [meta, setMeta] = useState(null); // data of chat profile
+  const [showPopup, setShowPopup] = useState(false)
+  const [showEmail, setShowEmail] = useState(true)
   const navigate = useNavigate();
 
   const [searchParam] = useSearchParams();
 
   const currentChatId = searchParam.get("chatId");
+
   // console.log('debug::SP::currentChatId',currentChatId);
   // setSelectedChat(currentChatId);
 useEffect(()=>{
@@ -38,9 +56,13 @@ useEffect(()=>{
         .first();
       const validChatId = chatIdObj?.chatId;
       setSelectedChat(validChatId);
+      console.log('fff#####1',selectedChat)
+      // if(!validChatId) navigate('/sh-chat-fe/chat/404')
 
     } catch {
       setSelectedChat(null);
+      console.log('fff#####2',selectedChat)
+      // navigate('/sh-chat-fe/chat/404/')
     }
   })();
 },[currentChatId])
@@ -69,27 +91,14 @@ useEffect(()=>{
         "button-slide-in .5s ease-in-out forwards";
     }
     textarea.style.height = "0px";
-    console.log("scrollheight:", textarea.scrollHeight);
     textarea.style.height = textarea.scrollHeight + "px";
   }
+  function handleC_Enter(e) {
+    if(e.ctrlKey && e.key == "Enter") {
+      handleSend();
+    }
+  }
 
-  // function getChatName(meta, contactsMap) {
-  //   let chatName;
-  //   console.log('#11 works')
-  //   // this func is a try on onliners.
-  //   if(meta && contactsMap){
-  //     if(meta.members.size > 2) {
-  //       if(meta.chatName) return meta.chatName;
-  //       chatName =  meta.members.map(member => (contactsMap.get(member))).join('-')
-  //       console.log('#11:1:chatName',chatName)
-  //       return chatName;
-  //     }
-  //     else{
-  //       chatName = meta.members[0] === localStorage.getItem('uemail')?contactsMap.get(meta.members[1]):contactsMap.get(meta.members[0]);
-  //       return chatName;
-  //     }
-  //   }
-  // }
 
   useEffect(() => {
     if (!selectedChat) return;
@@ -116,22 +125,18 @@ useEffect(()=>{
   // }, []);
 
   useEffect(() => {
-    // const triggerScroll = () => {
-    //   window.scrollTo(0, 60, { behavior: "smooth" });
-    //   // setTimeout(()=> window.scrollTo(0,0))
-    // };
-    // window.height = 110%
-    // triggerScroll();
-    // setTimeout(() => triggerScroll(), 2000);
+
     const body = document.querySelector("html");
     body.classList.add("disablePTR");
+    document.addEventListener("keypress", handleC_Enter)
+    //##here
 
     // window.addEventListener("resize", triggerScroll);
 
     return () => {
-      // window.removeEventListener("resize", triggerScroll);
-      // if (body.classList.contains("disablePTR"))
+
       body.classList.remove("disablePTR");
+      document.removeEventListener("keydown", handleC_Enter)
     };
   }, []);
   useEffect(() => {
@@ -161,15 +166,23 @@ useEffect(()=>{
                   {getChatName(meta, contactsMap)}
                 </span>
               </div>
-              <div className="status">{"~ not online"}</div>
+              <div className="status" onClick={()=> setShowEmail(prev => !prev)}>{(meta?.members.length <= 2 && showEmail) ? (meta?.members[0] !== localStorage.getItem('uemail') ? meta?.members[0] : meta.members[1])?? '* not online' : "~ not online"}</div>
             </div>
-            <div className="options-area">{"..."}</div>
+            <button className="chat-options" onClick={()=> setShowPopup(true)}>
+              <div className="options-dot"></div>
+              <div className="options-dot"></div>
+              <div className="options-dot"></div>
+            </button>
+
+            <PopMenuFrame showPopup={showPopup} setShowPopup={setShowPopup} isChatScreen={true} >
+              <div className="clear-chat-button" onClick={()=> clearChat(selectedChat)}>Clear chat</div>
+            </PopMenuFrame>
           </div>
 
           {/* <div className="chat-area-wrapper"> */}
           <div className="chat-area" ref={chatAreaRef}>
             {chatData?.map((message, index) => {
-              return <MessageBubble mes={message} key={index} />;
+              return <MessageBubble mes={message} isGroup={meta?.members?.length > 2 || false} key={index} />;
             })}
           </div>
           <div className="message-send-area">
@@ -208,15 +221,9 @@ useEffect(()=>{
           {/* </div> */}
         </>
       )}
-      {/* {!selectedChat && (
-        <>
-          <p className="profile-pic chat-screen-alt">
-            <b>Sh_chat</b>
-            <br /> <i>quiet, works</i>
-            <br /> Click on a chat!
-          </p>
-        </>
-      )} */}
+      { !selectedChat && 
+        <ChatAreaPlaceholder />
+      }
     </div>
   );
 // }
