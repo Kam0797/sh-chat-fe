@@ -2,6 +2,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Suspense, lazy } from 'react';
 
 import Login from '../pages/login/Login'
+import Loading from '../components/loading/Loading';
+import ChatAreaPlaceholder from '../pages/chat-area-placeholder/ChatAreaPlaceholder';
 // import ChatUI from '../pages/chatui/ChatUI';
 const AppLayout = lazy(()=> import('../AppLayout'));
 
@@ -14,7 +16,7 @@ const Settings = lazy(()=> import('../pages/settings/Settings'));
 
 export default function AppRoutes() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Loading />}>
       <Routes>
         <Route path='/sh-chat-fe/login' element={<Login />} />
         <Route element={<AppLayout />}>
@@ -22,6 +24,7 @@ export default function AppRoutes() {
           <Route path='/sh-chat-fe/chat' element={<ChatScreen/>} />
           <Route path='/sh-chat-fe/contacts' element={<Contacts />} />
           <Route path='/sh-chat-fe/settings' element={<Settings />} />
+          {/* <Route path='/sh-chat-fe/chat/404' element={<ChatAreaPlaceholder />} /> */}
         </Route>
       </Routes>
     </Suspense>

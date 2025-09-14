@@ -12,6 +12,8 @@ import {
 } from "../../utils/utils";
 import MessageBubble from "../../components/reusables/message_bubble/MessageBubble";
 import PopMenuFrame from "../../components/reusables/pop-menu-frame/PopMenuFrame";
+import Loading from "../../components/loading/Loading";
+import ChatAreaPlaceholder from "../chat-area-placeholder/ChatAreaPlaceholder";
 
 // chat-settings
 
@@ -35,6 +37,7 @@ export default function ChatScreen() {
   // console.log('fook', chatMap.current)
   const [meta, setMeta] = useState(null); // data of chat profile
   const [showPopup, setShowPopup] = useState(false)
+  const [showEmail, setShowEmail] = useState(true)
   const navigate = useNavigate();
 
   const [searchParam] = useSearchParams();
@@ -53,9 +56,13 @@ useEffect(()=>{
         .first();
       const validChatId = chatIdObj?.chatId;
       setSelectedChat(validChatId);
+      console.log('fff#####1',selectedChat)
+      // if(!validChatId) navigate('/sh-chat-fe/chat/404')
 
     } catch {
       setSelectedChat(null);
+      console.log('fff#####2',selectedChat)
+      // navigate('/sh-chat-fe/chat/404/')
     }
   })();
 },[currentChatId])
@@ -84,8 +91,12 @@ useEffect(()=>{
         "button-slide-in .5s ease-in-out forwards";
     }
     textarea.style.height = "0px";
-    console.log("scrollheight:", textarea.scrollHeight);
     textarea.style.height = textarea.scrollHeight + "px";
+  }
+  function handleC_Enter(e) {
+    if(e.ctrlKey && e.key == "Enter") {
+      handleSend();
+    }
   }
 
 
@@ -117,6 +128,7 @@ useEffect(()=>{
 
     const body = document.querySelector("html");
     body.classList.add("disablePTR");
+    document.addEventListener("keypress", handleC_Enter)
     //##here
 
     // window.addEventListener("resize", triggerScroll);
@@ -124,6 +136,7 @@ useEffect(()=>{
     return () => {
 
       body.classList.remove("disablePTR");
+      document.removeEventListener("keydown", handleC_Enter)
     };
   }, []);
   useEffect(() => {
@@ -153,7 +166,7 @@ useEffect(()=>{
                   {getChatName(meta, contactsMap)}
                 </span>
               </div>
-              <div className="status">{"~ not online"}</div>
+              <div className="status" onClick={()=> setShowEmail(prev => !prev)}>{(meta?.members.length <= 2 && showEmail) ? (meta?.members[0] !== localStorage.getItem('uemail') ? meta?.members[0] : meta.members[1])?? '* not online' : "~ not online"}</div>
             </div>
             <button className="chat-options" onClick={()=> setShowPopup(true)}>
               <div className="options-dot"></div>
@@ -208,6 +221,9 @@ useEffect(()=>{
           {/* </div> */}
         </>
       )}
+      { !selectedChat && 
+        <ChatAreaPlaceholder />
+      }
     </div>
   );
 // }

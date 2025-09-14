@@ -8,6 +8,7 @@ import { chatsDB, createChat, syncChats } from "../../utils/utils";
 import { useNavigate } from "react-router-dom";
 import ContactsItem from "../../components/reusables/contacts-item/ContactsItem";
 import NewChatMember from "../../components/reusables/new-chat-member/NewChatMember";
+import { ArrowLeft } from "lucide-react";
 
 export default function Contacts() {
   const [newChatMembers, setNewChatMembers] = useState([]);
@@ -123,7 +124,8 @@ export default function Contacts() {
               navigate("/sh-chat-fe/");
             }}
           >
-            &#x21A9;
+            {/* &#x21A9; */}
+            <ArrowLeft strokeWidth={3} />
           </button>
           <span className="Contacts-heading f-m">Contacts</span>
         </div>
