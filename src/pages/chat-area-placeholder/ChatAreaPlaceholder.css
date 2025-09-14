@@ -2,18 +2,33 @@
 
 .chat-screen-alt {
   display: flex;
-  flex:1;
-  aspect-ratio: unset;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 100vh;
-  width: 100%;
+  width: 70%;
+  aspect-ratio: 1/1 ;
   text-align: center;
   /* border: 1px solid; */
-  background: linear-gradient(45deg,#407080,#70804088);
-  border-radius: 0;
-  /* padding:10%; */
+  background: var(--chat-area-bg);
+  border-radius: 50%;
   overflow: hidden;
   margin: 0;
+  font-size: 1.4rem;
+  animation: rotate-bg 5s infinite linear;
+  color: var(--chat-screen-top-bar-text);
 }
+
+@keyframes rotate-bg {
+
+  0% {filter: hue-rotate(0deg) ;}
+  100% {filter: hue-rotate(360deg);}
+}
+
+  /* 0% {background: var(--chat-area-bg);}
+  33% {background: var(--chat-area-bg-v2);}
+  66% {background: var(--chat-area-bg-v3);}
+  100% {background: var(--chat-area-bg);} */
+  /* 0% {background: #fff;}
+  33% {background: #fe2;}
+  66% {background: #0f1;}
+  100% {background: #fff;} */

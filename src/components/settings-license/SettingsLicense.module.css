@@ -1,0 +1,21 @@
+
+
+.license-wrapper {
+  display: flex;
+  gap: 10px;
+}
+
+.license-label {
+  /* border: 1px solid; */
+  font-weight: 700;
+}
+.link {
+  color: var(--chat-screen-top-bar-text);
+  transition: transform 0.2s ease-in-out;
+  /* border: 1px solid; */
+  display: flex;
+}
+
+.link:hover {
+  transform: rotate(-45deg);
+}

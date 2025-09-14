@@ -9,19 +9,23 @@
   flex-direction: column;
   min-width: 25%;
   /* width: 50%; */
-  max-width: 75%;
+  max-width: 80%;
   /* border: 1px solid red; */
   justify-content: space-between;
-  padding: 4px 3px 13px 6px;
+  padding: 4px 3px 13px 3px;
   position: relative;
   /* background: #6a93a0BB; */
   background: var(--message-bubble-bg);
-  border-radius: 15px 10px 0 10px;
+  /* border-radius: 15px 10px 0 10px; handled in js*/
   color: var(--message-bubble-text-color)
 }
 .sender-name {
   font-size: 0.8rem;
-  font-weight: 700;
+  font-weight: 400;
+  color: var(--chat-screen-top-bar-text);
+  background: var(--settings-menu-frame-bg);
+  padding: 1px 0 1px 5px;
+  margin-bottom: 3px;
   /* border: 1px solid; */
 }
 .message {
@@ -36,6 +40,7 @@
   margin-right: 10px;
   overflow: auto;
   font-weight: 700;
+  padding-left: 0.5ch;
 }
 .message-info {
   display: flex;

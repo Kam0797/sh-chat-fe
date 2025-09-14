@@ -6,6 +6,7 @@ import ChatAreaPlaceholder from "./pages/chat-area-placeholder/ChatAreaPlacehold
 import Settings from "./pages/settings/Settings";
 import { useContext } from "react";
 import { Context } from "./Context";
+import Loading from "./components/loading/Loading";
 
 export default function AppLayout() {
   const {isWide} = useContext(Context)
@@ -43,6 +44,7 @@ export default function AppLayout() {
         <Route path='/sh-chat-fe/chat' element={<ChatScreen />} />
         <Route path='/sh-chat-fe/contacts' element={<Contacts />} />
         <Route path='/sh-chat-fe/settings' element={<Settings />} />
+        {/* <Route path='/sh-chat-fe/chat/404' element={<ChatAreaPlaceholder />} /> */}
       </Routes>
     </div>
   )

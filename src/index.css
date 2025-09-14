@@ -37,9 +37,11 @@ button, select, input , input:focus , textarea, textarea:focus {
   --message-bubble-bg: #23b866 ;
   --message-bubble-text-color: #202020;
 
-  /* --chat-area-bg: #441f1f50; */
-  --chat-area-bg: var(--chat-area-placeholder-bg);
-  --chat-area-placeholder-bg: linear-gradient(65deg,#95b9c5,#60cdf1,#d5fc6188);
+  /* --chat-area-placeholder-bg: #441f1f50; */
+  --chat-area-placeholder-bg: var(--chat-area-bg);
+  --chat-area-bg: linear-gradient(65deg,#95b9c5,#60cdf1,#d5fc6188);
+  --chat-area-bg-v2: linear-gradient(65deg,#60cdf1,#d5fc6188,#95b9c5);
+  --chat-area-bg-v3: linear-gradient(65deg,#d5fc6188,#95b9c5,#60cdf1);
   --chat-screen-wrapper-bg: linear-gradient(90deg, #43cabf, #80d5f1);
   
   --chat-screen-top-bar-text: #0a2235;
@@ -69,7 +71,7 @@ button, select, input , input:focus , textarea, textarea:focus {
 
   /* --settings-profile-nickname: var(--text-color); */
   /* --profile-cover-bg: #999; */
-  --profile-cover-bg: var(--chat-area-placeholder-bg) ;
+  --profile-cover-bg: var(--chat-area-bg) ;
   /* --profile-pic-bg-temp: #23a0b688; */
   --profile-pic-bg-temp: linear-gradient(245deg,#95b9c5,#60cdf1,#d5fc6188);
 
@@ -111,8 +113,8 @@ button, select, input , input:focus , textarea, textarea:focus {
   --message-bubble-text-color: #d4dcdf;
 
  
-  --chat-area-bg: var(--chat-area-placeholder-bg);
-  --chat-area-placeholder-bg: linear-gradient(65deg,#20353d,#0a1d24,#333f0f88);
+  --chat-area-placeholder-bg: var(--chat-area-bg);
+  --chat-area-bg: linear-gradient(65deg,#20353d,#0a1d24,#333f0f88);
   --chat-screen-wrapper-bg: linear-gradient(90deg, #071418, #031c24);
   --chat-screen-top-bar-text: #afd1ec;
   --settings-nickname-text: var(--chat-screen-top-bar-text);
@@ -137,7 +139,7 @@ button, select, input , input:focus , textarea, textarea:focus {
   --new-member-area-item-close-button: #eb5757;
 
 
-  --profile-cover-bg: var(--chat-area-placeholder-bg) ;
+  --profile-cover-bg: var(--chat-area-bg) ;
   --profile-pic-bg-temp: linear-gradient(245deg,#2a4049,#0a1d24,#40501088);
   /* introduce random colors^ */
 
@@ -173,9 +175,9 @@ button, select, input , input:focus , textarea, textarea:focus {
   --message-bubble-bg: #23b866 ;
   --message-bubble-text-color: #202020;
 
-  /* --chat-area-bg: #441f1f50; */
-  --chat-area-bg: var(--chat-area-placeholder-bg);
-  --chat-area-placeholder-bg: linear-gradient(65deg,#95b9c5,#60cdf1,#d5fc6188);
+  /* --chat-area-placeholder-bg: #441f1f50; */
+  --chat-area-placeholder-bg: var(--chat-area-bg);
+  --chat-area-bg: linear-gradient(65deg,#95b9c5,#60cdf1,#d5fc6188);
   --chat-screen-wrapper-bg: linear-gradient(90deg, #43cabf, #80d5f1);
   
   --chat-screen-top-bar-text: #0a2235;
@@ -205,7 +207,7 @@ button, select, input , input:focus , textarea, textarea:focus {
 
   /* --settings-profile-nickname: var(--text-color); */
   /* --profile-cover-bg: #999; */
-  --profile-cover-bg: var(--chat-area-placeholder-bg) ;
+  --profile-cover-bg: var(--chat-area-bg) ;
   /* --profile-pic-bg-temp: #23a0b688; */
   --profile-pic-bg-temp: linear-gradient(245deg,#95b9c5,#60cdf1,#d5fc6188);
 
@@ -247,8 +249,8 @@ button, select, input , input:focus , textarea, textarea:focus {
   --message-bubble-text-color: #d4dcdf;
 
  
-  --chat-area-bg: var(--chat-area-placeholder-bg);
-  --chat-area-placeholder-bg: linear-gradient(65deg,#20353d,#0a1d24,#333f0f88);
+  --chat-area-placeholder-bg: var(--chat-area-bg);
+  --chat-area-bg: linear-gradient(65deg,#20353d,#0a1d24,#333f0f88);
   --chat-screen-wrapper-bg: linear-gradient(90deg, #071418, #031c24);
   --chat-screen-top-bar-text: #afd1ec;
   --settings-nickname-text: var(--chat-screen-top-bar-text);
@@ -273,7 +275,7 @@ button, select, input , input:focus , textarea, textarea:focus {
   --new-member-area-item-close-button: #eb5757;
 
 
-  --profile-cover-bg: var(--chat-area-placeholder-bg) ;
+  --profile-cover-bg: var(--chat-area-bg) ;
   --profile-pic-bg-temp: linear-gradient(245deg,#2a4049,#0a1d24,#40501088);
   /* introduce random colors^ */
 
@@ -309,8 +311,8 @@ button, select, input , input:focus , textarea, textarea:focus {
   --message-send-area-text: #fff;
   --message-bubble-bg: #199c7c ;
  
-  --chat-area-bg: var(--chat-area-placeholder-bg);
-  --chat-area-placeholder-bg: linear-gradient(65deg,#407080,#143c49,#70804088);
+  --chat-area-placeholder-bg: var(--chat-area-bg);
+  --chat-area-bg: linear-gradient(65deg,#407080,#143c49,#70804088);
   --chat-screen-wrapper-bg: linear-gradient(90deg, #143c49, #407080);
   --chat-screen-top-bar-text: #d1eeff;
   --settings-nickname-text: var(--chat-screen-top-bar-text);
@@ -335,7 +337,7 @@ button, select, input , input:focus , textarea, textarea:focus {
   --new-member-area-item-close-button: #eb5757;
 
 
-  --profile-cover-bg: var(--chat-area-placeholder-bg) ;
+  --profile-cover-bg: var(--chat-area-bg) ;
   --profile-pic-bg-temp: linear-gradient(245deg,#407080,#143c49,#70804088);
   /* introduce random colors^ */
 
@@ -383,8 +385,8 @@ button, select, input , input:focus , textarea, textarea:focus {
   --message-send-area-text: #fff1f1;
   --message-bubble-bg: #1bb68f ;
  
-  --chat-area-bg: var(--chat-area-placeholder-bg);
-  --chat-area-placeholder-bg: linear-gradient(65deg,#407080,#143c49,#70804088);
+  --chat-area-placeholder-bg: var(--chat-area-bg);
+  --chat-area-bg: linear-gradient(65deg,#407080,#143c49,#70804088);
   --chat-screen-wrapper-bg: linear-gradient(90deg, #143c49, #407080);
   --chat-screen-top-bar-text: rgb(175, 209, 236);
   --settings-nickname-text: var(--chat-screen-top-bar-text);
@@ -406,7 +408,7 @@ button, select, input , input:focus , textarea, textarea:focus {
   --open-chat-button-text: #FFF;
 
 
-  --profile-cover-bg: var(--chat-area-placeholder-bg) ;
+  --profile-cover-bg: var(--chat-area-bg) ;
   --profile-pic-bg-temp: #c5b039;
   /* introduce random colors^ */
 

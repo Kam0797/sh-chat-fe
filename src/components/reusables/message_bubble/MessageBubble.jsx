@@ -11,6 +11,8 @@ export default function MessageBubble({mes, isGroup}) {
   const bubbleAlignment = mes.sender?'flex-start':'flex-end';
   const bubbleBorderRadius = mes.sender?'10px 13px 10px 0':'13px 10px 0 10px';
 
+  const senderNameBorderRadius = mes.sender?'7px 10px 2px 2px':'0 0 0 0'; // whotf cares about :... part?
+
   let messageRef = useRef(null)
 
   function changeWrap () {
@@ -39,8 +41,8 @@ useEffect(()=> {
     <>
     <div className="message-bubble-wrapper" style={{justifyContent:bubbleAlignment}} >
       <div className="message-bubble" style={{borderRadius: bubbleBorderRadius}} onClick={()=>changeWrap()}>
-        { isGroup &&
-          <div className='sender-name'>{mes.sender}</div>
+        { isGroup && mes?.sender &&
+          <div className='sender-name' style={{borderRadius: senderNameBorderRadius}}>{mes.sender}</div>
         }
         <div className="message f-nunito" ref={messageRef} >{mes.content} </div>
         <div className="message-info">

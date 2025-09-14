@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import styles from "./PopMenuFrame.module.css";
+import { Check, X } from "lucide-react";
 
 export default function PopMenuFrame({ children, showPopup, setShowPopup, isChatScreen }) {
   let frameRef = useRef(null)
@@ -18,7 +19,7 @@ export default function PopMenuFrame({ children, showPopup, setShowPopup, isChat
               className={styles.closeButton}
               onClick={() => setShowPopup(false)}
             >
-              X
+              <X />
             </button>
           </div>
           <div className={`${styles.menuItemsWrapper} ${isChatScreen?styles.menuItemsWrapperChatScreen:styles.menuItemsWrapperNotChatScreen}`}>{children}</div>

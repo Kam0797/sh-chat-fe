@@ -5,6 +5,7 @@ import { chatsDB, createChat } from '../../../utils/utils'
 import './ContactsItem.css'
 import { Context } from '../../../Context'
 import { useNavigate } from 'react-router-dom'
+import { ArrowBigLeftDash, ArrowLeft, ArrowRight, ArrowUp, FastForward, ForkKnife, Forward, ForwardIcon, LucideFastForward, Plus, StepForwardIcon } from 'lucide-react'
 
 export default function ContactsItem({contact, addMemberFromList}) {
   const navigate = useNavigate()
@@ -25,9 +26,12 @@ export default function ContactsItem({contact, addMemberFromList}) {
         <div className='c-name-email-wrapper'>
           <div className='contact-name'><span className='add-ellipsis f-nunito'>{contact[1]}</span></div>
           <div className='contact-email'><span className='add-ellipsis f-jbm'>{contact[0]}</span></div>
-          <button className='open-chat' onClick={()=> createChatFromList()}>&#x27A4;</button>
+          <button className='open-chat' onClick={()=> createChatFromList()}>
+            {/* &#x27A4; */}
+            <Forward strokeWidth={3} />
+            </button>
         </div>
-        <button className='add-up' onClick={()=>addMemberFromList(contact[0])}>+</button>
+        <button className='add-up' onClick={()=>addMemberFromList(contact[0])}><Plus strokeWidth={3} /></button>
       </div>
     </>
   )
