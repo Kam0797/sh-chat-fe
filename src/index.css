@@ -94,6 +94,7 @@ button, select, input , input:focus , textarea, textarea:focus {
 
     /* popup */
     --chat-settings-bg: #00000015;
+    --clear-chat-button-text: #c20909d2;
 }
 
 
@@ -156,7 +157,8 @@ button, select, input , input:focus , textarea, textarea:focus {
   --chat-name-input-border: #ffffff46;
 
   /* popup */
-  --chat-settings-bg: #ffffff25;
+  --chat-settings-bg: #ffffff10;
+  --clear-chat-button-text: #ff2323;
 
  }
 }
@@ -228,6 +230,8 @@ button, select, input , input:focus , textarea, textarea:focus {
 
   /* popup */
   --chat-settings-bg: #00000010;
+  --clear-chat-button-text: #c20909d2;
+
 }
 
 
@@ -290,7 +294,8 @@ button, select, input , input:focus , textarea, textarea:focus {
   --chat-name-input-border: #ffffff46; 
 
   /* popup */
-  --chat-settings-bg: #ffffff25;
+  --chat-settings-bg: #ffffff10;
+  --clear-chat-button-text: #ff2323;
 
  }
 
@@ -350,7 +355,9 @@ button, select, input , input:focus , textarea, textarea:focus {
   --chat-name-input-border: #ffffff46;
 
   /* popup */
-  --chat-settings-bg: #ffffff25;
+  --chat-settings-bg: #ffffff10;
+  --clear-chat-button-text: #fc4545;
+
  }
 
 

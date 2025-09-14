@@ -205,7 +205,7 @@ useEffect(()=> {
       const exists = await chatsDB.messages.get(message.s_uid);
       if (!exists) {
         message.read = 0;
-        await chatsDB.messages.add(message);
+        await chatsDB.messages.put(message);
         socket.emit('confirmMessagesToClient',[message.s_uid])
         console.log('incoming mes:',message, 'conf sent')
       }
