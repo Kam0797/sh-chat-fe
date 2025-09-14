@@ -3,9 +3,8 @@ import { useEffect, useRef } from 'react';
 import './MessageBubble.css'
 import { chatsDB } from '../../../utils/utils';
 
-export default function MessageBubble({mes}) {
+export default function MessageBubble({mes, isGroup}) {
 
-  // console.log('Phere', JSON.stringify(mes,0,1))
   const timeObject = new Date(mes.timestamp);
   const time = `${timeObject.getHours()}.${String(timeObject.getMinutes()).padStart(2, '0')}`
 
@@ -15,7 +14,6 @@ export default function MessageBubble({mes}) {
   let messageRef = useRef(null)
 
   function changeWrap () {
-    console.log('style',messageRef.current.style.wordBreak)
     messageRef.current.style.wordBreak = messageRef.current.style.wordBreak=='break-all'?'normal':'break-all';
   }
   async function markRead() {
@@ -27,7 +25,6 @@ useEffect(()=> {
   const observer = new IntersectionObserver((entries)=>{
     entries.forEach(entry =>{
       if(entry.isIntersecting) {
-        console.log('vis');
         markRead();
       }
 
@@ -42,6 +39,9 @@ useEffect(()=> {
     <>
     <div className="message-bubble-wrapper" style={{justifyContent:bubbleAlignment}} >
       <div className="message-bubble" style={{borderRadius: bubbleBorderRadius}} onClick={()=>changeWrap()}>
+        { isGroup &&
+          <div className='sender-name'>{mes.sender}</div>
+        }
         <div className="message f-nunito" ref={messageRef} >{mes.content} </div>
         <div className="message-info">
           <div className="message-delivery-status">{mes.s_uid && !mes.sender? '\u2726':null}</div> 

@@ -27,8 +27,7 @@ async function clearChat(chatId) {
 }
 
 export default function ChatScreen() {
-  const { selectedChat, setSelectedChat, chatData, setChatData, contactsMap, isTouchScreen } =
-    useContext(Context);
+  const { selectedChat, setSelectedChat, chatData, setChatData, contactsMap, isTouchScreen } = useContext(Context);
 
   let messageFieldRef = useRef(null);
   let sendButtonRef = useRef(null);
@@ -162,7 +161,7 @@ useEffect(()=>{
               <div className="options-dot"></div>
             </button>
 
-            <PopMenuFrame showPopup={showPopup} setShowPopup={setShowPopup} >
+            <PopMenuFrame showPopup={showPopup} setShowPopup={setShowPopup} isChatScreen={true} >
               <div className="clear-chat-button" onClick={()=> clearChat(selectedChat)}>Clear chat</div>
             </PopMenuFrame>
           </div>
@@ -170,7 +169,7 @@ useEffect(()=>{
           {/* <div className="chat-area-wrapper"> */}
           <div className="chat-area" ref={chatAreaRef}>
             {chatData?.map((message, index) => {
-              return <MessageBubble mes={message} key={index} />;
+              return <MessageBubble mes={message} isGroup={meta?.members?.length > 2 || false} key={index} />;
             })}
           </div>
           <div className="message-send-area">

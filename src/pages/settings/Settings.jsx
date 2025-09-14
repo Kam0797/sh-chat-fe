@@ -94,7 +94,7 @@ export default function Settings() {
               {profileData?.nickname}
             </p>
             <button
-            className="nickname-button nickname-edit "
+            className="nickname-button nickname-edit f-"
             onClick={() => setIsNicknameEditable(true)}
           >
             &#x1F589;
