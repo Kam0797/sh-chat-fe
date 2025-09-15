@@ -87,6 +87,16 @@ export default function Login() {
       });
       if(res.data.code) {
         userNotificationRef.current.textContent = `Account created, Sign in now`;
+        userNotificationRef.current.style.display = 'block'
+        userNotificationRef.current.style.border = "1px solid #38f"
+        userNotificationRef.current.style.backgroundColor = "#3080f044"
+        setTimeout(()=>setIsNewUser(false), 4000);
+      }
+      else if(res.data.codeMsg == 'Existing user, go to login') {
+        userNotificationRef.current.textContent = `Existing user, redirecting to Sign-in`;
+        userNotificationRef.current.style.display = 'block'
+        userNotificationRef.current.style.border = "1px solid #38f"
+        userNotificationRef.current.style.backgroundColor = "#3080f044"
         setTimeout(()=>setIsNewUser(false), 4000);
       }
 
