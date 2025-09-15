@@ -10,10 +10,9 @@ export default function ChatlistItem({chat, showThese}) {
   const [lastMessage, setLastMessage] = useState(null);
   const [isGroup, setIsGroup] = useState(null);
   const [innerCondition, setInnerCondition] = useState();
+  const [chatName, setChatName] = useState(getChatName(chat, contactsMap))
  
 
-  // const chatName = getChatName(chat, contactsMap)
-  // console.log('#12.1::',chatName)
 
   async function getLastMessage(DB, chatId) {
     const mes = await DB?.messages.where("chatId").equals(chatId).sortBy("timestamp");
@@ -32,18 +31,12 @@ export default function ChatlistItem({chat, showThese}) {
     switch(list) {
       case 'all':
         setInnerCondition(true);
-        console.log('SEL:all',true);
-        // return true;
         break;
       case 'chats':
         setInnerCondition(!isGroup);
-        console.log('SEL:NG',!isGroup);
-        // return !isGroup;
         break;
       case 'groups':
         setInnerCondition(isGroup);
-        console.log('SEL:G',isGroup);
-        // return isGroup;
         break;
     }
   }
@@ -59,8 +52,7 @@ export default function ChatlistItem({chat, showThese}) {
 
   useEffect(()=> {
     (async()=>{getLastMessage(chatsDB, chat.chatId)})()
-    // setConditionForChatList(showThese);
-    // console.info('inf::',innerCondition,showThese)
+
   },[unreadMap, chat.chatId])
 
   useEffect(()=> {
@@ -70,18 +62,21 @@ export default function ChatlistItem({chat, showThese}) {
     }
   },[showThese, isGroup])
 
+  useEffect(()=> { // this may not be necessary, eval later
+    setChatName(getChatName(chat, contactsMap))
+  },[chat, contactsMap])
 
-  // console.log('################',chat)
+
   return (
     (lastMessage || isGroup) && innerCondition &&
     <button className='chat-list-item' onClick={()=>{setSelectedChat(chat.chatId); navigate(`/sh-chat-fe/chat?chatId=${chat.chatId}`)} }>
-      <div className='profile-pic f-jbm'>{getChatName(chat, contactsMap)?.slice(0,2)}</div>
+      <div className='profile-pic f-jbm'>{chatName?.slice(0,2)}</div>
       <div className='details-area'>
         <div className='name-time'>
-          <div className='name'><span className='add-ellipsis f-nunito'>{getChatName(chat, contactsMap)}</span></div>
+          <div className='name'><span className='add-ellipsis f-nunito'>{chatName}</span></div>
           <div className='time f-jbm'>{formatTime(lastMessage?.timestamp)}</div>
         </div>
-        <div className='message-unreadcount'>
+        <div className='lastmessage-unreadcount'>
           <div className='last-message'><span className='add-ellipsis f-m'>{lastMessage?.content}</span></div>
           {unreadMap?.get(chat.chatId) && <div className='unread-count'>{unreadMap?.get(chat.chatId) < 100 ? unreadMap?.get(chat.chatId) : '99+'}</div>}
         </div>

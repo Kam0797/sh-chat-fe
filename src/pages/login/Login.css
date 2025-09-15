@@ -2,7 +2,7 @@
 
 .login-wrapper {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     flex-direction: column;
     /* border: 1px solid; */
@@ -10,13 +10,16 @@
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    /* filter: blur(1px); */
     overflow: hidden;
+    animation: appear-slowly-from-circle 0.4s ease-in-out forwards;
+    background-image: url("../../assets/background-images/login_bg1.webp");
+    background-color:  #00000067;
+    background-blend-mode: multiply;
 }
 
 .login-top-bar {
     width: 100vw;
-    height: 50px;
+    height: 10px;
     /* border: 1px solid #f00; */
     display: flex;
     justify-content: flex-end ;
@@ -31,8 +34,6 @@ select {
 }
 .sh-chat-area {
     height: 15vh;
-    /* width: 80%; */
-    /* border: 1px solid green; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -49,10 +50,10 @@ select {
 } */
 
 .sh-chat-text {
-    font-family: Noto Sans;
+    /* font-family: Noto Sans; */
     font-size: 3rem;
-    font-weight: 200;
-    color: #fff
+    font-weight: 100;
+    color: #bfc09b;
 }
 .login-ui {
     position: relative;
@@ -65,28 +66,35 @@ select {
     min-width: 400px;
     /* margin: 7%; */
     gap: 35px;
-    padding: 10px 0 10px 0;
+    padding: 20px 0 20px 0;
     min-height: 250px;
     height: 50%;
     backdrop-filter: blur(3px);
+    font-family: Nunito;
 }
 .email-label, .password-label {
     display: flex;
     flex-direction: column;
     width: 60%;
-    gap: 1px
+    gap: 1px;
+    color: #ffffffdd;
 }
 .login-text-box {
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid #FFFFFFbb;
     border-radius: 3px;
     font-size: 1rem;
-    font-weight: 300;
+    font-weight: 400;
+    color: #ffffffcc;
+    /* padding: 10px 0px 0px 5px; */
+    /* font-family: ; */
 }
 .login-text-box:focus {
     /* transform: scale(1.1, 2); */
+    padding: 0;
     outline: 4px solid #00000015;
     outline-offset: 20px;
     border-radius: 1px;
+    color: #ffffffcc;
 }
 .login-signup-submit-button {
     font-weight: 700;
@@ -96,7 +104,7 @@ select {
     border-radius: 5px;
     color: #fff;
     font-weight: 300;
-    font-size: 0.9rem;
+    font-size: 1rem;
 }
 .login-signup-submit-button:focus, .login-signup-submit-button:hover {
     animation: scale120 1s ease-out forwards 1;
@@ -155,9 +163,11 @@ select {
 
 .beta-warn {
     /* display: flex; */
-    font-family: monospace;
+    /* font-family: monospace; */
+    font-size: 0.8rem;
     color: #ffffffdd;
-    text-align: center
+    text-align: center;
+    /* padding-bottom: 5px ; */
     /* align-items: center; */
 }
 #mailto-me {

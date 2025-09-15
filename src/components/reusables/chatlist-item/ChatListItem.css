@@ -43,10 +43,10 @@
   flex:1;
   width: 100%;
 }
-.name-time .name {
+.name {
   /* font-family: serif; */
   font-size: 1.2rem;
-  font-weight: 900;
+  font-weight: 600;
   display: flex;
   justify-content: flex-start;
   max-width: calc(100% - 45px);
@@ -55,7 +55,7 @@
 
 
 
-.message-unreadcount {
+.lastmessage-unreadcount {
   display: flex;
   justify-content: space-between;
   flex: 1;
@@ -82,4 +82,10 @@
   0% { opacity: 0.6  ;}
   /* 50% {opacity: 0.7;} */
   100% {opacity: 0.8}
+}
+
+@media (min-width: 650px) and (max-width: 765px) {
+  .name, .last-message {
+    width: 100px;
+  }
 }

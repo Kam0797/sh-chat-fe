@@ -1,8 +1,9 @@
 // import { useState } from 'react'
-import "@fontsource/noto-sans";
-import "@fontsource/jetbrains-mono"
-import "@fontsource/montserrat"
-import "@fontsource/nunito"
+import "@fontsource/noto-sans/latin.css";
+import "@fontsource/jetbrains-mono/latin.css"
+import "@fontsource/montserrat/latin.css"
+import "@fontsource/nunito/latin.css"
+import "@fontsource/noto-sans/latin.css"
 
 import "./App.css";
 
