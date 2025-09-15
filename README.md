@@ -35,5 +35,11 @@ Backend of this app is hosted on [Render](https://render.com), for source code, 
 
 - Telegram: inspiration, ideas and yeah- the logo
 
+### To Do:
+
+- verify uemail, password reset
+- Add media [images first] support
+- add encryption
+
 
 If you're interested, or just have something to say, please share your thoughts at [gv.kamal2003@gmail.com](mailto:gv.kamal2003@gmail.com)

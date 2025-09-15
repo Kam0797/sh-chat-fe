@@ -9,6 +9,7 @@
   height: 100dvh;
   background: var(--settings-page-bg);
   /* position: relative; */
+  animation: appear-slowly-from-up 0.4s ease-in-out forwards;
 }
 .profile-pic-wrapper {
   /* border: 1px solid; */
@@ -47,7 +48,7 @@
 }
 .profile-name-label {
   margin: 0 20px;
-  font-weight: 600;
+  font-weight: 500;
   word-break: break-all;
   color: var(--settings-nickname-text);
   /* border: 1px solid; */

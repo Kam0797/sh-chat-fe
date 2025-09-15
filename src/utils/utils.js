@@ -196,18 +196,9 @@ function SelectAndLoadMessages(selectedChat, DB) {
   );
   return messages;
 }
-// function SetChatListOnListUpdate(selectedChat, DB) {
-//   const chats = useObservable(
-//     liveQuery(()=> 
-//     DB.chats
-//     ),[]
-//   );
-//   return chats
-// }
 
-// CUI
+
 async function syncChats(SERVER_IP, DB) {
-  console.log('poop')
   try {
     const Chats = await axios.get(SERVER_IP+'/chats',{withCredentials: true});
 
@@ -221,14 +212,12 @@ async function syncChats(SERVER_IP, DB) {
     }))    
     // await DB.chats.clear(); // user has to decide if they have to delete, the server cant take away that. 
     // Qfix -change impl^ :changed, check
-    console.log('SC:debug::chats',chats)
     await DB.chats.bulkPut(chats);
-    console.log('debug::SC1',typeof chats, chats)
     return chats;
   } catch(err) {
       const chats = await DB.chats.toArray();
       if(err.code == 'ERR_NETWORK') {
-        console.log('debug::MesHand::SyncChats:network_err:',err)
+        console.error('debug::MesHand::SyncChats:network_err:',err)
       }
       else {
         console.error('debug::MesHandler::SyncChats:err:',err)
@@ -240,7 +229,7 @@ async function syncChats(SERVER_IP, DB) {
 function getChatName(meta, contactsMap) {
   let chatName;
   // this func is a try on onliners. 
-  // console.log('META',meta)
+
   if(meta && contactsMap){
     if(meta?.members.length > 2) {
       if(meta.chatName) return meta.chatName;
@@ -257,7 +246,6 @@ function getChatName(meta, contactsMap) {
 async function getProfile(SERVER_IP, setProfileData) {
   const res = await axios.get(`${SERVER_IP}/profile`,{withCredentials:true})
   const profileDataFromServer = res.data.profile;
-  console.log('profFSr:',profileDataFromServer)
   setProfileData(profileDataFromServer)
 }
 

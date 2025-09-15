@@ -8,10 +8,17 @@
   flex-wrap: nowrap;
   /* border: 1px solid; */
 }
-.discuss-ideas, .open-issue {
+.discuss-ideas, .suggest {
   display: inline-flex;
-  gap: 5px
+  gap: 5px;
+  font-family: Nunito;
 }
 .link {
-  color: var(--chat-screen-top-bar-text)
+  color: var(--chat-screen-top-bar-text);
+  transition: rotate 0.2s ease-in-out;
 }
+.link:hover {
+  rotate: -45deg;
+  /* transform: rotate(-45deg); */
+}
+/* note the 'rotate' in .link:hover and .link::transition */

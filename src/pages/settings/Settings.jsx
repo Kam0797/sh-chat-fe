@@ -1,15 +1,19 @@
 import { useNavigate } from "react-router-dom";
-import "./Settings.css";
-import axios from "axios";
 import { useContext, useEffect, useRef, useState } from "react";
+import axios from "axios";
+import { ArrowLeft, Check, Leaf, Pencil, Undo, Undo2 } from "lucide-react";
+
+import "./Settings.css";
+
 import { Context } from "../../Context";
 import SettingsItem from "../../components/reusables/settings-item/SettingsItem";
 import SettingsUemail from "../../components/settings-uemail/SettingsUemail";
-import { chatsDB, getProfile } from "../../utils/utils";
 import SettingsTheme from "../../components/settings-theme/SettingsTheme";
 import SettingsLicense from "../../components/settings-license/SettingsLicense";
-import { ArrowLeft, Check, Leaf, Pencil, Undo, Undo2 } from "lucide-react";
 import SettingsBugsIdeas from "../../components/settings-bugs-ideas/SettingsBugsIdeas";
+
+import { chatsDB, getProfile } from "../../utils/utils";
+import { appName, version } from "../../utils/version";
 
 export default function Settings() {
   const navigate = useNavigate();
@@ -40,21 +44,11 @@ export default function Settings() {
           .modify({ nickname: res.data.nickname });
         await getProfile(SERVER_IP, setProfileData);
         await makeContactsMap();
-        // console.log(
-        //   "big21::",
-        //   res.data,
-        //   contactsMap.get("man@sh.sh"),
-        //   "cm:",
-        //   contactsMap
-        // );
+
       } else {
         console.error("nickname update failed", res.data.codeMsg);
       }
-      // const see = await chatsDB.contacts
-      //   .where("uemail")
-      //   .equals("man@sh.sh")
-      //   .first();
-      // console.log("see:::", see);
+
     } catch (e) {
       console.error("debug::handleSaveNickname: nickname update failed", e);
     }
@@ -82,7 +76,6 @@ export default function Settings() {
               navigate("/sh-chat-fe/");
             }}
           >
-            {/* &#x21A9; */}
             <ArrowLeft strokeWidth={3} />
           </button>
           {/* <img className='profile-pic-img f-jbm' src='/sh-chat-fe/sh_chat_logo.svg' alt='Logo' /> */}
@@ -98,7 +91,6 @@ export default function Settings() {
             className="nickname-button nickname-edit f-"
             onClick={() => setIsNicknameEditable(true)}
           >
-            {/* &#x1F589; */}
             <Pencil size={17}/>
           </button>
           </div>
@@ -118,7 +110,6 @@ export default function Settings() {
                     }));
                   }
                 }
-                // onFocus={()=> updateInputWidth()}
               />
               <button
                 className="nickname-button nickname-save"
@@ -127,7 +118,6 @@ export default function Settings() {
                   setIsNicknameEditable(false);
                 }}
               >
-                {/* &#x2713; */}
                 <Check size={19} strokeWidth={4} />
               </button>
               <button className="nickname-button nickname-revert"
@@ -141,7 +131,7 @@ export default function Settings() {
           <SettingsItem label={"Licence"} Component={<SettingsLicense />} />
           <SettingsItem label={"Bugs & Ideas"} Component={<SettingsBugsIdeas />} />
         </div>
-        <footer className="footer f-nunito">Sh-chat v1.2.0</footer>
+        <footer className="footer f-nunito">{`${appName} ${version}`} </footer>
       </div>
     </>
   );

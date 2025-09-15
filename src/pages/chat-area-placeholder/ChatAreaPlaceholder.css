@@ -16,6 +16,7 @@
   font-size: 1.4rem;
   animation: rotate-bg 5s infinite linear;
   color: var(--chat-screen-top-bar-text);
+  /* animation: appear-slowly-from-circle 0.4s ease-in-out forwards; */
 }
 
 @keyframes rotate-bg {
