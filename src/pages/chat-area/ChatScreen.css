@@ -14,6 +14,7 @@
   overflow: hidden;
   position: relative;
   background: var(--chat-screen-wrapper-bg);
+  animation: appear-slowly-from-circle 0.5s ease-in-out forwards;
 
 }
 .disablePTR {

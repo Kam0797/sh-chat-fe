@@ -7,10 +7,32 @@
   align-items: center;
   background: var(--page-bg);
   color: var(--chat-screen-top-bar-text);
+  animation: bg-hue 1s infinite ease-in-out forwards;
+  /* animation: appear-slowly-from-circle-loading 01s infinite ease-in-out forwards; */
+  /* animation: check 0.4s infinite; */
 }
 
-.loadingAnim {
+.loadingAnim, .logo {
   font-family: Nunito;
   font-size: 1.2rem;
   font-weight: 700;
+  animation: appear-slowly-from-circle-loading 01s infinite ease-in-out forwards;
+}
+@keyframes appear-slowly-from-circle-loading {
+  0% {opacity: 50%;  clip-path: circle(0% at 50% 50%); }
+  50% {opacity: 100%; clip-path: circle(150% at 50% 50%); }
+  100% {opacity: 50%;  clip-path: circle(0% at 50% 50%); }
+}
+@keyframes bg-hue {
+  0% {filter: hue-rotate(0deg);}
+  100% {filter: hue-rotate(360deg);}
+}
+
+@keyframes check {
+  0% {background-color: aliceblue; scale: 0.2;}
+  10% {background-color: rgb(21, 93, 156); scale: 0.2;}
+  30% {background-color: rgb(20, 194, 98); scale: 0.7;}
+  50% {background-color: rgb(201, 15, 170); scale: 02;}
+  70% {background-color: rgb(217, 255, 0); scale: 0.1;}
+  90% {background-color: rgb(207, 22, 22); scale: 1;}
 }

@@ -7,7 +7,6 @@ export default function PopMenuFrame({ children, showPopup, setShowPopup, isChat
 
   useEffect(()=> {
     if(frameRef.current) frameRef.current.focus();
-    console.log('focussed run!')
   },[showPopup])
 
   return (

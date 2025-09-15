@@ -5,6 +5,7 @@ import { useRef, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Context } from '../../Context';
+import { version } from '../../utils/version'
 
 import Login_background from '../../assets/background-images/login_bg1.webp'
 import Sh_chat_logo from '../../assets/icons/sh_chat_logo.svg?react'
@@ -119,55 +120,50 @@ export default function Login() {
 
   return (
     <>
-      <div className='login-wrapper' style={{ background: `url(${Login_background})`, backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}>
-        <div className='login-top-bar'>
-          <select className='theme-select'>
-            <option value='dark' className='theme-option'>dark</option>
-            <option value='light' className='theme-option'>light</option>
-          </select>
-        </div>
+      {/* <div className='login-wrapper' style={{ background: `url(${Login_background})`, backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}> */}
+      <div className='login-wrapper' >
+        <div className='login-top-bar'></div>
         <div className='sh-chat-area'>
           <Sh_chat_logo />
-          {/* <img src={Sh_chat_logo} className='sh-chat-logo'/> */}
           <label className='sh-chat-text'>Sh_chat!</label>
         </div>
 
         { !isNewUser &&
           <form className='login-ui' onSubmit={(e) => handleLogin(e)}>
-          <div className='user-notification' ref={userNotificationRef} ></div> {/*make this a component*/}
-          <label className='email-label'>
+          <div className='user-notification f-rc' ref={userNotificationRef} ></div> {/*make this a component*/}
+          <label className='email-label f-nunito'>
             Email
             <input type='email' required ref={loginEmailRef} className='login-text-box' id='login-email' />
           </label>
-          <label className='password-label'>
+          <label className='password-label f-nunito'>
             Password
             <input type='password' required ref={loginPWRef} className='login-text-box' id='login-password' />
           </label>
-          <button type='submit' className='login-signup-submit-button' >Sign in</button>
-          <p className='login-signup-switch-line'>Don't have an account? <a className='in-up-switch' onClick={()=> {setIsNewUser(true)}} >Create One!</a></p>
+          <button type='submit' className='login-signup-submit-button f-nunito' >Sign in</button>
+          <p className='login-signup-switch-line f-nunito'>Don't have an account? <a className='in-up-switch' onClick={()=> {setIsNewUser(true)}} >Create One!</a></p>
         </form>
         }
 
         { isNewUser &&
           <form className='login-ui signup' onSubmit={(e) => handleSignup(e)}>
           <div className='user-notification' ref={userNotificationRef} ></div> {/*make this a component*/}
-          <label className='email-label'>
+          <label className='email-label f-nunito'>
             Email
             <input type='email' required ref={signupEmailRef} className='login-text-box' id='signup-email' />
           </label>
-          <label className='password-label'>
+          <label className='password-label f-nunito'>
             Password
             <input type='password' required ref={signupPW1Ref} className='login-text-box' id='signup-password1' />
           </label>
-          <label className='password-label retype-password-label'>
+          <label className='password-label retype-password-label f-nunito'>
             Re-type Password
             <input type='password' required ref={signupPW2Ref} className='login-text-box' id='signup-password2' />
           </label>
-          <button type='submit'  className='login-signup-submit-button' >Sign up</button>
-          <p className='login-signup-switch-line'>Existing user? <a className='in-up-switch' onClick={()=> {setIsNewUser(false); console.log(isNewUser)}}>Sign in</a></p>
+          <button type='submit'  className='login-signup-submit-button f-nunito' >Sign up</button>
+          <p className='login-signup-switch-line f-nunito'>Existing user? <a className='in-up-switch' onClick={()=> {setIsNewUser(false); console.log(isNewUser)}}>Sign in</a></p>
         </form>
         }   
-        <p className='beta-warn'>v1.1.0 Stable Beta, reliable, may have small bugs<br/> Thanks, send your suggestions  <a href='mailto:gv.kamal2003@gmail.com' id='mailto-me'>here</a> &#x2764;&#xFE0F;  </p>   
+        <p className='beta-warn f-jbm'>{version} Stable Beta, reliable, may have small bugs<br/> Thanks, send your suggestions  <a href='mailto:gv.kamal2003@gmail.com' id='mailto-me'>here</a> &#x2764;&#xFE0F;  </p>   
       </div>
     </>
   );
