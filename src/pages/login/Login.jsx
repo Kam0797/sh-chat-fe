@@ -9,9 +9,10 @@ import { version } from '../../utils/version'
 
 import Login_background from '../../assets/background-images/login_bg1.webp'
 import Sh_chat_logo from '../../assets/icons/sh_chat_logo.svg?react'
+import UemailVerificationBanner from '../../components/uemail-verif/UemailVerificationBanner';
 
 export default function Login() {
-  const { SERVER_IP } = useContext(Context)
+  const { SERVER_IP, setShowUemailVerif, showUemailVerif } = useContext(Context)
   const [ isNewUser, setIsNewUser ] = useState(false)
 
   let loginEmailRef = useRef(null);
@@ -27,7 +28,7 @@ export default function Login() {
 
   async function handleLogin(e) {
     e.preventDefault();
-    if (loginEmailRef.current.value != "" || loginPWRef.current.value == "") {
+    if (loginEmailRef.current.value != "" || loginPWRef.current.value == "") { // check this condidtions
       try {
         const res = await axios.post(
           SERVER_IP + "/auth/login",
@@ -37,13 +38,20 @@ export default function Login() {
           },
           { withCredentials: true }
         );
-        if (res.data.code) {
+        sessionStorage.setItem('email', loginEmailRef.current.value.trim())
+        console.info('check1', res.data.code, res.data.codeMsg)
+        if (res.data.code == 1) {
           localStorage.setItem("isLoggedIn", true); // use this to implement offline auth assumption
           localStorage.setItem("uemail", res.data.uemail);
           localStorage.setItem("uid",res.data.uid);
           console.log('LSlog::',localStorage.getItem('uemail'), localStorage.getItem('isLoggedIn'))
           navigate("/sh-chat-fe/");
-        } else {
+        }
+        else if(res.data.codeMsg == "unverified uemail") {
+          console.info('check2', res.data.code, res.data.codeMsg)
+          setShowUemailVerif(true);
+        }
+         else {
           userNotificationRef.current.textContent =
             "Incorrect Email or password";
           userNotificationRef.current.style.display = "block";
@@ -84,11 +92,23 @@ export default function Login() {
         uemail: signupEmailRef.current.value.trim(),
         pw1: signupPW1Ref.current.value,
         pw2: signupPW2Ref.current.value
-      });
-      if(res.data.code) {
-        userNotificationRef.current.textContent = `Account created, Sign in now`;
-        setTimeout(()=>setIsNewUser(false), 4000);
+      }, {withCredentials: true});
+      if(res.data.code == 1) {
+        localStorage.setItem("isLoggedIn", true); // use this to implement offline auth assumption
+        localStorage.setItem("uemail", res.data.uemail);
+        localStorage.setItem("uid",res.data.uid);
+        console.log('LSlog::',localStorage.getItem('uemail'), localStorage.getItem('isLoggedIn'))
+
+        userNotificationRef.current.textContent = `Account created, Signing in...`;
+        userNotificationRef.current.style.display = 'block'
+        userNotificationRef.current.style.border = "1px solid #38f"
+        userNotificationRef.current.style.backgroundColor = "#3080f044"
+        setTimeout(()=>navigate("/sh-chat-fe/"), 2000);
       }
+      if(res.data.codeMsg == "unverified uemail") {
+        setShowUemailVerif(true);
+      }
+
 
     } catch {
       userNotificationRef.current.textContent = `Server error :(, try later `;
@@ -107,7 +127,7 @@ export default function Login() {
       try {
       const res = await axios.get(SERVER_IP+'/chat-room',
         {withCredentials: true});
-        if(res.data.code && localStorage.getItem('isLoggedIn') === 'true') {
+        if(res.data.code == 1 && localStorage.getItem('isLoggedIn') === 'true') {
           console.log('login::IIFC::res.data.code',res.data.code)
           navigate('/sh-chat-fe/')
         }      
@@ -115,6 +135,10 @@ export default function Login() {
         console.log('not auth-ed');
       }
     })()
+
+    return() => {
+      setShowUemailVerif(false)
+    }
     
   },[])
 
@@ -123,6 +147,7 @@ export default function Login() {
       {/* <div className='login-wrapper' style={{ background: `url(${Login_background})`, backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}> */}
       <div className='login-wrapper' >
         <div className='login-top-bar'></div>
+        { showUemailVerif && <UemailVerificationBanner />}
         <div className='sh-chat-area'>
           <Sh_chat_logo />
           <label className='sh-chat-text'>Sh_chat!</label>

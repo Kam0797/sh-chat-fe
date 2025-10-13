@@ -80,7 +80,7 @@ export default function Settings() {
           </button>
           {/* <img className='profile-pic-img f-jbm' src='/sh-chat-fe/sh_chat_logo.svg' alt='Logo' /> */}
           <div className="profile-pic profile-pic-img f-fbm">
-            {profileData?.nickname.slice(0, 1).toUpperCase()}
+            {profileData?.nickname?.slice(0, 1).toUpperCase()}
           </div>
           {!isNicknameEditable ? (
             <div className="profile-name-wrapper">

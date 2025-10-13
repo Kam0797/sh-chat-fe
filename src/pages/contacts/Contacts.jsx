@@ -89,7 +89,7 @@ export default function Contacts() {
       SERVER_IP,
       chatsDB,
       setSelectedChat,
-      chatNameRef.current.value.trim()
+      chatNameRef?.current?.value.trim()
     );
     console.log("res", res);
     if (res.code == 1 || res.code == 2) {

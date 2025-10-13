@@ -95,8 +95,18 @@ useEffect(()=>{
   }
   function handleC_Enter(e) {
     if(e.ctrlKey && e.key == "Enter") {
-      handleSend();
+      console.log('wtf', messageFieldRef?.current?.value)
+      handleSendClick();
     }
+  }
+
+  function handleSendClick() {
+    console.log("text:::", messageFieldRef.current.value);
+    if (messageFieldRef.current.value.trim() != "")
+      sendButtonRef.current.style.animation =
+        "button-fly-send .5s ease-in-out forwards";
+    messageFieldRef.current.focus();
+    handleSend();
   }
 
 
@@ -128,7 +138,7 @@ useEffect(()=>{
 
     const body = document.querySelector("html");
     body.classList.add("disablePTR");
-    document.addEventListener("keypress", handleC_Enter)
+    document.addEventListener("keydown", handleC_Enter)
     //##here
 
     // window.addEventListener("resize", triggerScroll);
@@ -197,14 +207,7 @@ useEffect(()=>{
             <button
               className="message-send-button"
               ref={sendButtonRef}
-              onClick={() => {
-                console.log("text:::", messageFieldRef.current.value);
-                if (messageFieldRef.current.value.trim() != "")
-                  sendButtonRef.current.style.animation =
-                    "button-fly-send .5s ease-in-out forwards";
-                messageFieldRef.current.focus();
-                handleSend();
-              }}
+              onClick={() => handleSendClick()}
             >
               <svg
                 class="send-button-logo"

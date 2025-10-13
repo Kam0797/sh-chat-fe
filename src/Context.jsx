@@ -12,7 +12,7 @@ const Context = createContext();
 
 const SERVER_IP = 
 window.location.hostname.startsWith('192.168')
-? 'http://192.168.134.94:3000'
+? 'http://192.168.206.94:3000'
 : 'https://sh-chat.onrender.com';
 
 // const SERVER_IP = 'http://192.168.125.94:3000'
@@ -74,6 +74,8 @@ const ContextProvider = ({children})=> {
   const [newOutboundMessages, setNewOutboundMessages] = useState(null)
   const [contactsMap, setContactsMap] = useState(new Map())
   const [unreadMap, setUnreadMap] = useState(new Map())
+
+  const [showUemailVerif, setShowUemailVerif] = useState(false)
   // const [theme, setTheme] = useState('')
 
   //settings stuff
@@ -279,7 +281,7 @@ useEffect(()=> {
 
 
   return(
-    <Context.Provider value={{SERVER_IP, selectedChat, setSelectedChat, chatData, setChatData, chatMap, socket, chatScreenMode, setChatScreenMode, chatList, setChatList, CLRef, CSRef, newOutboundMessages, setNewOutboundMessages, newMessages, setNewMessages, profileData, setProfileData, outboundMessageStream, contactsMap, setContactsMap, getAndSetContactsData, makeContactsMap, unreadMap, isWide, isTouchScreen}}>
+    <Context.Provider value={{SERVER_IP, selectedChat, setSelectedChat, chatData, setChatData, chatMap, socket, chatScreenMode, setChatScreenMode, chatList, setChatList, CLRef, CSRef, newOutboundMessages, setNewOutboundMessages, newMessages, setNewMessages, profileData, setProfileData, outboundMessageStream, contactsMap, setContactsMap, getAndSetContactsData, makeContactsMap, unreadMap, isWide, isTouchScreen, showUemailVerif, setShowUemailVerif }}>
       {children}
     </Context.Provider>
   )
