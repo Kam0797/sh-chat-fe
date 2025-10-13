@@ -92,13 +92,18 @@ export default function Login() {
         uemail: signupEmailRef.current.value.trim(),
         pw1: signupPW1Ref.current.value,
         pw2: signupPW2Ref.current.value
-      });
+      }, {withCredentials: true});
       if(res.data.code == 1) {
+        localStorage.setItem("isLoggedIn", true); // use this to implement offline auth assumption
+        localStorage.setItem("uemail", res.data.uemail);
+        localStorage.setItem("uid",res.data.uid);
+        console.log('LSlog::',localStorage.getItem('uemail'), localStorage.getItem('isLoggedIn'))
+
         userNotificationRef.current.textContent = `Account created, Signing in...`;
         userNotificationRef.current.style.display = 'block'
         userNotificationRef.current.style.border = "1px solid #38f"
         userNotificationRef.current.style.backgroundColor = "#3080f044"
-        setTimeout(()=>setIsNewUser(false), 4000);
+        setTimeout(()=>navigate("/sh-chat-fe/"), 2000);
       }
       if(res.data.codeMsg == "unverified uemail") {
         setShowUemailVerif(true);
@@ -130,6 +135,10 @@ export default function Login() {
         console.log('not auth-ed');
       }
     })()
+
+    return() => {
+      setShowUemailVerif(false)
+    }
     
   },[])
 

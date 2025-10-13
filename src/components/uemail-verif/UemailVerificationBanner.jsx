@@ -30,8 +30,11 @@ export default function UemailVerificationBanner() {
           <br /> 
           <p>If you are done verifying, click the button below</p>
           <br/>
-          <button className='verified-button' onClick={() => {
-            axios.get(`${SERVER_IP}/updateToken`, {withCredentials: true})
+          <button className='verified-button' onClick={async() => {
+            const isOk = await axios.get(`${SERVER_IP}/updateToken`, {withCredentials: true})
+            if(isOk.data.code === 1) {
+              navigate('/sh-chat-fe/')
+            }
           }}>Complete email verification</button>
         </div>  
       </div>
