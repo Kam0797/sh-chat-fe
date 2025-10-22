@@ -12,16 +12,17 @@ const Context = createContext();
 
 const SERVER_IP = 
 window.location.hostname.startsWith('192.168')
-? 'http://192.168.206.94:3000'
+? `http://${window.location.hostname}:3000`
 : 'https://sh-chat.onrender.com';
 
-// const SERVER_IP = 'http://192.168.125.94:3000'
 
 let socket = null;
 try {
   if(axios.get(SERVER_IP+'/chat-room',{withCredentials: true})) {
     socket = io(SERVER_IP,
-      {withCredentials: true}
+      {withCredentials: true,
+        transports: ["websocket"]
+      }
     );
   }
 } catch (err) {

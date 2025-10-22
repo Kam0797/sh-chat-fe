@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { Context } from '../../Context';
 import { version } from '../../utils/version'
 
-import Login_background from '../../assets/background-images/login_bg1.webp'
+// import Login_background from '../../assets/background-images/login_bg1.webp'
 import Sh_chat_logo from '../../assets/icons/sh_chat_logo.svg?react'
 import UemailVerificationBanner from '../../components/uemail-verif/UemailVerificationBanner';
 

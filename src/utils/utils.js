@@ -3,10 +3,7 @@ import Dexie, {liveQuery} from "dexie";
 import { useObservable } from "react-use";
 
 
-const SERVER_IP = 
-window.location.hostname.startsWith('192.168')
-? 'http://192.168.60.94:3000'
-: 'https://sh-chat.onrender.com';
+
 let chatsDB;
 
 function makeChatsDB(DBName='dummy') {
